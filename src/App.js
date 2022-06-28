@@ -21,7 +21,7 @@ const initialInputData = [
     date: "10.06.2022",
     value: "112.000"
   }
-];
+]; 
 
 export default function App() {
   
