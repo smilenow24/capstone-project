@@ -2,7 +2,7 @@ import {useState} from 'react';
 import styled from 'styled-components';
 
 import InputDataDialog from './components/InputDataDialog.js';
-import initialInputData from './components/InputDataDialog.js';
+//import initialInputData from './components/InputDataDialog.js';
 
 
 export default function App() {

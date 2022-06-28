@@ -7,7 +7,7 @@ describe('InputDataDialog', () => {
     it('testing submit', async () => {
         const user = userEvent.setup();
         const callback = jest.fn();
-        render(<InputDataDialog onCreateTodo={callback} />);
+        render(<InputDataDialog onInputData={callback} />);
     
         const input = screen.getByLabelText('Please insert data - only numbers allowed:');
         await user.type(input, '7777788889999{Enter}');
@@ -28,7 +28,7 @@ describe('InputDataDialog', () => {
     it('inputfield not allow more than 20 digits', async () => {
         const user = userEvent.setup();
         const callbackLenght = jest.fn();
-        render(<InputDataDialog onCreateTodo={callbackLenght} />);
+        render(<InputDataDialog onInputData={callbackLenght} />);
     
         const input = screen.getByLabelText('Please insert data - only numbers allowed:');
         const longText = Array(20).fill('1').join('');

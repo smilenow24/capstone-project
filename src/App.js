@@ -7,14 +7,17 @@ import InputDataDialog from './components/InputDataDialog.js';
 
 const initialInputData = [
   {
+    id: nanoid(),
     date: "20.06.2022",
     value: "119.000"
   },
   {
+    id: nanoid(),
     date: "15.06.2022",
     value: "118.000"
   },
   {
+    id: nanoid(),
     date: "10.06.2022",
     value: "112.000"
   }
@@ -22,11 +25,10 @@ const initialInputData = [
 
 export default function App() {
   
-  let actualDate = new Date();
-  let formattedActualDate = actualDate.toLocaleDateString()
-
   const [inputs, setInputs] = useState(initialInputData);
   
+  let actualDate = new Date();
+  let formattedActualDate = actualDate.toLocaleDateString()
 
   return (
     <>
