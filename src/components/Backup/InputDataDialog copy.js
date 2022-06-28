@@ -1,18 +1,30 @@
-import {useState} from 'react';
+//import {useState} from 'react';
 import styled from 'styled-components';
 
+
+const initialInputData = [
+    {
+      date: "20.06.2022",
+      value: "119.000"
+    },
+    {
+      date: "15.06.2022",
+      value: "118.000"
+    },
+    {
+      date: "10.06.2022",
+      value: "112.000"
+    }
+  ];
+
+  // const [data, setData] = useState(initialInputData);
+
 export default function InputDataDialog({onInputData}) {
-
-    const [allInput, setAllInput] = useState({date:' ', value:' '});
-
-    let actualDate = new Date();
-    let formattedActualDate = actualDate.toLocaleDateString()
-
     return (
         <FormInputData onSubmit={handleSubmit}>
-            <label htmlFor="inputfield">Please insert data - only numbers allowed:</label>
+            <label htmlFor="inputfield">Please insert data:</label>
             <input
-                type="number" min="0"
+                type="number"
                 id="inputfield" name="inputfield" maxLength={20} required />
             <button>Submit</button>
         </FormInputData>
@@ -23,12 +35,8 @@ export default function InputDataDialog({onInputData}) {
         inputEvent.preventDefault();
         const inputData = inputEvent.target;
         const inputDataValue = inputData.elements.inputfield.value.trim();
-        
-        setAllInput ({...allInput, date: formattedActualDate, value: inputDataValue})
-        
-        onInputData(allInput);
+        onInputData(inputDataValue);
         inputData.reset();
-        
     }
 
 }
