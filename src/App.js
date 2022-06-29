@@ -1,27 +1,10 @@
-import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
-
 import InputDataDialog from './components/InputDataDialog.js';
+import { initialInputData } from "./db";
 
-const initialInputData = [
-  {
-    id: nanoid(),
-    date: "20.06.2022",
-    value: "119.000"
-  },
-  {
-    id: nanoid(),
-    date: "15.06.2022",
-    value: "118.000"
-  },
-  {
-    id: nanoid(),
-    date: "10.06.2022",
-    value: "112.000"
-  }
-]; 
+
 
 export default function App() {
   
@@ -36,21 +19,16 @@ export default function App() {
     <Main>
       <section><p>{formattedActualDate}</p></section>
       <ul>
-      {inputs.map(({ date, value}) => (
-          <li key={nanoid()}>
+      {inputs.map(({ date, value, id}) => (
+          <li key={id}>
             <span>{date}  {value} kw</span>
           </li>
       ))}
       </ul>
-      <InputDataDialog onInputData={addInputs} />
+      <InputDataDialog setInputs={setInputs} inputs={inputs} />
     </Main>
     </>
   );
-
-  function addInputs(allInput) {
-    setInputs([allInput, ...inputs]);
-  }
-
 }
 
 const H1 = styled.h1`

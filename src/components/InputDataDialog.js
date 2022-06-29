@@ -1,10 +1,7 @@
-import {useState} from 'react';
+import {nanoid} from 'nanoid';
 import styled from 'styled-components';
 
-export default function InputDataDialog({onInputData}) {
-
-    const [allInput, setAllInput] = useState({date:' ', value:' '});
-
+export default function InputDataDialog({setInputs, inputs}) {
     let actualDate = new Date();
     let formattedActualDate = actualDate.toLocaleDateString()
 
@@ -24,9 +21,15 @@ export default function InputDataDialog({onInputData}) {
         const inputData = inputEvent.target;
         const inputDataValue = inputData.elements.inputfield.value.trim();
         
-        setAllInput ({...allInput, date: formattedActualDate, value: inputDataValue})
         
-        onInputData(allInput);
+        const newInput = {
+        id: nanoid(),
+        date: formattedActualDate, 
+        value: inputDataValue,
+        };
+
+        setInputs([newInput, ...inputs]);
+
         inputData.reset();
         
     }
