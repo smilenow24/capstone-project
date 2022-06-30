@@ -3,7 +3,7 @@ import InputDataDialog from "./InputDataDialog";
 export default {
     title: 'Components/InputDataDialog',
     component: InputDataDialog,
-    argTypes: {setInputs: {action: 'setInputs'}},
+    argTypes: {updateInput: {action: 'updateInput'}},
 };
 
 const Template = args => <InputDataDialog {...args} />;

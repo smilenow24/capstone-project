@@ -1,10 +1,6 @@
-import {nanoid} from 'nanoid';
 import styled from 'styled-components';
 
-export default function InputDataDialog({setInputs, inputs}) {
-    let actualDate = new Date();
-    let formattedActualDate = actualDate.toLocaleDateString()
-
+export default function InputDataDialog({updateInput}) {
     return (
         <FormInputData onSubmit={handleSubmit}>
             <label htmlFor="inputfield">Please insert data - only numbers allowed:</label>
@@ -20,18 +16,10 @@ export default function InputDataDialog({setInputs, inputs}) {
         inputEvent.preventDefault();
         const inputData = inputEvent.target;
         const inputDataValue = inputData.elements.inputfield.value.trim();
-        
-        
-        const newInput = {
-        id: nanoid(),
-        date: formattedActualDate, 
-        value: inputDataValue,
-        };
 
-        setInputs([newInput, ...inputs]);
+        updateInput(inputDataValue);
 
         inputData.reset();
-        
     }
 
 }

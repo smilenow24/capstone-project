@@ -1,37 +1,46 @@
+import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
 import InputDataDialog from './components/InputDataDialog.js';
 import { initialInputData } from "./db";
 
-
-
 export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
   
-  let actualDate = new Date();
-  let formattedActualDate = actualDate.toLocaleDateString()
+  const actualDate = new Date();
+  const formattedActualDate = actualDate.toLocaleDateString()
+
+  function updateInput(inputDataValue) {
+    const newInput = {
+      id: nanoid(),
+      date: formattedActualDate,
+      value: inputDataValue,
+  };
+
+  setInputs([newInput, ...inputs]);
+}
 
   return (
     <>
-    <H1>Energy-Budget-App</H1>
+    <MainHeading>Energy-Budget-App</MainHeading>
     <Main>
-      <section><p>{formattedActualDate}</p></section>
+      <section><h2>{formattedActualDate}</h2></section>
       <ul>
       {inputs.map(({ date, value, id}) => (
           <li key={id}>
-            <span>{date}  {value} kw</span>
+            {date}  {value} kw
           </li>
       ))}
       </ul>
-      <InputDataDialog setInputs={setInputs} inputs={inputs} />
+      <InputDataDialog updateInput={updateInput} />
     </Main>
     </>
   );
 }
 
-const H1 = styled.h1`
+const MainHeading = styled.h1`
 
   color: blue;
   text-align: center;
@@ -49,7 +58,7 @@ const Main = styled.main`
     background-color: grey;
   }
 
-  p {
+  h2 {
     color: white;
   }
 
