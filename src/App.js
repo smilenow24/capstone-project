@@ -41,14 +41,11 @@ export default function App() {
 }
 
 const MainHeading = styled.h1`
-
   color: blue;
   text-align: center;
-
 `
 
 const Main = styled.main`
-
   padding: 10px;
   background-color: lightblue;
   

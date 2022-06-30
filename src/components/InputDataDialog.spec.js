@@ -12,7 +12,6 @@ describe('InputDataDialog', () => {
         screen.getByRole('spinbutton');
       });
 
-    
     it('testing submit', async () => {
         const user = userEvent.setup();
         const callback = jest.fn();
