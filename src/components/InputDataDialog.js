@@ -38,7 +38,6 @@ const FormInputData = styled.form`
     }
 
     input {
-    
         width: 100%; 
     }
 
