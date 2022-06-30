@@ -5,8 +5,8 @@ export default function InputDataDialog({updateInput}) {
         <FormInputData onSubmit={handleSubmit}>
             <label htmlFor="inputfield">Please insert data - only numbers allowed:</label>
             <input
-                type="number" min="0"
-                id="inputfield" name="inputfield" maxLength={20} required />
+                type="text" min="0" maxLenght={20} pattern="([0-9]+)"
+                id="inputfield" name="inputfield" required />
             <button>Submit</button>
         </FormInputData>
 

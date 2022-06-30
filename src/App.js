@@ -2,6 +2,7 @@ import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
+import Header from "./components/Header";
 import InputDataDialog from './components/InputDataDialog.js';
 import { initialInputData } from "./db";
 
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <>
+    <Header />
     <MainHeading>Energy-Budget-App</MainHeading>
     <Main>
       <section><h2>{formattedActualDate}</h2></section>
@@ -40,7 +42,12 @@ export default function App() {
   );
 }
 
+
+
+
+
 const MainHeading = styled.h1`
+  padding-top: 15px;
   color: blue;
   text-align: center;
 `
