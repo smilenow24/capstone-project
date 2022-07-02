@@ -4,24 +4,27 @@ export const initialInputData = [
   {
     id: nanoid(),
     date: "20/06/2022",
-    value: "119.000"
+    value: "119000",
+    increase: "1000"
   },
   {
     id: nanoid(),
     date: "15/06/2022",
-    value: "118.000"
+    value: "118000",
+    increase: "6000"
   },
   {
     id: nanoid(),
     date: "10/06/2022",
-    value: "112.000"
+    value: "112000",
+    increase: "init"
   }
 ];
 
 export const messages = [
     {
       id: 1,
-      text: "Hallo das ist ein Test"
+      text: "I am hungry! Please give me energy data"
     },
     {
       id: 2,
@@ -29,7 +32,7 @@ export const messages = [
     },
     {
       id: 3,
-      date: "neue Runde"
+      text: "New input please"
     }
   ];
 

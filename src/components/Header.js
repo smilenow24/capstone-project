@@ -1,10 +1,9 @@
+//import {useState} from 'react';
 import styled from "styled-components";
-//import { messages } from "../db";
 
-export default function Header() {
-    //const [messages, setMessages] = useState(null)
-    //const giveMessage = () => setMessages(db[message.id=])
-  return (
+export default function Header({showmessages}) {
+
+return (
     <Top>
       <Smile>
         <Eye>
@@ -13,32 +12,12 @@ export default function Header() {
         </Eye>
         <Mouth />
       </Smile>
-      <Speechbubble>
-        <div>Hallo</div>
+      <Speechbubble><div></div>
+        <span>{showmessages}</span>
       </Speechbubble>
     </Top>
   );
 }
-
-/*function handleMessage () => {
-
-    function UserMessage(updateInput.value) {
-        return <h1>{(message.id[1])}</h1>;
-      }
-      
-      function UserMessage(updateInput.value) {
-        return <h1>{(message.id=[2])}</h1>;
-      }
-
-    function Message(updateInput.value) {
-        if (updateInput) {
-          return <UserMessage />;
-        }
-        return <UserMessage />;
-      }
-};*/
-
-
 
 const Top = styled.section`
   height: 50px;
@@ -48,14 +27,20 @@ const Top = styled.section`
   justify-content: center;
 `;
 
-const Speechbubble = styled.article`
-  height: 60px;
-  width: 150px;
+const Speechbubble = styled.div`
+  
   background-color: grey;
   position: relative;
   top: 30px;
-  left: 130px;
+  left: 140px;
   border-radius: 111px;
+  border-style: 2px solid;
+  border-color: blue;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  height: auto;
+  width: auto;
+  padding: 0px;
 
   div {
     width: 0px;
@@ -66,8 +51,20 @@ const Speechbubble = styled.article`
     border-left: 20px solid grey;
     position: relative;
     top: -10px;
-    color: white;
   }
+
+  span {
+    max-height: 70px;
+    max-width: 100px;
+    position: relative;
+    top: -35px;
+    left: 10px;
+    margin: 5px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
 `;
 
 const Smile = styled.div`
@@ -109,3 +106,4 @@ const Mouth = styled.div`
   background-color: white;
   border-radius: 1111px;
 `;
+

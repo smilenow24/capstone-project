@@ -30,6 +30,8 @@ const FormInputData = styled.form`
     flex-wrap: wrap;
     gap: 4px;
     background-color: grey;
+    border-radius: 10px;
+    padding: 10px;
 
     label {
         text-align: center;
@@ -42,9 +44,12 @@ const FormInputData = styled.form`
     }
 
     button {
-        color: white;
-        background-color: green;
+        height: 2em;
+        color: black;
+        font-weight: 600;
+        background-color: lightblue;
         width: 100%;
+        border-radius: 10px;
     }
 
 `

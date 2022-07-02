@@ -12,6 +12,7 @@ export default styled.createGlobalStyle`
     margin: 0;
     font-size: 1.125rem;
     font-family: sans-serif;
+    background-color: #404040;
   }
 
   button,
