@@ -22,6 +22,7 @@ return (
 const Top = styled.section`
   height: 50px;
   width: 100%;
+  margin-bottom: 5vh;
   background-color: lightblue;
   display: flex;
   justify-content: center;
@@ -34,13 +35,23 @@ const Speechbubble = styled.div`
   top: 30px;
   left: 140px;
   border-radius: 111px;
-  border-style: 2px solid;
-  border-color: blue;
+  border-style: solid;
   overflow-wrap: break-word;
-  hyphens: manual;
-  height: auto;
-  width: auto;
+  max-width: 165px;
+  height: 67px;
   padding: 0px;
+  display: flex;
+  align-items: center;
+
+  span {
+    max-width: 140px;
+    color: white;
+    margin-top: 2px;
+    font-size: 1rem;
+    position: relative;
+    left: -20px;
+
+  }
 
   div {
     width: 0px;
@@ -50,21 +61,10 @@ const Speechbubble = styled.div`
     border-bottom: 20px solid transparent;
     border-left: 20px solid grey;
     position: relative;
-    top: -10px;
+    top: -20px;
   }
 
-  span {
-    max-height: 70px;
-    max-width: 100px;
-    position: relative;
-    top: -35px;
-    left: 10px;
-    margin: 5px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
+  
 `;
 
 const Smile = styled.div`

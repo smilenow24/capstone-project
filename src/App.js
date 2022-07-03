@@ -11,9 +11,9 @@ import { messages } from "./db";
 export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
-  const [showmessages, setShowMessages] = useState(messages[0].text) ;
+  const [showmessages, setShowMessages] = useState(messages[0].text);
   
-  const oldInputLenght = initialInputData.length
+  const oldInputLenght = initialInputData.length;
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
 
@@ -24,11 +24,11 @@ export default function App() {
       value: inputDataValue,
   };
 
-  function datefct(){
+ /* function datefct(){
     let x = new Date();
     window.alert(x)
   }
-  datefct()
+  datefct()*/
   
   setInputs([newInput, ...inputs]);
 
@@ -43,14 +43,15 @@ export default function App() {
 
   return (
     <>
-    <Header showmessages={showmessages}/>
+    <Header showmessages={showmessages} />
     <MainHeading>Energy-Budget-App</MainHeading>
-    <Main>
+    <MainContainer>
       <section>
         <h2>{formattedActualDate}</h2>
         <div>
-          <p>Total consumption:</p>
-          <p>daily average: {inputs.value}</p>
+          <article>total entries: {inputs.length}</article>
+          <article>total consumption: 7000</article>
+          <article>daily average: 700</article>
         </div>
       </section>
       <ul>
@@ -61,7 +62,7 @@ export default function App() {
       ))}
       </ul>
       <InputDataDialog updateInput={updateInput} />
-    </Main>
+    </MainContainer>
     <Footer />
     </>
   );
@@ -73,7 +74,7 @@ const MainHeading = styled.h1`
   text-align: center;
 `
 
-const Main = styled.main`
+const MainContainer = styled.main`
   height: 100%;
   margin: 20px;
   padding: 10px;
@@ -84,19 +85,24 @@ const Main = styled.main`
     display: flex;
     background-color: grey;
     border-radius: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
+    
+  }
+
+  div {
+    padding: 1vh;
 
   }
 
   h2 {
     color: white;
-    width: 20vh;
-    text-align: center;
+    padding: 0vh 2vh 0vh 2vh;
   }
 
-  p {
+  article {
     color: white;
+    width: 200px;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   ul {
