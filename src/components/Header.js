@@ -1,25 +1,25 @@
-//import {useState} from 'react';
+
 import styled from "styled-components";
 
-export default function Header({showmessages}) {
+export default function Header({showMessage}) {
 
 return (
     <Top>
       <Smile>
-        <Eye>
-          <div></div>
-          <div></div>
-        </Eye>
+        <EyeContainer>
+          <Eye></Eye>
+          <Eye></Eye>
+        </EyeContainer>
         <Mouth />
       </Smile>
-      <Speechbubble><div></div>
-        <span>{showmessages}</span>
+      <Speechbubble><SpeechBubbleTriangle></SpeechBubbleTriangle>
+        <span>{showMessage}</span>
       </Speechbubble>
     </Top>
   );
 }
 
-const Top = styled.section`
+const Top = styled.header`
   height: 50px;
   width: 100%;
   margin-bottom: 5vh;
@@ -52,8 +52,9 @@ const Speechbubble = styled.div`
     left: -20px;
 
   }
+`;
 
-  div {
+const SpeechBubbleTriangle = styled.div`
     width: 0px;
     height: 0px;
     border-top: 20px solid transparent;
@@ -62,10 +63,7 @@ const Speechbubble = styled.div`
     border-left: 20px solid grey;
     position: relative;
     top: -20px;
-  }
-
-  
-`;
+  `;
 
 const Smile = styled.div`
   height: 100px;
@@ -82,21 +80,21 @@ const Smile = styled.div`
   flex-wrap: wrap;
 `;
 
-const Eye = styled.div`
+const EyeContainer = styled.div`
   width: 90px;
   position: relative;
   top: 20px;
   display: flex;
   justify-content: center;
   gap: 20px;
+`;
 
-  div {
+const Eye = styled.div`
     height: 15px;
     width: 15px;
     background-color: white;
     border-radius: 1111px;
     background-color: blue;
-  }
 `;
 
 const Mouth = styled.div`

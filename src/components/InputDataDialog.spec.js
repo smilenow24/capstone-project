@@ -9,7 +9,7 @@ describe('InputDataDialog', () => {
         render(<InputDataDialog />);
         screen.getByLabelText('Enter your energy consumption - watt/h:');
         screen.getByRole('button', {name: 'Submit'});
-        screen.getByRole('spinbutton');
+        screen.getByRole('textbox');
       });
 
     it('testing submit', async () => {

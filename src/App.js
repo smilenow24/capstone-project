@@ -2,7 +2,6 @@ import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
-import Footer from "./components/Footer";
 import Header from "./components/Header";
 import InputDataDialog from './components/InputDataDialog.js';
 import { initialInputData } from "./db";
@@ -11,16 +10,13 @@ import { messages } from "./db";
 export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
-  //const [inputValues, setInputValues] = useState(inputs[0].value);
-  const [showmessages, setShowMessages] = useState(messages[0].text);
+  const [showMessage, setShowMessage] = useState(messages[0].text);
   
   const oldInputLength = initialInputData.length;
-  //alert(initialInputData.length)
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
 
   function updateInput(inputDataValue) {
-    console.log(inputDataValue)
     const newInput = {
       id: nanoid(),
       date: formattedActualDate,
@@ -28,22 +24,20 @@ export default function App() {
   };
  
   if (newInput.value >= inputs[0].value)
-    {setInputs([newInput, ...inputs])
+      {setInputs([newInput, ...inputs])
     if (oldInputLength !== inputs.length)
-      {setShowMessages(messages[1].text)}
+      {setShowMessage(messages[1].text)}
     else
-      {setShowMessages(messages[2].text)}
+      {setShowMessage(messages[2].text)}
     }
   else 
-    {setShowMessages("please input > or = " + inputs[0].value)}
-
-
+    {setShowMessage("please input > or = " + inputs[0].value)}
 
 }
 
   return (
     <>
-    <Header showmessages={showmessages} />
+    <Header showMessage={showMessage} />
     <MainHeading>Energy-Budget-App</MainHeading>
     <MainContainer>
       <section>
@@ -63,7 +57,6 @@ export default function App() {
       </ul>
       <InputDataDialog updateInput={updateInput} />
     </MainContainer>
-    <Footer />
     </>
   );
 }

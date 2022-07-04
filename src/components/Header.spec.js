@@ -1,5 +1,4 @@
 import {render, screen} from '@testing-library/react';
-//import userEvent from '@testing-library/user-event';
 
 import Header from './Header.js';
 
@@ -7,19 +6,7 @@ describe('InputDataDialog', () => {
 
     it('is an accessible form', () => {
         render(<Header />);
-        screen.getByLabelText('Please insert data - only numbers allowed:');
-        screen.getByRole('button', {name: 'Submit'});
-        screen.getByRole('spinbutton');
+        screen.getByRole('banner');
       });
 
-    /*
-    it('testing submit', async () => {
-        const user = userEvent.setup();
-        const callback = jest.fn();
-        render(<InputDataDialog updateInput={callback} />);
-    
-        const input = screen.getByLabelText('Please insert data - only numbers allowed:');
-        await user.type(input, '7{Enter}');
-        expect(callback).toHaveBeenCalledWith('7');
-      });*/
 });
