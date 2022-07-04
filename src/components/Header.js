@@ -1,8 +1,6 @@
-
 import styled from "styled-components";
 
 export default function Header({showMessage}) {
-
 return (
     <Top>
       <Smile>
@@ -12,7 +10,8 @@ return (
         </EyeContainer>
         <Mouth />
       </Smile>
-      <Speechbubble><SpeechBubbleTriangle></SpeechBubbleTriangle>
+      <Speechbubble>
+        <SpeechBubbleTriangle />
         <span>{showMessage}</span>
       </Speechbubble>
     </Top>
@@ -75,7 +74,6 @@ const Smile = styled.div`
   display: flex;
   justify-content: center;
   gap: 14px;
-  display: flex;
   align-items: center;
   flex-wrap: wrap;
 `;

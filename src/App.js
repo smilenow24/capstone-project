@@ -11,7 +11,6 @@ export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
   const [showMessage, setShowMessage] = useState(messages[0].text);
-  
   const oldInputLength = initialInputData.length;
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
@@ -65,7 +64,7 @@ const MainHeading = styled.h1`
   padding-top: 15px;
   color: white;
   text-align: center;
-`
+`;
 
 const MainContainer = styled.main`
   height: 100%;
@@ -102,7 +101,7 @@ const MainContainer = styled.main`
     list-style: none;
     overflow-y: auto;
     padding: 0px 20px 0px 20px;
-  };
+  }
 
   li {
     word-wrap: anywhere;
