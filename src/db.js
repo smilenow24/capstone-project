@@ -4,20 +4,20 @@ export const initialInputData = [
   {
     id: nanoid(),
     date: "20/06/2022",
-    value: "119000",
-    increase: "1000"
+    value: 119000,
+    increase: 1000
   },
   {
     id: nanoid(),
     date: "15/06/2022",
-    value: "118000",
-    increase: "6000"
+    value: 118000,
+    increase: 6000
   },
   {
     id: nanoid(),
     date: "10/06/2022",
-    value: "112000",
-    increase: "init"
+    value: 112000,
+    increase: 0
   }
 ];
 

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export default function InputDataDialog({updateInput}) {
     return (
         <FormInputData onSubmit={handleSubmit}>
-            <label htmlFor="inputfield">Please insert data - only numbers allowed:</label>
+            <label htmlFor="inputfield">Enter your energy consumption - watt/h:</label>
             <input
-                type="text" min="0" maxLenght={20} pattern="([0-9]+)"
+                type="text" min="0" maxLength={20} pattern="([0-9]+)"
                 id="inputfield" name="inputfield" required />
             <button>Submit</button>
         </FormInputData>

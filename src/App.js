@@ -11,33 +11,33 @@ import { messages } from "./db";
 export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
+  //const [inputValues, setInputValues] = useState(inputs[0].value);
   const [showmessages, setShowMessages] = useState(messages[0].text);
   
-  const oldInputLenght = initialInputData.length;
+  const oldInputLength = initialInputData.length;
+  //alert(initialInputData.length)
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
 
   function updateInput(inputDataValue) {
+    console.log(inputDataValue)
     const newInput = {
       id: nanoid(),
       date: formattedActualDate,
-      value: inputDataValue,
+      value: Number(inputDataValue),
   };
+ 
+  if (newInput.value >= inputs[0].value)
+    {setInputs([newInput, ...inputs])
+    if (oldInputLength !== inputs.length)
+      {setShowMessages(messages[1].text)}
+    else
+      {setShowMessages(messages[2].text)}
+    }
+  else 
+    {setShowMessages("please input > or = " + inputs[0].value)}
 
- /* function datefct(){
-    let x = new Date();
-    window.alert(x)
-  }
-  datefct()*/
-  
-  setInputs([newInput, ...inputs]);
 
-  if (oldInputLenght !== inputs.length)
-   {setShowMessages(messages[1].text)}
-  else
-   {setShowMessages(messages[2].text)}
-
-  //setShowMessages(showmessages)
 
 }
 
@@ -57,7 +57,7 @@ export default function App() {
       <ul>
       {inputs.map(({ date, value, id, increase}) => (
           <li key={id}>
-            {date} - {value} watt/h - increase: {increase}
+            {date} - {value} watt/h - increase: NaN {increase}
           </li>
       ))}
       </ul>
