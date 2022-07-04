@@ -28,7 +28,6 @@ const Top = styled.header`
 `;
 
 const Speechbubble = styled.div`
-  
   background-color: grey;
   position: relative;
   top: 30px;
@@ -49,7 +48,6 @@ const Speechbubble = styled.div`
     font-size: 1rem;
     position: relative;
     left: -20px;
-
   }
 `;
 
@@ -90,7 +88,6 @@ const EyeContainer = styled.div`
 const Eye = styled.div`
     height: 15px;
     width: 15px;
-    background-color: white;
     border-radius: 1111px;
     background-color: blue;
 `;

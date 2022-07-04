@@ -33,7 +33,6 @@ export default function App() {
     {setShowMessage("please input > or = " + inputs[0].value)}
 
 }
-
   return (
     <>
     <Header showMessage={showMessage} />
@@ -77,12 +76,10 @@ const MainContainer = styled.main`
     display: flex;
     background-color: grey;
     border-radius: 20px;
-    
   }
 
   div {
     padding: 1vh;
-
   }
 
   h2 {

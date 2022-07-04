@@ -21,7 +21,6 @@ export default function InputDataDialog({updateInput}) {
 
         inputData.reset();
     }
-
 }
 
 const FormInputData = styled.form`
