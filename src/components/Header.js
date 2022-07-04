@@ -37,7 +37,7 @@ const Speechbubble = styled.div`
   overflow-wrap: break-word;
   max-width: 165px;
   height: 67px;
-  padding: 0px;
+  padding: 0.1px;
   display: flex;
   align-items: center;
 
@@ -52,8 +52,8 @@ const Speechbubble = styled.div`
 `;
 
 const SpeechBubbleTriangle = styled.div`
-    width: 0px;
-    height: 0px;
+    width: 0.1px;
+    height: 0.1px;
     border-top: 20px solid transparent;
     border-right: 20px solid transparent;
     border-bottom: 20px solid transparent;

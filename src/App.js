@@ -84,7 +84,7 @@ const MainContainer = styled.main`
 
   h2 {
     color: white;
-    padding: 0vh 2vh 0vh 2vh;
+    padding: 0.1vh 2vh 0.1vh 2vh;
   }
 
   article {
@@ -97,7 +97,7 @@ const MainContainer = styled.main`
   ul {
     list-style: none;
     overflow-y: auto;
-    padding: 0px 20px 0px 20px;
+    padding: 0.1px 20px 0.1px 20px;
   }
 
   li {
