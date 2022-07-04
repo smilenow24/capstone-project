@@ -3,10 +3,10 @@ import styled from 'styled-components';
 export default function InputDataDialog({updateInput}) {
     return (
         <FormInputData onSubmit={handleSubmit}>
-            <label htmlFor="inputfield">Please insert data - only numbers allowed:</label>
+            <label htmlFor="inputfield">Enter your energy consumption - watt/h:</label>
             <input
-                type="number" min="0"
-                id="inputfield" name="inputfield" maxLength={20} required />
+                type="text" min="0" maxLength={20} pattern="([0-9]+)"
+                id="inputfield" name="inputfield" required />
             <button>Submit</button>
         </FormInputData>
 
@@ -21,7 +21,6 @@ export default function InputDataDialog({updateInput}) {
 
         inputData.reset();
     }
-
 }
 
 const FormInputData = styled.form`
@@ -30,6 +29,8 @@ const FormInputData = styled.form`
     flex-wrap: wrap;
     gap: 4px;
     background-color: grey;
+    border-radius: 10px;
+    padding: 10px;
 
     label {
         text-align: center;
@@ -42,9 +43,12 @@ const FormInputData = styled.form`
     }
 
     button {
-        color: white;
-        background-color: green;
+        height: 2em;
+        color: black;
+        font-weight: 600;
+        background-color: lightblue;
         width: 100%;
+        border-radius: 10px;
     }
 
 `

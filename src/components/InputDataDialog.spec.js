@@ -7,9 +7,9 @@ describe('InputDataDialog', () => {
 
     it('is an accessible form', () => {
         render(<InputDataDialog />);
-        screen.getByLabelText('Please insert data - only numbers allowed:');
+        screen.getByLabelText('Enter your energy consumption - watt/h:');
         screen.getByRole('button', {name: 'Submit'});
-        screen.getByRole('spinbutton');
+        screen.getByRole('textbox');
       });
 
     it('testing submit', async () => {
@@ -17,7 +17,7 @@ describe('InputDataDialog', () => {
         const callback = jest.fn();
         render(<InputDataDialog updateInput={callback} />);
     
-        const input = screen.getByLabelText('Please insert data - only numbers allowed:');
+        const input = screen.getByLabelText('Enter your energy consumption - watt/h:');
         await user.type(input, '7{Enter}');
         expect(callback).toHaveBeenCalledWith('7');
       });
