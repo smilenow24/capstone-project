@@ -2,8 +2,10 @@ import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
+import CategoryButton from './components/CategoryButton';
 import Header from "./components/Header";
 import InputDataDialog from './components/InputDataDialog.js';
+import ReturnButton from './components/ReturnButton';
 import { initialInputData } from "./db";
 import { messages } from "./db";
 
@@ -11,9 +13,11 @@ export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
   const [showMessage, setShowMessage] = useState(messages[0].text);
+  const [toggle, setToggle] = useState(true);
   const oldInputLength = initialInputData.length;
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
+  const lastInputValue = inputs[0].value
 
   function updateInput(inputDataValue) {
     const newInput = {
@@ -21,7 +25,7 @@ export default function App() {
       date: formattedActualDate,
       value: Number(inputDataValue),
   };
- 
+
   if (newInput.value >= inputs[0].value)
       {setInputs([newInput, ...inputs])
     if (oldInputLength !== inputs.length)
@@ -36,7 +40,11 @@ export default function App() {
   return (
     <>
     <Header showMessage={showMessage} />
+    {(toggle === false) && <ReturnButton onReturn={() => setToggle(!toggle)} />}
     <MainHeading>Energy-Budget-App</MainHeading>
+    {(toggle === true) &&
+    <CategoryButton lastInputValue={lastInputValue} onSelect={() => setToggle(!toggle)} />}
+    {(toggle === false) &&
     <MainContainer>
       <section>
         <h2>{formattedActualDate}</h2>
@@ -54,7 +62,7 @@ export default function App() {
       ))}
       </ul>
       <InputDataDialog updateInput={updateInput} />
-    </MainContainer>
+    </MainContainer>}
     </>
   );
 }
