@@ -2,8 +2,10 @@ import {nanoid} from 'nanoid';
 import {useState} from 'react';
 import styled from 'styled-components';
 
+import CategoryButton from './components/CategoryButton';
 import Header from "./components/Header";
 import InputDataDialog from './components/InputDataDialog.js';
+import ReturnButton from './components/ReturnButton';
 import { initialInputData } from "./db";
 import { messages } from "./db";
 
@@ -11,9 +13,11 @@ export default function App() {
   
   const [inputs, setInputs] = useState(initialInputData);
   const [showMessage, setShowMessage] = useState(messages[0].text);
+  const [toggle, setToggle] = useState(true);
   const oldInputLength = initialInputData.length;
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
+  const lastInputValue = inputs[0].value
 
   function updateInput(inputDataValue) {
     const newInput = {
@@ -21,7 +25,7 @@ export default function App() {
       date: formattedActualDate,
       value: Number(inputDataValue),
   };
- 
+
   if (newInput.value >= inputs[0].value)
       {setInputs([newInput, ...inputs])
     if (oldInputLength !== inputs.length)
@@ -36,7 +40,11 @@ export default function App() {
   return (
     <>
     <Header showMessage={showMessage} />
+    {(toggle === false) && <ReturnButton onReturn={() => setToggle(!toggle)} />}
     <MainHeading>Energy-Budget-App</MainHeading>
+    {(toggle === true) &&
+    <CategoryButton lastInputValue={lastInputValue} onSelect={() => setToggle(!toggle)} />}
+    {(toggle === false) &&
     <MainContainer>
       <section>
         <h2>{formattedActualDate}</h2>
@@ -49,17 +57,18 @@ export default function App() {
       <ul>
       {inputs.map(({ date, value, id, increase}) => (
           <li key={id}>
-            {date} - {value} watt/h - increase: NaN {increase}
+            {date} - {value} watt/h - increase: {increase}
           </li>
       ))}
       </ul>
       <InputDataDialog updateInput={updateInput} />
-    </MainContainer>
+    </MainContainer>}
     </>
   );
 }
 
 const MainHeading = styled.h1`
+  width: 100%;
   padding-top: 15px;
   color: white;
   text-align: center;
@@ -67,6 +76,7 @@ const MainHeading = styled.h1`
 
 const MainContainer = styled.main`
   height: 100%;
+  width: 90%;
   margin: 20px;
   padding: 10px;
   background-color: lightblue;
@@ -85,6 +95,7 @@ const MainContainer = styled.main`
   h2 {
     color: white;
     padding: 0.1vh 2vh 0.1vh 2vh;
+    font-size: medium;
   }
 
   article {
@@ -105,7 +116,7 @@ const MainContainer = styled.main`
     padding: 4px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bolder;
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: 1px solid;
   }
 `;

@@ -23,15 +23,15 @@ export const initialInputData = [
 
 export const messages = [
     {
-      id: 1,
+      id: 0,
       text: "I am hungry! Please give me energy data"
     },
     {
-      id: 2,
+      id: 1,
       text: "Gut gemacht"
     },
     {
-      id: 3,
+      id: 2,
       text: "New input please"
     }
   ];
