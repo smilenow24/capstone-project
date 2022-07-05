@@ -6,7 +6,7 @@ export default function ReturnButton({onReturn}){
 
     return(
     <ReturnHeaderButton onClick={onReturn}>
-        <img src={iconReturnButton} alt="return to main site button"/>
+        <img name='returnButton' src={iconReturnButton} alt="return to main site button"/>
     </ReturnHeaderButton>
     )
 }

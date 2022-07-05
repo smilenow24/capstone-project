@@ -11,7 +11,7 @@ export default function CategoryButton({onSelect, lastInputValue, onReturn}){
             <img src={iconCategoryElect} alt=" "/>
         </div>
         <span>Your last input: {lastInputValue} watt/h</span>
-        <button onClick={onSelect}>
+        <button name="categoryButton" onClick={onSelect}>
             <img src={iconMenuButton} alt="category electricity button"/>
         </button>
     </CategoryField>

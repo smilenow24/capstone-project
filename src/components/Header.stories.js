@@ -1,7 +1,7 @@
 import Header from "./Header";
 
 export default {
-    title: 'Components/InputDataDialog',
+    title: 'Components/Header',
     component: Header,
     argTypes: {updateInput: {action: 'updateInput'}},
 };
