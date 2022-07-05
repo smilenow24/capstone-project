@@ -23,7 +23,6 @@ const CategoryField = styled.section`
     justify-content: space-between;
     align-items: center;
     height: 14vh;
-    display: flex;
     background-color: black;
     margin: 2vh 3vh 1vh 3vh;
 
