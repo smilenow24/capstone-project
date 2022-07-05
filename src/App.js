@@ -57,7 +57,7 @@ export default function App() {
       <ul>
       {inputs.map(({ date, value, id, increase}) => (
           <li key={id}>
-            {date} - {value} watt/h - increase: NaN {increase}
+            {date} - {value} watt/h - increase: {increase}
           </li>
       ))}
       </ul>
@@ -68,6 +68,7 @@ export default function App() {
 }
 
 const MainHeading = styled.h1`
+  width: 100%;
   padding-top: 15px;
   color: white;
   text-align: center;
@@ -75,6 +76,7 @@ const MainHeading = styled.h1`
 
 const MainContainer = styled.main`
   height: 100%;
+  width: 90%;
   margin: 20px;
   padding: 10px;
   background-color: lightblue;
@@ -93,6 +95,7 @@ const MainContainer = styled.main`
   h2 {
     color: white;
     padding: 0.1vh 2vh 0.1vh 2vh;
+    font-size: medium;
   }
 
   article {
@@ -113,7 +116,7 @@ const MainContainer = styled.main`
     padding: 4px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: bolder;
-    font-size: 16px;
+    font-size: 15px;
     border-bottom: 1px solid;
   }
 `;

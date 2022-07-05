@@ -7,9 +7,9 @@ export default function CategoryButton({onSelect, lastInputValue, onReturn}){
 
     return(
     <CategoryField>
-        <div>
+        <IconContainer>
             <img src={iconCategoryElect} alt=" "/>
-        </div>
+        </IconContainer>
         <span>Your last input: {lastInputValue} watt/h</span>
         <button name="categoryButton" onClick={onSelect}>
             <img src={iconMenuButton} alt="category electricity button"/>
@@ -26,15 +26,6 @@ const CategoryField = styled.section`
     display: flex;
     background-color: black;
     margin: 2vh 3vh 1vh 3vh;
-
-    div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: darkred;
-        height: 100%;
-        width: 10vh; 
-    }
 
     button {
         display: flex;
@@ -56,6 +47,17 @@ const CategoryField = styled.section`
 
     span {
         color: #2AFF00;
+        font-size: 1rem;
+        text-align: center;
     } 
 `
+
+const IconContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkred;
+    height: 100%;
+    width: 10vh; 
+`;
 
