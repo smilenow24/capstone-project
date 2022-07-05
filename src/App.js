@@ -24,10 +24,12 @@ export default function App() {
       id: nanoid(),
       date: formattedActualDate,
       value: Number(inputDataValue),
+      increase: inputDataValue - inputs[0].value
   };
 
+
   if (newInput.value >= inputs[0].value)
-      {setInputs([newInput, ...inputs])
+      {setInputs([newInput, ...inputs]);
     if (oldInputLength !== inputs.length)
       {setShowMessage(messages[1].text)}
     else
