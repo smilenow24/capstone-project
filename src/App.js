@@ -56,7 +56,7 @@ export default function App() {
     {(toggle === false) && <ReturnButton onReturn={() => setToggle(!toggle)} />}
     <MainHeading>Energy-Budget-App</MainHeading>
     {(toggle === true) &&
-    <CategoryButton onSelect={() => setToggle(!toggle)} />}
+    <CategoryButton lastInputValue={inputs[0].value} onSelect={() => setToggle(!toggle)} />}
     {(toggle === false) &&
     <MainContainer>
       <section>

@@ -21,4 +21,5 @@ describe('InputDataDialog', () => {
         await user.type(input, '7{Enter}');
         expect(callback).toHaveBeenCalledWith('7');
       });
+    
 });
