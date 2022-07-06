@@ -14,10 +14,11 @@ export default function App() {
   const [inputs, setInputs] = useState(initialInputData);
   const [showMessage, setShowMessage] = useState(messages[0].text);
   const [toggle, setToggle] = useState(true);
+  const [totalConsumption, setTotalConsumption] = useState({});
   const oldInputLength = initialInputData.length;
   const actualDate = new Date();
   const formattedActualDate = actualDate.toLocaleDateString('en-GB', {year: 'numeric', month: '2-digit', day: '2-digit'})
-  const lastInputValue = inputs[0].value
+  //const lastIncrease = inputDataValue - inputs[0].value
 
   function updateInput(inputDataValue) {
     const newInput = {
@@ -26,18 +27,28 @@ export default function App() {
       value: Number(inputDataValue),
       increase: inputDataValue - inputs[0].value
   };
-
+  console.log(inputs[0].value)
+  console.log(newInput.increase)
 
   if (newInput.value >= inputs[0].value)
       {setInputs([newInput, ...inputs]);
+        console.log(newInput.value)
     if (oldInputLength !== inputs.length)
       {setShowMessage(messages[1].text)}
-    else
+    else 
       {setShowMessage(messages[2].text)}
     }
   else 
     {setShowMessage("please input > or = " + inputs[0].value)}
 
+
+    function handleCalc() { 
+      const total = inputs.map(input => input.increase).reduce((a, b) => a + b, 0)
+      const dailyAverage = total / inputs.length
+        return setTotalConsumption({total, dailyAverage})
+    }
+    handleCalc()
+    console.log(handleCalc())
 }
   return (
     <>
@@ -45,19 +56,19 @@ export default function App() {
     {(toggle === false) && <ReturnButton onReturn={() => setToggle(!toggle)} />}
     <MainHeading>Energy-Budget-App</MainHeading>
     {(toggle === true) &&
-    <CategoryButton lastInputValue={lastInputValue} onSelect={() => setToggle(!toggle)} />}
+    <CategoryButton onSelect={() => setToggle(!toggle)} />}
     {(toggle === false) &&
     <MainContainer>
       <section>
         <h2>{formattedActualDate}</h2>
         <div>
           <article>total entries: {inputs.length}</article>
-          <article>total consumption: 7000</article>
-          <article>daily average: 700</article>
+          <article>total consumption: {totalConsumption.total}</article>
+          <article>daily average: {totalConsumption.dailyAverage}</article>
         </div>
       </section>
       <ul>
-      {inputs.map(({ date, value, id, increase}) => (
+      {inputs.map(({date, value, id, increase}) => (
           <li key={id}>
             {date} - {value} watt/h - increase: {increase}
           </li>
@@ -67,6 +78,8 @@ export default function App() {
     </MainContainer>}
     </>
   );
+
+
 }
 
 const MainHeading = styled.h1`

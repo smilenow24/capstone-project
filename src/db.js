@@ -28,7 +28,7 @@ export const messages = [
     },
     {
       id: 1,
-      text: "Gut gemacht"
+      text: "Well done!"
     },
     {
       id: 2,
