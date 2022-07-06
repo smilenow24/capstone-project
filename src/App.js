@@ -21,7 +21,6 @@ export default function App() {
     month: '2-digit',
     day: '2-digit',
   });
-  //const lastIncrease = inputDataValue - inputs[0].value
 
   useEffect(() => {
     function handleCalc() {
