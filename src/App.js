@@ -32,12 +32,6 @@ export default function App() {
     handleCalc();
   }, [inputs]);
 
-  const indexLastInput = inputs.length;
-  const totalDate = actualDate - inputs[indexLastInput - 1].date;
-  console.log(formattedActualDate);
-  console.log(actualDate);
-  console.log(totalDate);
-
   function updateInput(inputDataValue) {
     const newInput = {
       id: nanoid(),
@@ -61,26 +55,26 @@ export default function App() {
   return (
     <>
       <Header showMessage={showMessage} />
-      {toggle === false && <ReturnButton onReturn={() => setToggle(!toggle)} />}
+      {!toggle && <ReturnButton onReturn={() => setToggle(!toggle)} />}
       <MainHeading>Energy-Budget-App</MainHeading>
-      {toggle === true && <CategoryButton lastInputValue={inputs[0].value} onSelect={() => setToggle(!toggle)} />}
-      {toggle === false && (
+      {toggle && <CategoryButton lastInputValue={inputs[0].value} onSelect={() => setToggle(!toggle)} />}
+      {!toggle && (
         <MainContainer>
-          <section>
+          <InfoBoard>
             <h2>{formattedActualDate}</h2>
-            <div>
-              <article>total entries: {inputs.length}</article>
-              <article>total consumption: {totalConsumption.total.toLocaleString('de-DE')}</article>
-              <article>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')}</article>
-            </div>
-          </section>
-          <ul>
+            <ul>
+              <li>total entries: {inputs.length}</li>
+              <li>total consumption: {totalConsumption.total.toLocaleString('de-DE')} watt/h</li>
+              <li>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')} watt/h</li>
+            </ul>
+          </InfoBoard>
+          <InputDataList role="list">
             {inputs.map(({date, value, id, increase}) => (
               <li key={id}>
                 {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
-          </ul>
+          </InputDataList>
           <InputDataDialog updateInput={updateInput} />
         </MainContainer>
       )}
@@ -102,35 +96,12 @@ const MainContainer = styled.main`
   padding: 10px;
   background-color: lightblue;
   border-radius: 30px;
+`;
 
-  section {
-    display: flex;
-    background-color: grey;
-    border-radius: 20px;
-  }
-
-  div {
-    padding: 1vh;
-  }
-
-  h2 {
-    color: white;
-    padding: 0.1vh 2vh 0.1vh 2vh;
-    font-size: medium;
-  }
-
-  article {
-    color: white;
-    width: 200px;
-    font-size: 16px;
-    font-weight: 500;
-  }
-
-  ul {
-    list-style: none;
-    overflow-y: auto;
-    padding: 0.1px 20px 0.1px 20px;
-  }
+const InputDataList = styled.ul`
+  list-style: none;
+  overflow-y: auto;
+  padding: 0.1px 20px 0.1px 20px;
 
   li {
     word-wrap: anywhere;
@@ -140,5 +111,30 @@ const MainContainer = styled.main`
     font-weight: bolder;
     font-size: 15px;
     border-bottom: 1px solid;
+  }
+`;
+
+const InfoBoard = styled.section`
+  display: flex;
+  background-color: grey;
+  border-radius: 20px;
+
+  h2 {
+    color: white;
+    padding: 0.1vh 2vh 0.1vh 2vh;
+    font-size: medium;
+  }
+
+  ul {
+    width: 40vh;
+    list-style: none;
+    padding: 0.1vh;
+    border-bottom: none;
+  }
+
+  li {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
   }
 `;
