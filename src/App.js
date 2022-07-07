@@ -25,12 +25,18 @@ export default function App() {
   useEffect(() => {
     function handleCalc() {
       const total = inputs.map(input => input.increase).reduce((a, b) => a + b, 0);
-      const dailyAverage = total / inputs.length;
-      const dailyAverageRounded = Math.round(dailyAverage);
-      setTotalConsumption({total, dailyAverageRounded});
+      const averageIncrease = total / inputs.length;
+      const averageIncreaseRounded = Math.round(averageIncrease);
+      setTotalConsumption({total, averageIncreaseRounded});
     }
     handleCalc();
   }, [inputs]);
+
+  const indexLastInput = inputs.length;
+  const totalDate = actualDate - inputs[indexLastInput - 1].date;
+  console.log(formattedActualDate);
+  console.log(actualDate);
+  console.log(totalDate);
 
   function updateInput(inputDataValue) {
     const newInput = {
@@ -64,14 +70,14 @@ export default function App() {
             <h2>{formattedActualDate}</h2>
             <div>
               <article>total entries: {inputs.length}</article>
-              <article>total consumption: {totalConsumption.total}</article>
-              <article>daily average: {totalConsumption.dailyAverageRounded}</article>
+              <article>total consumption: {totalConsumption.total.toLocaleString('de-DE')}</article>
+              <article>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')}</article>
             </div>
           </section>
           <ul>
             {inputs.map(({date, value, id, increase}) => (
               <li key={id}>
-                {date} - {value} watt/h - increase: {increase}
+                {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
           </ul>
