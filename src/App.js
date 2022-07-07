@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
 import CategoryButton from './components/CategoryButton';
+import LineChart from './components/Chart';
 import Header from './components/Header';
 import InputDataDialog from './components/InputDataDialog.js';
 import ReturnButton from './components/ReturnButton';
@@ -74,6 +75,7 @@ export default function App() {
                 {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
+            <LineChart getData={inputs} />
           </InputDataList>
           <InputDataDialog updateInput={updateInput} />
         </MainContainer>
