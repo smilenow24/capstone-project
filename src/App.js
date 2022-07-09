@@ -2,10 +2,11 @@ import {nanoid} from 'nanoid';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
+import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
-import LineChart from './components/Chart';
 import Header from './components/Header';
 import InputDataDialog from './components/InputDataDialog.js';
+import LineChart from './components/LineChart';
 import ReturnButton from './components/ReturnButton';
 import {initialInputData} from './db';
 import {messages} from './db';
@@ -33,6 +34,22 @@ export default function App() {
     handleCalc();
   }, [inputs]);
 
+  function updateChart() {
+    const xy = {
+      labels: inputs.reverse().map(input => input.date),
+      datasets: [
+        {
+          label: 'Consumption Data',
+          data: inputs.reverse().map(input => input.increase),
+          borderColor: inputs[0].increase > 1000 ? 'red' : 'green',
+          backgroundColor: inputs[0].increase > 1000 ? 'red' : 'green',
+          borderWidth: '2',
+        },
+      ],
+    };
+    return xy;
+  }
+
   function updateInput(inputDataValue) {
     const newInput = {
       id: nanoid(),
@@ -58,7 +75,13 @@ export default function App() {
       <Header showMessage={showMessage} />
       {!toggle && <ReturnButton onReturn={() => setToggle(!toggle)} />}
       <MainHeading>Energy-Budget-App</MainHeading>
-      {toggle && <CategoryButton lastInputValue={inputs[0].value} onSelect={() => setToggle(!toggle)} />}
+      {toggle && (
+        <CategoryButton
+          lastInputValue={inputs[0].value}
+          lastInputIncrease={inputs[0].increase}
+          onSelect={() => setToggle(!toggle)}
+        />
+      )}
       {!toggle && (
         <MainContainer>
           <InfoBoard>
@@ -66,7 +89,9 @@ export default function App() {
             <ul>
               <li>total entries: {inputs.length}</li>
               <li>total consumption: {totalConsumption.total.toLocaleString('de-DE')} watt/h</li>
+              <li>total budget: open - rest budget: open</li>
               <li>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')} watt/h</li>
+              <li>accepted increase value: open</li>
             </ul>
           </InfoBoard>
           <InputDataList role="list">
@@ -75,7 +100,8 @@ export default function App() {
                 {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
-            <LineChart getData={inputs} />
+            <LineChart lineChartData={updateChart()} />
+            <BarChart barChartData={updateChart()} />
           </InputDataList>
           <InputDataDialog updateInput={updateInput} />
         </MainContainer>

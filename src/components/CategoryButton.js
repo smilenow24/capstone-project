@@ -5,7 +5,7 @@ import iconMenuButton from '../imgicon/icon-menu-button.png';
 
 //import LineChart from './Chart';
 
-export default function CategoryButton({onSelect, lastInputValue}) {
+export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease}) {
   return (
     <CategoryField>
       <IconContainer>
@@ -15,6 +15,7 @@ export default function CategoryButton({onSelect, lastInputValue}) {
         <LineChart />
   </ChartContainer>*/}
       <span>Your last input: {lastInputValue} watt/h</span>
+      <span>Last amount of increase: {lastInputIncrease} watt/h</span>
       <button name="categoryButton" onClick={onSelect}>
         <img src={iconMenuButton} alt="category electricity button" />
       </button>

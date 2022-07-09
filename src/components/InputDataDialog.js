@@ -4,7 +4,7 @@ export default function InputDataDialog({updateInput}) {
   return (
     <FormInputData onSubmit={handleSubmit}>
       <label htmlFor="inputfield">Enter your energy consumption - watt/h:</label>
-      <input type="text" min="0" maxLength={20} pattern="([0-9]+)" id="inputfield" name="inputfield" required />
+      <input type="text" min="0" pattern="[0-9]{1,10}" id="inputfield" name="inputfield" required />
       <button>Submit</button>
     </FormInputData>
   );
