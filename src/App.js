@@ -65,12 +65,12 @@ export default function App() {
     return restBudget;
   }
 
-  function updateInput(inputDataValue) {
+  function updateEnergyConsumption(inputEnergyConsumptionValue) {
     const newInput = {
       id: nanoid(),
       date: actualDate,
-      value: Number(inputDataValue),
-      increase: inputDataValue - inputs[0].value,
+      value: Number(inputEnergyConsumptionValue),
+      increase: inputEnergyConsumptionValue - inputs[0].value,
     };
 
     if (newInput.value >= inputs[0].value) {
@@ -139,7 +139,7 @@ export default function App() {
             <LineChart lineChartData={updateChart()} />
             <BarChart barChartData={updateChart()} />
           </InputDataList>
-          <InputDataDialog updateInput={updateInput} />
+          <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
         </MainContainer>
       )}
     </>

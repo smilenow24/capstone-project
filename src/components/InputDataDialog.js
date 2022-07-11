@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function InputDataDialog({updateInput}) {
+export default function InputDataDialog({updateEnergyConsumption}) {
   return (
     <FormInputData onSubmit={handleSubmit}>
       <label htmlFor="inputfield">Enter your energy consumption - watt/h:</label>
@@ -11,12 +11,12 @@ export default function InputDataDialog({updateInput}) {
 
   function handleSubmit(inputEvent) {
     inputEvent.preventDefault();
-    const inputData = inputEvent.target;
-    const inputDataValue = inputData.elements.inputfield.value.trim();
+    const inputEnergyConsumptionData = inputEvent.target;
+    const inputEnergyConsumptionValue = inputEnergyConsumptionData.elements.inputfield.value.trim();
 
-    updateInput(inputDataValue);
+    updateEnergyConsumption(inputEnergyConsumptionValue);
 
-    inputData.reset();
+    inputEnergyConsumptionValue.reset();
   }
 }
 
