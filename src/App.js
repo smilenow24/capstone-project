@@ -23,37 +23,55 @@ export default function App() {
     month: '2-digit',
     day: '2-digit',
   });
+  const differenceDate = inputs[0].date.getTime() - inputs[inputs.length - 1].date.getTime();
+  const differenceDays = Math.round(differenceDate / (24 * 3600 * 1000)) + 1;
+  const totalBudget = 30000;
+  const increaseBudget = 1000;
 
   useEffect(() => {
     function handleCalc() {
       const total = inputs.map(input => input.increase).reduce((a, b) => a + b, 0);
-      const averageIncrease = total / inputs.length;
+      const averageIncrease = total / differenceDays;
       const averageIncreaseRounded = Math.round(averageIncrease);
       setTotalConsumption({total, averageIncreaseRounded});
     }
     handleCalc();
-  }, [inputs]);
+  }, [inputs, differenceDays]);
+
+  console.log(differenceDays);
 
   function updateChart() {
-    const xy = {
-      labels: inputs.reverse().map(input => input.date),
+    const xyz = {
+      labels: inputs.reverse().map(input =>
+        input.date.toLocaleDateString('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+      ),
       datasets: [
         {
           label: 'Consumption Data',
-          data: inputs.reverse().map(input => input.increase),
-          borderColor: inputs[0].increase > 1000 ? 'red' : 'green',
-          backgroundColor: inputs[0].increase > 1000 ? 'red' : 'green',
+          data: inputs.map(input => input.increase),
+          borderColor: inputs.reverse()[0].increase > increaseBudget ? 'red' : 'green',
           borderWidth: '2',
         },
       ],
     };
-    return xy;
+    return xyz;
   }
+
+  function calcBudget() {
+    const restBudget = totalBudget - totalConsumption.total;
+    return restBudget;
+  }
+
+  console.log(differenceDays);
 
   function updateInput(inputDataValue) {
     const newInput = {
       id: nanoid(),
-      date: formattedActualDate,
+      date: actualDate,
       value: Number(inputDataValue),
       increase: inputDataValue - inputs[0].value,
     };
@@ -61,8 +79,11 @@ export default function App() {
     if (newInput.value >= inputs[0].value) {
       setInputs([newInput, ...inputs]);
       if (oldInputLength !== inputs.length) {
-        setShowMessage(messages[1].text);
+        setShowMessage(messages.text.id[2]);
       } else {
+        setShowMessage(messages[2].text);
+      }
+      if (inputs[0].increase > increaseBudget) {
         setShowMessage(messages[2].text);
       }
     } else {
@@ -87,17 +108,32 @@ export default function App() {
           <InfoBoard>
             <h2>{formattedActualDate}</h2>
             <ul>
-              <li>total entries: {inputs.length}</li>
-              <li>total consumption: {totalConsumption.total.toLocaleString('de-DE')} watt/h</li>
-              <li>total budget: open - rest budget: open</li>
-              <li>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')} watt/h</li>
-              <li>accepted increase value: open</li>
+              <li>
+                total entries: <b>{inputs.length}</b>
+              </li>
+              <li>
+                total consumption: <b>{totalConsumption.total.toLocaleString('de-DE')}</b> watt/h
+              </li>
+              <li>
+                total budget: <b>30000</b> - rest budget: <b>{calcBudget()}</b>
+              </li>
+              <li>
+                daily average increase: <b>{totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')}</b> watt/h
+              </li>
+              <li>
+                accepted increase value: <b>open</b>
+              </li>
             </ul>
           </InfoBoard>
           <InputDataList role="list">
             {inputs.map(({date, value, id, increase}) => (
               <li key={id}>
-                {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
             <LineChart lineChartData={updateChart()} />
@@ -112,7 +148,7 @@ export default function App() {
 
 const MainHeading = styled.h1`
   width: 100%;
-  padding-top: 15px;
+  padding-top: 70px;
   color: white;
   text-align: center;
 `;
@@ -164,5 +200,9 @@ const InfoBoard = styled.section`
     color: white;
     font-size: 1rem;
     font-weight: 500;
+  }
+
+  b {
+    font-size: medium;
   }
 `;

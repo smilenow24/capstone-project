@@ -6,7 +6,7 @@ import LineChart from './LineChart';
 describe('LineChart', () => {
   it('is an accessible form', () => {
     render(<LineChart />);
-    screen.getBy('banner');
+    screen.getByRole('banner');
   });
 });
 

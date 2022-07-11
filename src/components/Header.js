@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default function Header({showMessage}) {
-return (
+  return (
     <Top>
       <Smile>
         <EyeContainer>
@@ -21,10 +21,11 @@ return (
 const Top = styled.header`
   height: 50px;
   width: 100%;
-  margin-bottom: 5vh;
   background-color: lightblue;
   display: flex;
   justify-content: center;
+  position: fixed;
+  top: -6px;
 `;
 
 const Speechbubble = styled.div`
@@ -52,15 +53,15 @@ const Speechbubble = styled.div`
 `;
 
 const SpeechBubbleTriangle = styled.div`
-    width: 0.1px;
-    height: 0.1px;
-    border-top: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-left: 20px solid grey;
-    position: relative;
-    top: -20px;
-  `;
+  width: 0.1px;
+  height: 0.1px;
+  border-top: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid grey;
+  position: relative;
+  top: -20px;
+`;
 
 const Smile = styled.div`
   height: 100px;
@@ -86,10 +87,10 @@ const EyeContainer = styled.div`
 `;
 
 const Eye = styled.div`
-    height: 15px;
-    width: 15px;
-    border-radius: 1111px;
-    background-color: blue;
+  height: 15px;
+  width: 15px;
+  border-radius: 1111px;
+  background-color: blue;
 `;
 
 const Mouth = styled.div`
@@ -99,4 +100,3 @@ const Mouth = styled.div`
   background-color: white;
   border-radius: 1111px;
 `;
-

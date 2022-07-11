@@ -3,17 +3,12 @@ import styled from 'styled-components';
 import iconCategoryElect from '../imgicon/cat-elect-icon.png';
 import iconMenuButton from '../imgicon/icon-menu-button.png';
 
-//import LineChart from './Chart';
-
 export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease}) {
   return (
     <CategoryField>
       <IconContainer>
         <img src={iconCategoryElect} alt=" " />
       </IconContainer>
-      {/*<ChartContainer>
-        <LineChart />
-  </ChartContainer>*/}
       <span>Your last input: {lastInputValue} watt/h</span>
       <span>Last amount of increase: {lastInputIncrease} watt/h</span>
       <button name="categoryButton" onClick={onSelect}>

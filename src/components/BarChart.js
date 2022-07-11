@@ -12,8 +12,8 @@ const options = {
       display: false,
     },
     title: {
-      display: 'true',
-      text: 'hello',
+      display: true,
+      text: 'absolut values of increase per day',
     },
   },
 };
