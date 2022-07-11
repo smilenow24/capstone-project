@@ -54,11 +54,6 @@ const CategoryField = styled.section`
   }
 `;
 
-/*const ChartContainer = styled.div`
-  height: 100%;
-  width: 250px;
-`;*/
-
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;

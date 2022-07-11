@@ -26,7 +26,8 @@ export default function App() {
   const differenceDate = inputs[0].date.getTime() - inputs[inputs.length - 1].date.getTime();
   const differenceDays = Math.round(differenceDate / (24 * 3600 * 1000)) + 1;
   const totalBudget = 30000;
-  const increaseBudget = 1000;
+  const dailyTotalBudget = 1000;
+  const saldoIncrease = inputs[0].increase - dailyTotalBudget;
 
   useEffect(() => {
     function handleCalc() {
@@ -38,10 +39,8 @@ export default function App() {
     handleCalc();
   }, [inputs, differenceDays]);
 
-  console.log(differenceDays);
-
   function updateChart() {
-    const xyz = {
+    const chartInputData = {
       labels: inputs.reverse().map(input =>
         input.date.toLocaleDateString('en-GB', {
           year: 'numeric',
@@ -53,20 +52,18 @@ export default function App() {
         {
           label: 'Consumption Data',
           data: inputs.map(input => input.increase),
-          borderColor: inputs.reverse()[0].increase > increaseBudget ? 'red' : 'green',
+          borderColor: inputs.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
           borderWidth: '2',
         },
       ],
     };
-    return xyz;
+    return chartInputData;
   }
 
   function calcBudget() {
     const restBudget = totalBudget - totalConsumption.total;
     return restBudget;
   }
-
-  console.log(differenceDays);
 
   function updateInput(inputDataValue) {
     const newInput = {
@@ -83,7 +80,7 @@ export default function App() {
       } else {
         setShowMessage(messages[2].text);
       }
-      if (inputs[0].increase > increaseBudget) {
+      if (inputs[0].increase > dailyTotalBudget) {
         setShowMessage(messages[2].text);
       }
     } else {
@@ -117,11 +114,14 @@ export default function App() {
               <li>
                 total budget: <b>30000</b> - rest budget: <b>{calcBudget()}</b>
               </li>
-              <li>
+              <li style={{color: totalConsumption.averageIncreaseRounded > dailyTotalBudget ? 'red' : '#2aff00'}}>
                 daily average increase: <b>{totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')}</b> watt/h
               </li>
               <li>
-                accepted increase value: <b>open</b>
+                accepted increase value: <b>{dailyTotalBudget} watt/h</b>
+              </li>
+              <li style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
+                saldo increase value: <b>{saldoIncrease} watt/h</b>
               </li>
             </ul>
           </InfoBoard>
@@ -168,7 +168,6 @@ const InputDataList = styled.ul`
   padding: 0.1px 20px 0.1px 20px;
 
   li {
-    word-wrap: anywhere;
     padding: 4px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
       sans-serif;
@@ -180,7 +179,7 @@ const InputDataList = styled.ul`
 
 const InfoBoard = styled.section`
   display: flex;
-  background-color: grey;
+  background-color: #053f72;
   border-radius: 20px;
 
   h2 {

@@ -1,8 +1,6 @@
 import {Chart as ChartJS, registerables} from 'chart.js';
 import {Line} from 'react-chartjs-2';
 
-//import {initialInputData} from '../db';
-
 ChartJS.register(...registerables);
 
 const options = {
@@ -14,13 +12,18 @@ const options = {
     },
     title: {
       display: 'false',
-      text: 'absolut values of increase per day',
+      text: 'absolute values of increase per day',
     },
   },
   scales: {
     xAxis: {
       myScale: {
         type: 'time',
+        time: {
+          unit: 'day',
+          unitStepSize: 1,
+          setInterval: 1,
+        },
       },
     },
   },

@@ -1,5 +1,4 @@
 import {Chart as ChartJS, registerables} from 'chart.js';
-//import {useState, useEffect} from 'react';
 import {Bar} from 'react-chartjs-2';
 import styled from 'styled-components';
 
@@ -13,7 +12,7 @@ const options = {
     },
     title: {
       display: true,
-      text: 'absolut values of increase per day',
+      text: 'absolute values of increase per day',
     },
   },
 };
