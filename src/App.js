@@ -2,9 +2,11 @@ import {nanoid} from 'nanoid';
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
+import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
 import Header from './components/Header';
 import InputDataDialog from './components/InputDataDialog.js';
+import LineChart from './components/LineChart';
 import ReturnButton from './components/ReturnButton';
 import {initialInputData} from './db';
 import {messages} from './db';
@@ -21,30 +23,64 @@ export default function App() {
     month: '2-digit',
     day: '2-digit',
   });
+  const differenceDate = inputs[0].date.getTime() - inputs[inputs.length - 1].date.getTime();
+  const differenceDays = Math.round(differenceDate / (24 * 3600 * 1000)) + 1;
+  const totalBudget = 30000;
+  const dailyTotalBudget = 1000;
+  const saldoIncrease = inputs[0].increase - dailyTotalBudget;
 
   useEffect(() => {
     function handleCalc() {
       const total = inputs.map(input => input.increase).reduce((a, b) => a + b, 0);
-      const averageIncrease = total / inputs.length;
+      const averageIncrease = total / differenceDays;
       const averageIncreaseRounded = Math.round(averageIncrease);
       setTotalConsumption({total, averageIncreaseRounded});
     }
     handleCalc();
-  }, [inputs]);
+  }, [inputs, differenceDays]);
 
-  function updateInput(inputDataValue) {
+  function updateChart() {
+    const chartInputData = {
+      labels: inputs.reverse().map(input =>
+        input.date.toLocaleDateString('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+      ),
+      datasets: [
+        {
+          label: 'Consumption Data',
+          data: inputs.map(input => input.increase),
+          borderColor: inputs.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderWidth: '2',
+        },
+      ],
+    };
+    return chartInputData;
+  }
+
+  function calcBudget() {
+    const restBudget = totalBudget - totalConsumption.total;
+    return restBudget;
+  }
+
+  function updateEnergyConsumption(inputEnergyConsumptionValue) {
     const newInput = {
       id: nanoid(),
-      date: formattedActualDate,
-      value: Number(inputDataValue),
-      increase: inputDataValue - inputs[0].value,
+      date: actualDate,
+      value: Number(inputEnergyConsumptionValue),
+      increase: inputEnergyConsumptionValue - inputs[0].value,
     };
 
     if (newInput.value >= inputs[0].value) {
       setInputs([newInput, ...inputs]);
       if (oldInputLength !== inputs.length) {
-        setShowMessage(messages[1].text);
+        setShowMessage(messages.text.id[2]);
       } else {
+        setShowMessage(messages[2].text);
+      }
+      if (inputs[0].increase > dailyTotalBudget) {
         setShowMessage(messages[2].text);
       }
     } else {
@@ -57,25 +93,53 @@ export default function App() {
       <Header showMessage={showMessage} />
       {!toggle && <ReturnButton onReturn={() => setToggle(!toggle)} />}
       <MainHeading>Energy-Budget-App</MainHeading>
-      {toggle && <CategoryButton lastInputValue={inputs[0].value} onSelect={() => setToggle(!toggle)} />}
+      {toggle && (
+        <CategoryButton
+          lastInputValue={inputs[0].value}
+          lastInputIncrease={inputs[0].increase}
+          onSelect={() => setToggle(!toggle)}
+        />
+      )}
       {!toggle && (
         <MainContainer>
           <InfoBoard>
             <h2>{formattedActualDate}</h2>
             <ul>
-              <li>total entries: {inputs.length}</li>
-              <li>total consumption: {totalConsumption.total.toLocaleString('de-DE')} watt/h</li>
-              <li>increase average: {totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')} watt/h</li>
+              <li>
+                total entries: <b>{inputs.length}</b>
+              </li>
+              <li>
+                total consumption: <b>{totalConsumption.total.toLocaleString('de-DE')}</b> watt/h
+              </li>
+              <li>
+                total budget: <b>30000</b> - rest budget: <b>{calcBudget()}</b>
+              </li>
+              <li style={{color: totalConsumption.averageIncreaseRounded > dailyTotalBudget ? 'red' : '#2aff00'}}>
+                daily average increase: <b>{totalConsumption.averageIncreaseRounded.toLocaleString('de-DE')}</b> watt/h
+              </li>
+              <li>
+                accepted increase value: <b>{dailyTotalBudget} watt/h</b>
+              </li>
+              <li style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
+                saldo increase value: <b>{saldoIncrease} watt/h</b>
+              </li>
             </ul>
           </InfoBoard>
           <InputDataList role="list">
             {inputs.map(({date, value, id, increase}) => (
               <li key={id}>
-                {date} - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
               </li>
             ))}
+            <LineChart lineChartData={updateChart()} />
+            <BarChart barChartData={updateChart()} />
           </InputDataList>
-          <InputDataDialog updateInput={updateInput} />
+          <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
         </MainContainer>
       )}
     </>
@@ -84,7 +148,7 @@ export default function App() {
 
 const MainHeading = styled.h1`
   width: 100%;
-  padding-top: 15px;
+  padding-top: 70px;
   color: white;
   text-align: center;
 `;
@@ -104,7 +168,6 @@ const InputDataList = styled.ul`
   padding: 0.1px 20px 0.1px 20px;
 
   li {
-    word-wrap: anywhere;
     padding: 4px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
       sans-serif;
@@ -116,7 +179,7 @@ const InputDataList = styled.ul`
 
 const InfoBoard = styled.section`
   display: flex;
-  background-color: grey;
+  background-color: #053f72;
   border-radius: 20px;
 
   h2 {
@@ -136,5 +199,9 @@ const InfoBoard = styled.section`
     color: white;
     font-size: 1rem;
     font-weight: 500;
+  }
+
+  b {
+    font-size: medium;
   }
 `;
