@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
+import Footer from './components/Footer.js';
 import Header from './components/Header';
 import InfoBoard from './components/InfoBoard.js';
 import InputDataDialog from './components/InputDataDialog.js';
@@ -14,7 +15,7 @@ import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
-  const [messageText, setMessageText] = useState(messages[0].text);
+  const [messageText, setMessageText] = useState('How are you?');
   const [currentPage, setCurrentPage] = useState('home');
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
@@ -25,14 +26,17 @@ export default function App() {
   return (
     <>
       <Header showMessage={messageText} />
-      {currentPage === 'electricity' && <ReturnButton onReturn={() => setCurrentPage(!currentPage)} />}
+      {currentPage === 'electricity' && <ReturnButton onReturn={() => setCurrentPage('home')} />}
       <MainHeading>Energy-Budget-App</MainHeading>
       {currentPage === 'home' && (
-        <CategoryButton
-          lastInputValue={energyConsumptionHistory[0].value}
-          lastInputIncrease={energyConsumptionHistory[0].increase}
-          onSelect={() => setCurrentPage(!currentPage)}
-        />
+        <>
+          <CategoryButton
+            lastInputValue={energyConsumptionHistory[0].value}
+            lastInputIncrease={energyConsumptionHistory[0].increase}
+            onSelect={() => setCurrentPage('electricity')}
+          />
+          <CategoryButton />
+        </>
       )}
       {currentPage === 'electricity' && (
         <MainContainer>
@@ -58,6 +62,7 @@ export default function App() {
           <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
         </MainContainer>
       )}
+      <Footer />
     </>
   );
 

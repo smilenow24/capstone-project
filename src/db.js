@@ -22,28 +22,8 @@ export const initialInputData = [
 ];
 
 export const messages = {
-  success:  'Well done!',
-  dataNeeded: 'I am hungry! Please give me energy data'
-}
-
-
-
-
-[
-  {
-    id: 0,
-    text: 'I am hungry! Please give me energy data',
-  },
-  {
-    id: 1,
-    text: 'Well done!',
-  },
-  {
-    id: 2,
-    text: 'New input please',
-  },
-  {
-    id: 3,
-    text: 'Increase to high!',
-  },
-];
+  success: 'Well done!',
+  dataNeeded: 'I am hungry! Please give me energy data',
+  inputAwait: 'New input please',
+  inputToHight: 'Increase to high!',
+};
