@@ -21,7 +21,15 @@ export const initialInputData = [
   },
 ];
 
-export const messages = [
+export const messages = {
+  success:  'Well done!',
+  dataNeeded: 'I am hungry! Please give me energy data'
+}
+
+
+
+
+[
   {
     id: 0,
     text: 'I am hungry! Please give me energy data',
