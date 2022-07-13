@@ -1,19 +1,20 @@
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-import iconCategoryElect from '../imgicon/cat-elect-icon.png';
+//import iconCategoryElect from '../imgicon/cat-elect-icon.png';
 import iconMenuButton from '../imgicon/icon-menu-button.png';
 
-export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease}) {
+export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease, categoryIcon}) {
   return (
     <CategoryField>
       <IconContainer>
-        <img src={iconCategoryElect} alt=" " />
+        <img src={categoryIcon} alt=" " />
       </IconContainer>
       <span>Your last input: {lastInputValue} watt/h</span>
       <span>Last amount of increase: {lastInputIncrease} watt/h</span>
-      <button name="categoryButton" onClick={onSelect}>
+      <Link to={onSelect} name="categoryButton" onClick={onSelect}>
         <img src={iconMenuButton} alt="category electricity button" />
-      </button>
+      </Link>
     </CategoryField>
   );
 }

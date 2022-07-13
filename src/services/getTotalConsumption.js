@@ -1,4 +1,3 @@
-// pure function
 export default function getTotalConsumption(energyConsumptionHistory) {
   const differenceDate =
     energyConsumptionHistory[0].date.getTime() -

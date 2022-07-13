@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 import dashButton from '../imgicon/dash-button.png';
@@ -5,9 +6,9 @@ import dashButton from '../imgicon/dash-button.png';
 export default function Footer() {
   return (
     <FooterMenu>
-      <button>
+      <Link to={'/home'}>
         <img src={dashButton} alt="home button" />
-      </button>
+      </Link>
     </FooterMenu>
   );
 }

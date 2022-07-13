@@ -1,5 +1,6 @@
 import {nanoid} from 'nanoid';
 import {useState} from 'react';
+import {Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
 import BarChart from './components/BarChart';
@@ -11,12 +12,14 @@ import InputDataDialog from './components/InputDataDialog.js';
 import LineChart from './components/LineChart';
 import ReturnButton from './components/ReturnButton';
 import {initialInputData, messages} from './db';
+import catElectIcon from './imgicon/cat-elect-icon.png';
+import heaterIcon from './imgicon/heater-icon.png';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
   const [messageText, setMessageText] = useState('How are you?');
-  const [currentPage, setCurrentPage] = useState('home');
+  //const [currentPage, setCurrentPage] = useState('home');
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
   const oldInputLength = initialInputData.length;
@@ -26,42 +29,84 @@ export default function App() {
   return (
     <>
       <Header showMessage={messageText} />
-      {currentPage === 'electricity' && <ReturnButton onReturn={() => setCurrentPage('home')} />}
-      <MainHeading>Energy-Budget-App</MainHeading>
-      {currentPage === 'home' && (
-        <>
-          <CategoryButton
-            lastInputValue={energyConsumptionHistory[0].value}
-            lastInputIncrease={energyConsumptionHistory[0].increase}
-            onSelect={() => setCurrentPage('electricity')}
-          />
-          <CategoryButton />
-        </>
-      )}
-      {currentPage === 'electricity' && (
-        <MainContainer>
-          <InfoBoard
-            energyConsumptionHistory={energyConsumptionHistory}
-            dailyTotalBudget={dailyTotalBudget}
-            totalConsumption={totalConsumption}
-          />
-          <InputDataList role="list">
-            {energyConsumptionHistory.map(({date, value, id, increase}) => (
-              <li key={id}>
-                {date.toLocaleDateString('en-GB', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}{' '}
-                - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-              </li>
-            ))}
-            <LineChart lineChartData={chartInputData} />
-            <BarChart barChartData={chartInputData} />
-          </InputDataList>
-          <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
-        </MainContainer>
-      )}
+      <Routes>
+        <Route
+          path="/home"
+          element={
+            <>
+              <MainHeading>Energy-Budget-App</MainHeading>
+              <CategoryButton
+                lastInputValue={energyConsumptionHistory[0].value}
+                lastInputIncrease={energyConsumptionHistory[0].increase}
+                onSelect={'/home/electric'}
+                categoryIcon={catElectIcon}
+              />
+              <CategoryButton
+                lastInputValue={'open'}
+                lastInputIncrease={'open'}
+                onSelect={'/home/heating'}
+                categoryIcon={heaterIcon}
+              />
+            </>
+          }
+        />
+        <Route
+          path="/home/electric"
+          element={
+            <MainContainer>
+              <ReturnButton />
+              <InfoBoard
+                energyConsumptionHistory={energyConsumptionHistory}
+                dailyTotalBudget={dailyTotalBudget}
+                totalConsumption={totalConsumption}
+              />
+              <InputDataList role="list">
+                {energyConsumptionHistory.map(({date, value, id, increase}) => (
+                  <li key={id}>
+                    {date.toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}{' '}
+                    - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
+                  </li>
+                ))}
+                <LineChart lineChartData={chartInputData} />
+                <BarChart barChartData={chartInputData} />
+              </InputDataList>
+              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+            </MainContainer>
+          }
+        ></Route>
+        <Route
+          path="/home/heating"
+          element={
+            <MainContainer>
+              <ReturnButton />
+              <InfoBoard
+                energyConsumptionHistory={energyConsumptionHistory}
+                dailyTotalBudget={dailyTotalBudget}
+                totalConsumption={totalConsumption}
+              />
+              <InputDataList role="list">
+                {energyConsumptionHistory.map(({date, value, id, increase}) => (
+                  <li key={id}>
+                    {date.toLocaleDateString('en-GB', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                    })}{' '}
+                    - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
+                  </li>
+                ))}
+                <LineChart lineChartData={chartInputData} />
+                <BarChart barChartData={chartInputData} />
+              </InputDataList>
+              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+            </MainContainer>
+          }
+        ></Route>
+      </Routes>
       <Footer />
     </>
   );
