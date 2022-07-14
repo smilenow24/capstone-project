@@ -19,12 +19,14 @@ import getTotalConsumption from './services/getTotalConsumption.js';
 export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
   const [messageText, setMessageText] = useState('How are you?');
-  //const [currentPage, setCurrentPage] = useState('home');
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  const oldInputLength = initialInputData.length;
+  const oldInputElectricLength = initialInputData.electric.length;
+  //const oldInputHeatingLength = initialInputData.heating.length;
   const dailyTotalBudget = 1000;
   const chartInputData = updateChart();
+  console.log(energyConsumptionHistory);
+  console.log(totalConsumption);
 
   return (
     <>
@@ -36,14 +38,14 @@ export default function App() {
             <>
               <MainHeading>Energy-Budget-App</MainHeading>
               <CategoryButton
-                lastInputValue={energyConsumptionHistory[0].value}
-                lastInputIncrease={energyConsumptionHistory[0].increase}
+                lastInputValue={energyConsumptionHistory.electric[0].value}
+                lastInputIncrease={energyConsumptionHistory.electric[0].increase}
                 onSelect={'/home/electric'}
                 categoryIcon={catElectIcon}
               />
               <CategoryButton
-                lastInputValue={'open'}
-                lastInputIncrease={'open'}
+                lastInputValue={energyConsumptionHistory.heating[0].value}
+                lastInputIncrease={energyConsumptionHistory.heating[0].increase}
                 onSelect={'/home/heating'}
                 categoryIcon={heaterIcon}
               />
@@ -56,12 +58,12 @@ export default function App() {
             <MainContainer>
               <ReturnButton />
               <InfoBoard
-                energyConsumptionHistory={energyConsumptionHistory}
+                energyConsumptionHistory={energyConsumptionHistory.electric}
                 dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={totalConsumption}
+                totalConsumption={totalConsumption.totalElectric}
               />
               <InputDataList role="list">
-                {energyConsumptionHistory.map(({date, value, id, increase}) => (
+                {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
                   <li key={id}>
                     {date.toLocaleDateString('en-GB', {
                       year: 'numeric',
@@ -84,12 +86,12 @@ export default function App() {
             <MainContainer>
               <ReturnButton />
               <InfoBoard
-                energyConsumptionHistory={energyConsumptionHistory}
+                energyConsumptionHistory={energyConsumptionHistory.heating}
                 dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={totalConsumption}
+                totalConsumption={totalConsumption.totalHeating}
               />
               <InputDataList role="list">
-                {energyConsumptionHistory.map(({date, value, id, increase}) => (
+                {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
                   <li key={id}>
                     {date.toLocaleDateString('en-GB', {
                       year: 'numeric',
@@ -113,7 +115,7 @@ export default function App() {
 
   function updateChart() {
     const chartInputData = {
-      labels: energyConsumptionHistory.reverse().map(input =>
+      labels: energyConsumptionHistory.electric.reverse().map(input =>
         input.date.toLocaleDateString('en-GB', {
           year: 'numeric',
           month: '2-digit',
@@ -123,8 +125,8 @@ export default function App() {
       datasets: [
         {
           label: 'Consumption Data',
-          data: energyConsumptionHistory.map(input => input.increase),
-          borderColor: energyConsumptionHistory.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          data: energyConsumptionHistory.electric.map(input => input.increase),
+          borderColor: energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
           borderWidth: '2',
         },
       ],
@@ -137,21 +139,21 @@ export default function App() {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory[0].value,
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory.electric[0].value,
     };
 
-    if (newInput.value >= energyConsumptionHistory[0].value) {
+    if (newInput.value >= energyConsumptionHistory.electric[0].value) {
       setEnergyConsumptionHistory([newInput, ...energyConsumptionHistory]);
-      if (oldInputLength !== energyConsumptionHistory.length) {
+      if (oldInputElectricLength !== energyConsumptionHistory.electric.length) {
         setMessageText(messages.success);
       } else {
         setMessageText(messages.dataNeeded);
       }
-      if (energyConsumptionHistory[0].increase > dailyTotalBudget) {
+      if (energyConsumptionHistory.electric[0].increase > dailyTotalBudget) {
         setMessageText(messages[2].text);
       }
     } else {
-      setMessageText('please input > or = ' + energyConsumptionHistory[0].value);
+      setMessageText('please input > or = ' + energyConsumptionHistory.electric[0].value);
     }
   }
 }

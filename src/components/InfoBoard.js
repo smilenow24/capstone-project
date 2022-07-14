@@ -7,7 +7,7 @@ export default function InfoBoard({energyConsumptionHistory, dailyTotalBudget, t
     month: '2-digit',
     day: '2-digit',
   });
-  const saldoIncrease = energyConsumptionHistory[0].increase - dailyTotalBudget;
+  const saldoIncrease = energyConsumptionHistory.electric[0].increase - dailyTotalBudget;
   const restBudget = totalBudget - totalConsumption.total;
 
   return (
@@ -15,10 +15,10 @@ export default function InfoBoard({energyConsumptionHistory, dailyTotalBudget, t
       <h2>{formattedActualDate}</h2>
       <ul>
         <li>
-          total entries: <b>{energyConsumptionHistory.length}</b>
+          total entries: <b>{energyConsumptionHistory.electric.length}</b>
         </li>
         <li>
-          total consumption: <b>{totalConsumption.total.toLocaleString('de-DE')}</b> watt/h
+          total consumption: <b>{totalConsumption.electric.total.toLocaleString('de-DE')}</b> watt/h
         </li>
         <li>
           total budget: <b>30000</b> - rest budget: <b>{restBudget}</b>
