@@ -1,7 +1,6 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-//import iconCategoryElect from '../imgicon/cat-elect-icon.png';
 import iconMenuButton from '../imgicon/icon-menu-button.png';
 
 export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease, categoryIcon}) {

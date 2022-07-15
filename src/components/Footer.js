@@ -6,25 +6,27 @@ import dashButton from '../imgicon/dash-button.png';
 export default function Footer() {
   return (
     <FooterMenu>
-      <Link to={'/home'}>
+      <Link className="StyledLink" to={'/home'}>
         <img src={dashButton} alt="home button" />
       </Link>
     </FooterMenu>
   );
 }
 
-const FooterMenu = styled.header`
+const FooterMenu = styled.footer`
   height: 50px;
   width: 100%;
-  background-color: lightblue;
+  background-color: black;
   display: flex;
   justify-content: center;
   position: fixed;
   bottom: 0;
 
-  button {
-    width: 75px;
-    height: 75px;
+  .StyledLink {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-style: solid red 3px;
     display: flex;
     align-items: center;
     border-radius: 999px;
@@ -33,7 +35,6 @@ const FooterMenu = styled.header`
     display: flex;
     justify-content: center;
   }
-
   img {
     color: black;
     position: relative;

@@ -7,7 +7,8 @@ import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
 import Footer from './components/Footer.js';
 import Header from './components/Header';
-import InfoBoard from './components/InfoBoard.js';
+import InfoBoardElectric from './components/InfoBoardElectric.js';
+import InfoBoardHeating from './components/InfoBoardHeating.js';
 import InputDataDialog from './components/InputDataDialog.js';
 import LineChart from './components/LineChart';
 import ReturnButton from './components/ReturnButton';
@@ -17,16 +18,18 @@ import heaterIcon from './imgicon/heater-icon.png';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
+  console.log(updateEnergyConsumption2);
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
+  console.log(energyConsumptionHistory);
   const [messageText, setMessageText] = useState('How are you?');
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
+  console.log(energyConsumptionHistory);
   const oldInputElectricLength = initialInputData.electric.length;
+  console.log(initialInputData.electric.length);
   //const oldInputHeatingLength = initialInputData.heating.length;
   const dailyTotalBudget = 1000;
   const chartInputData = updateChart();
-  console.log(energyConsumptionHistory);
-  console.log(totalConsumption);
 
   return (
     <>
@@ -57,10 +60,10 @@ export default function App() {
           element={
             <MainContainer>
               <ReturnButton />
-              <InfoBoard
-                energyConsumptionHistory={energyConsumptionHistory.electric}
+              <InfoBoardElectric
+                energyConsumptionHistory={energyConsumptionHistory}
                 dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={totalConsumption.totalElectric}
+                totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
               />
               <InputDataList role="list">
                 {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
@@ -73,10 +76,10 @@ export default function App() {
                     - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
                   </li>
                 ))}
-                <LineChart lineChartData={chartInputData} />
-                <BarChart barChartData={chartInputData} />
               </InputDataList>
-              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+              <LineChart lineChartData={chartInputData} />
+              {/*<BarChart barChartData={chartInputData} />*/}
+              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption1} />
             </MainContainer>
           }
         ></Route>
@@ -85,10 +88,10 @@ export default function App() {
           element={
             <MainContainer>
               <ReturnButton />
-              <InfoBoard
-                energyConsumptionHistory={energyConsumptionHistory.heating}
+              <InfoBoardHeating
+                energyConsumptionHistory={energyConsumptionHistory}
                 dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={totalConsumption.totalHeating}
+                totalConsumption={totalConsumption}
               />
               <InputDataList role="list">
                 {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
@@ -104,7 +107,7 @@ export default function App() {
                 <LineChart lineChartData={chartInputData} />
                 <BarChart barChartData={chartInputData} />
               </InputDataList>
-              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption2} />
             </MainContainer>
           }
         ></Route>
@@ -134,16 +137,19 @@ export default function App() {
     return chartInputData;
   }
 
-  function updateEnergyConsumption(inputEnergyConsumptionValue) {
-    const newInput = {
+  function updateEnergyConsumption1(inputEnergyConsumptionValue) {
+    const newInput1 = {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
       increase: inputEnergyConsumptionValue - energyConsumptionHistory.electric[0].value,
     };
 
-    if (newInput.value >= energyConsumptionHistory.electric[0].value) {
-      setEnergyConsumptionHistory([newInput, ...energyConsumptionHistory]);
+    if (newInput1.value >= energyConsumptionHistory.electric[0].value) {
+      setEnergyConsumptionHistory({
+        electric: [newInput1, ...energyConsumptionHistory.electric],
+        heating: [...energyConsumptionHistory.heating],
+      });
       if (oldInputElectricLength !== energyConsumptionHistory.electric.length) {
         setMessageText(messages.success);
       } else {
@@ -155,6 +161,20 @@ export default function App() {
     } else {
       setMessageText('please input > or = ' + energyConsumptionHistory.electric[0].value);
     }
+  }
+
+  function updateEnergyConsumption2(inputEnergyConsumptionValue) {
+    const newInput2 = {
+      id: nanoid(),
+      date: new Date(),
+      value: Number(inputEnergyConsumptionValue),
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory.heating[0].value,
+    };
+    console.log(newInput2);
+    setEnergyConsumptionHistory({
+      electric: [...energyConsumptionHistory.electric],
+      heating: [newInput2, ...energyConsumptionHistory.heating],
+    });
   }
 }
 
@@ -168,7 +188,7 @@ const MainHeading = styled.h1`
 const MainContainer = styled.main`
   height: 100%;
   width: 90%;
-  margin: 20px;
+  margin: 60px 20px 20px 20px;
   padding: 10px;
   background-color: lightblue;
   border-radius: 30px;
@@ -176,7 +196,10 @@ const MainContainer = styled.main`
 
 const InputDataList = styled.ul`
   list-style: none;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overscroll-behavior: show;
+  line-height: normal;
+  max-height: 100px;
   padding: 0.1px 20px 0.1px 20px;
 
   li {

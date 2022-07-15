@@ -24,26 +24,26 @@ export const initialInputData = {
   heating: [
     {
       id: nanoid(),
-      date: new Date('2022-07-07'),
+      date: new Date('2022-07-11'),
       value: 80000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-06'),
+      date: new Date('2022-07-09'),
       value: 75000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-05'),
+      date: new Date('2022-07-07'),
       value: 70000,
       increase: 0,
     },
   ],
 };
 
-console.log(initialInputData);
+console.log(initialInputData.heating);
 
 export const messages = {
   success: 'Well done!',

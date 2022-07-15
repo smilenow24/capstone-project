@@ -21,7 +21,7 @@ export default function Header({showMessage}) {
 const Top = styled.header`
   height: 50px;
   width: 100%;
-  background-color: lightblue;
+  background-color: black;
   display: flex;
   justify-content: center;
   position: fixed;
@@ -66,7 +66,8 @@ const SpeechBubbleTriangle = styled.div`
 const Smile = styled.div`
   height: 100px;
   width: 100px;
-  background-color: grey;
+  background-color: #5d6abf;
+  border-style: solid 2px;
   border-radius: 1111px;
   position: absolute;
   top: -25px;
@@ -75,6 +76,9 @@ const Smile = styled.div`
   gap: 14px;
   align-items: center;
   flex-wrap: wrap;
+  overflow: hidden;
+  background: linear-gradient(90deg, #099, #f4f, #0099);
+  animation: animate 3s linear;
 `;
 
 const EyeContainer = styled.div`
@@ -90,7 +94,7 @@ const Eye = styled.div`
   height: 15px;
   width: 15px;
   border-radius: 1111px;
-  background-color: blue;
+  background-color: darkblue;
 `;
 
 const Mouth = styled.div`
