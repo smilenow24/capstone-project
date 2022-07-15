@@ -66,7 +66,6 @@ const SpeechBubbleTriangle = styled.div`
 const Smile = styled.div`
   height: 100px;
   width: 100px;
-  background-color: #5d6abf;
   border-style: solid 2px;
   border-radius: 1111px;
   position: absolute;
@@ -77,7 +76,7 @@ const Smile = styled.div`
   align-items: center;
   flex-wrap: wrap;
   overflow: hidden;
-  background: linear-gradient(90deg, #099, #f4f, #0099);
+  background: linear-gradient(80deg, #111, #999, #111);
   animation: animate 3s linear;
 `;
 

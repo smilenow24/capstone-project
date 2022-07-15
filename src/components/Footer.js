@@ -32,7 +32,6 @@ const FooterMenu = styled.footer`
     border-radius: 999px;
     position: relative;
     top: -15px;
-    display: flex;
     justify-content: center;
   }
   img {
