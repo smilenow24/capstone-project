@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-import iconMenuButton from '../imgicon/icon-menu-button.png';
+import iconMenuButton from '../imgicon/input-list-icon.png';
 
 export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease, categoryIcon}) {
   return (
@@ -11,7 +11,7 @@ export default function CategoryButton({onSelect, lastInputValue, lastInputIncre
       </IconContainer>
       <span>Your last input: {lastInputValue} watt/h</span>
       <span>Last amount of increase: {lastInputIncrease} watt/h</span>
-      <Link to={onSelect} name="categoryButton" onClick={onSelect}>
+      <Link className="LinkContainer" to={onSelect} name="categoryButton" onClick={onSelect}>
         <img src={iconMenuButton} alt="category electricity button" />
       </Link>
     </CategoryField>
@@ -26,18 +26,16 @@ const CategoryField = styled.section`
   background-color: black;
   margin: 2vh 3vh 1vh 3vh;
 
-  #LineChart {
-    width: 50px;
-  }
-
-  button {
+  .LinkContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 10vh;
-    height: 100%;
+    height: 10vh;
+    margin: 4px;
     background-color: darkred;
     border-width: 0;
+    border-radius: 10%;
     padding-right: 2vh;
     padding-left: 2vh;
   }

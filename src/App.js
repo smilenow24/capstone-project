@@ -12,6 +12,7 @@ import InfoBoardHeating from './components/InfoBoardHeating.js';
 import InputDataDialog from './components/InputDataDialog.js';
 import LineChart from './components/LineChart';
 import ReturnButton from './components/ReturnButton';
+import SetActiveChartButton from './components/SetActiveChartButton.js';
 import {initialInputData, messages} from './db';
 import catElectIcon from './imgicon/cat-elect-icon.png';
 import heaterIcon from './imgicon/heater-icon.png';
@@ -22,6 +23,7 @@ export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
   console.log(energyConsumptionHistory);
   const [messageText, setMessageText] = useState('How are you?');
+  const [activeChart, setActiveChart] = useState(true);
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
   console.log(energyConsumptionHistory);
@@ -29,7 +31,8 @@ export default function App() {
   console.log(initialInputData.electric.length);
   //const oldInputHeatingLength = initialInputData.heating.length;
   const dailyTotalBudget = 1000;
-  const chartInputData = updateChart();
+  const chartInputDataElectric = updateChartElectric();
+  const chartInputDataHeating = updateChartHeating();
 
   return (
     <>
@@ -77,8 +80,11 @@ export default function App() {
                   </li>
                 ))}
               </InputDataList>
-              <LineChart lineChartData={chartInputData} />
-              {/*<BarChart barChartData={chartInputData} />*/}
+              <ChartContainer>
+                <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+                {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
+                {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
+              </ChartContainer>
               <InputDataDialog updateEnergyConsumption={updateEnergyConsumption1} />
             </MainContainer>
           }
@@ -104,9 +110,15 @@ export default function App() {
                     - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
                   </li>
                 ))}
-                <LineChart lineChartData={chartInputData} />
-                <BarChart barChartData={chartInputData} />
               </InputDataList>
+              <ChartContainer>
+                <SetActiveChartButton
+                  activeChart={activeChart}
+                  onChartActiveEvent={() => setActiveChart(!activeChart)}
+                />
+                {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
+                {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
+              </ChartContainer>
               <InputDataDialog updateEnergyConsumption={updateEnergyConsumption2} />
             </MainContainer>
           }
@@ -116,7 +128,7 @@ export default function App() {
     </>
   );
 
-  function updateChart() {
+  function updateChartElectric() {
     const chartInputData = {
       labels: energyConsumptionHistory.electric.reverse().map(input =>
         input.date.toLocaleDateString('en-GB', {
@@ -130,6 +142,27 @@ export default function App() {
           label: 'Consumption Data',
           data: energyConsumptionHistory.electric.map(input => input.increase),
           borderColor: energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderWidth: '2',
+        },
+      ],
+    };
+    return chartInputData;
+  }
+
+  function updateChartHeating() {
+    const chartInputData = {
+      labels: energyConsumptionHistory.heating.reverse().map(input =>
+        input.date.toLocaleDateString('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        })
+      ),
+      datasets: [
+        {
+          label: 'Consumption Data',
+          data: energyConsumptionHistory.heating.map(input => input.increase),
+          borderColor: energyConsumptionHistory.heating.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
           borderWidth: '2',
         },
       ],
@@ -194,6 +227,12 @@ const MainContainer = styled.main`
   border-radius: 30px;
 `;
 
+const ChartContainer = styled.section`
+  height: 100px;
+  width: 320px;
+  margin-bottom: 6vh;
+`;
+
 const InputDataList = styled.ul`
   list-style: none;
   overflow-y: scroll;
@@ -203,11 +242,11 @@ const InputDataList = styled.ul`
   padding: 0.1px 20px 0.1px 20px;
 
   li {
-    padding: 4px;
+    padding: 1px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
       sans-serif;
     font-weight: bolder;
-    font-size: 15px;
+    font-size: 12px;
     border-bottom: 1px solid;
   }
 `;

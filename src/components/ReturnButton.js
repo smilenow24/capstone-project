@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import iconReturnButton from '../imgicon/returnIcon.png';
 
-export default function ReturnButton({onSubmit}) {
+export default function ReturnButton() {
   const navigate = useNavigate();
   return (
     <>
