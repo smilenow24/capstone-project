@@ -16,7 +16,6 @@ export default function InputDataDialog({updateEnergyConsumption}) {
 
     inputEvent.target.reset();
     updateEnergyConsumption(inputEnergyConsumptionValue);
-    console.log(updateEnergyConsumption);
   }
 }
 

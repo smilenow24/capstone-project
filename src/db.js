@@ -43,8 +43,6 @@ export const initialInputData = {
   ],
 };
 
-console.log(initialInputData.heating);
-
 export const messages = {
   success: 'Well done!',
   dataNeeded: 'I am hungry! Please give me energy data',

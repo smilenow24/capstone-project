@@ -7,11 +7,7 @@ export default function InfoBoard({energyConsumptionHistory, dailyTotalBudget, t
     month: '2-digit',
     day: '2-digit',
   });
-  console.log(totalConsumption);
-  console.log(energyConsumptionHistory);
-  console.log(dailyTotalBudget);
   const saldoIncrease = energyConsumptionHistory.electric[0].increase - dailyTotalBudget;
-  console.log(energyConsumptionHistory.electric[0].increase);
   const restBudget = totalBudget - totalConsumption[0];
 
   return (

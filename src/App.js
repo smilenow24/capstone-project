@@ -19,17 +19,12 @@ import heaterIcon from './imgicon/heater-icon.png';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
-  console.log(updateEnergyConsumption2);
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
-  console.log(energyConsumptionHistory);
   const [messageText, setMessageText] = useState('How are you?');
   const [activeChart, setActiveChart] = useState(true);
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  console.log(energyConsumptionHistory);
   const oldInputElectricLength = initialInputData.electric.length;
-  console.log(initialInputData.electric.length);
-  //const oldInputHeatingLength = initialInputData.heating.length;
   const dailyTotalBudget = 1000;
   const chartInputDataElectric = updateChartElectric();
   const chartInputDataHeating = updateChartHeating();
@@ -203,7 +198,6 @@ export default function App() {
       value: Number(inputEnergyConsumptionValue),
       increase: inputEnergyConsumptionValue - energyConsumptionHistory.heating[0].value,
     };
-    console.log(newInput2);
     setEnergyConsumptionHistory({
       electric: [...energyConsumptionHistory.electric],
       heating: [newInput2, ...energyConsumptionHistory.heating],

@@ -7,13 +7,8 @@ export default function InfoBoardHeating({energyConsumptionHistory, dailyTotalBu
     month: '2-digit',
     day: '2-digit',
   });
-  console.log(totalConsumption);
-  console.log(energyConsumptionHistory);
-  console.log(dailyTotalBudget);
   const saldoIncrease = energyConsumptionHistory.heating[0].increase - dailyTotalBudget;
-  console.log(energyConsumptionHistory.heating[0].increase);
   const restBudget = totalBudget - totalConsumption[0];
-  console.log(totalConsumption.totalHeating);
   return (
     <Wrapper>
       <h2>{formattedActualDate}</h2>
