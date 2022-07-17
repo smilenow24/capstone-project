@@ -14,12 +14,13 @@ export default function InfoBoardHeating({energyConsumptionHistory, dailyTotalBu
       <h2>{formattedActualDate}</h2>
       <dl>
         <dt>total entries: {energyConsumptionHistory.heating.length}</dt>
-        <dt>total consumption: {totalConsumption.totalHeating.toLocaleString('de-DE')}watt/h</dt>
+        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}watt/h</dt>
+
         <dt>
           total budget: {totalBudget} - rest budget: {restBudget}
         </dt>
-        <dt style={{color: totalConsumption.totalHeating > dailyTotalBudget ? 'red' : '#2aff00'}}>
-          daily average increase: {totalConsumption.totalHeating.toLocaleString('de-DE')} watt/h
+        <dt style={{color: totalConsumption[1] > dailyTotalBudget ? 'red' : '#2aff00'}}>
+          daily average increase: {totalConsumption[1].toLocaleString('de-DE')} watt/h
         </dt>
         <dt>accepted increase value: {dailyTotalBudget} watt/h</dt>
         <dt style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>

@@ -41,6 +41,26 @@ export const initialInputData = {
       increase: 0,
     },
   ],
+  mobility: [
+    {
+      id: nanoid(),
+      date: new Date('2022-07-11'),
+      value: 80000,
+      increase: 5000,
+    },
+    {
+      id: nanoid(),
+      date: new Date('2022-07-09'),
+      value: 75000,
+      increase: 5000,
+    },
+    {
+      id: nanoid(),
+      date: new Date('2022-07-07'),
+      value: 70000,
+      increase: 0,
+    },
+  ],
 };
 
 export const messages = {

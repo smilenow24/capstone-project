@@ -3,19 +3,17 @@ import {useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
-import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
 import Footer from './components/Footer.js';
 import Header from './components/Header';
-import InfoBoardElectric from './components/InfoBoardElectric.js';
-import InfoBoardHeating from './components/InfoBoardHeating.js';
-import InputDataDialog from './components/InputDataDialog.js';
-import LineChart from './components/LineChart';
-import ReturnButton from './components/ReturnButton';
-import SetActiveChartButton from './components/SetActiveChartButton.js';
+import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
 import catElectIcon from './imgicon/cat-elect-icon.png';
 import heaterIcon from './imgicon/heater-icon.png';
+import mobilityIcon from './imgicon/mobility-icon.png';
+import CategoryElectric from './pages/CategoryElectric.js';
+import CategoryHeating from './pages/CategoryHeating.js';
+import CategoryMobilitiy from './pages/CategoryMobility.js';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
@@ -24,15 +22,15 @@ export default function App() {
   const [activeChart, setActiveChart] = useState(true);
 
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  const oldInputElectricLength = initialInputData.electric.length;
-  const dailyTotalBudget = 1000;
-  const chartInputDataElectric = updateChartElectric();
-  const chartInputDataHeating = updateChartHeating();
 
+  const dailyTotalBudget = 1000;
+  const oldInputElectricLength = initialInputData.electric.length;
+  console.log(energyConsumptionHistory.mobility[0].value);
   return (
     <>
       <Header showMessage={messageText} />
       <Routes>
+        <Route path="/" element={<StartDisplay />} />
         <Route
           path="/home"
           element={
@@ -50,120 +48,64 @@ export default function App() {
                 onSelect={'/home/heating'}
                 categoryIcon={heaterIcon}
               />
+              <CategoryButton
+                lastInputValue={energyConsumptionHistory.mobility[0].value}
+                lastInputIncrease={energyConsumptionHistory.mobility[0].increase}
+                onSelect={'/home/mobility'}
+                categoryIcon={mobilityIcon}
+              />
             </>
           }
         />
         <Route
           path="/home/electric"
           element={
-            <MainContainer>
-              <ReturnButton />
-              <InfoBoardElectric
-                energyConsumptionHistory={energyConsumptionHistory}
-                dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
-              />
-              <InputDataList role="list">
-                {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
-                  <li key={id}>
-                    {date.toLocaleDateString('en-GB', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })}{' '}
-                    - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-                  </li>
-                ))}
-              </InputDataList>
-              <ChartContainer>
-                <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-                {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
-                {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
-              </ChartContainer>
-              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption1} />
-            </MainContainer>
+            <CategoryElectric
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption1={updateEnergyConsumption1}
+            />
           }
         ></Route>
         <Route
           path="/home/heating"
           element={
-            <MainContainer>
-              <ReturnButton />
-              <InfoBoardHeating
-                energyConsumptionHistory={energyConsumptionHistory}
-                dailyTotalBudget={dailyTotalBudget}
-                totalConsumption={totalConsumption}
-              />
-              <InputDataList role="list">
-                {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
-                  <li key={id}>
-                    {date.toLocaleDateString('en-GB', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                    })}{' '}
-                    - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-                  </li>
-                ))}
-              </InputDataList>
-              <ChartContainer>
-                <SetActiveChartButton
-                  activeChart={activeChart}
-                  onChartActiveEvent={() => setActiveChart(!activeChart)}
-                />
-                {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
-                {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
-              </ChartContainer>
-              <InputDataDialog updateEnergyConsumption={updateEnergyConsumption2} />
-            </MainContainer>
+            <CategoryHeating
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption={updateEnergyConsumption2}
+            />
+          }
+        ></Route>
+        <Route
+          path="/home/mobility"
+          element={
+            <CategoryMobilitiy
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption={updateEnergyConsumption3}
+            />
           }
         ></Route>
       </Routes>
       <Footer />
     </>
   );
-
-  function updateChartElectric() {
-    const chartInputData = {
-      labels: energyConsumptionHistory.electric.reverse().map(input =>
-        input.date.toLocaleDateString('en-GB', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })
-      ),
-      datasets: [
-        {
-          label: 'Consumption Data',
-          data: energyConsumptionHistory.electric.map(input => input.increase),
-          borderColor: energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
-          borderWidth: '2',
-        },
-      ],
-    };
-    return chartInputData;
-  }
-
-  function updateChartHeating() {
-    const chartInputData = {
-      labels: energyConsumptionHistory.heating.reverse().map(input =>
-        input.date.toLocaleDateString('en-GB', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })
-      ),
-      datasets: [
-        {
-          label: 'Consumption Data',
-          data: energyConsumptionHistory.heating.map(input => input.increase),
-          borderColor: energyConsumptionHistory.heating.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
-          borderWidth: '2',
-        },
-      ],
-    };
-    return chartInputData;
-  }
 
   function updateEnergyConsumption1(inputEnergyConsumptionValue) {
     const newInput1 = {
@@ -177,6 +119,7 @@ export default function App() {
       setEnergyConsumptionHistory({
         electric: [newInput1, ...energyConsumptionHistory.electric],
         heating: [...energyConsumptionHistory.heating],
+        mobility: [...energyConsumptionHistory.mobility],
       });
       if (oldInputElectricLength !== energyConsumptionHistory.electric.length) {
         setMessageText(messages.success);
@@ -201,6 +144,21 @@ export default function App() {
     setEnergyConsumptionHistory({
       electric: [...energyConsumptionHistory.electric],
       heating: [newInput2, ...energyConsumptionHistory.heating],
+      mobility: [...energyConsumptionHistory.mobility],
+    });
+  }
+
+  function updateEnergyConsumption3(inputEnergyConsumptionValue) {
+    const newInput3 = {
+      id: nanoid(),
+      date: new Date(),
+      value: Number(inputEnergyConsumptionValue),
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory.heating[0].value,
+    };
+    setEnergyConsumptionHistory({
+      electric: [...energyConsumptionHistory.electric],
+      heating: [...energyConsumptionHistory.heating],
+      mobility: [newInput3, ...energyConsumptionHistory.mobility],
     });
   }
 }
@@ -210,37 +168,4 @@ const MainHeading = styled.h1`
   padding-top: 70px;
   color: white;
   text-align: center;
-`;
-
-const MainContainer = styled.main`
-  height: 100%;
-  width: 90%;
-  margin: 60px 20px 20px 20px;
-  padding: 10px;
-  background-color: lightblue;
-  border-radius: 30px;
-`;
-
-const ChartContainer = styled.section`
-  height: 100px;
-  width: 320px;
-  margin-bottom: 6vh;
-`;
-
-const InputDataList = styled.ul`
-  list-style: none;
-  overflow-y: scroll;
-  overscroll-behavior: show;
-  line-height: normal;
-  max-height: 100px;
-  padding: 0.1px 20px 0.1px 20px;
-
-  li {
-    padding: 1px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-      sans-serif;
-    font-weight: bolder;
-    font-size: 12px;
-    border-bottom: 1px solid;
-  }
 `;

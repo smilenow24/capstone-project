@@ -8,7 +8,10 @@ export default function Header({showMessage}) {
           <Eye></Eye>
           <Eye></Eye>
         </EyeContainer>
-        <Mouth />
+        <Mouth>
+          <MouthLeft />
+          <MouthRight />
+        </Mouth>
       </Smile>
       <Speechbubble>
         <SpeechBubbleTriangle />
@@ -29,7 +32,7 @@ const Top = styled.header`
 `;
 
 const Speechbubble = styled.div`
-  background-color: grey;
+  background-color: green;
   position: relative;
   top: 30px;
   left: 140px;
@@ -58,7 +61,7 @@ const SpeechBubbleTriangle = styled.div`
   border-top: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid transparent;
-  border-left: 20px solid grey;
+  border-left: 20px solid green;
   position: relative;
   top: -20px;
 `;
@@ -76,8 +79,17 @@ const Smile = styled.div`
   align-items: center;
   flex-wrap: wrap;
   overflow: hidden;
-  background: linear-gradient(80deg, #111, #999, #111);
-  animation: animate 3s linear;
+  background: linear-gradient(80deg, #578e23, #2aff00, #578e23);
+  animation: animateHeader 5s linear;
+
+  @keyframes animateHeader {
+    0% {
+      transform: rotate(2deg);
+    }
+    100% {
+      transform: rotate(120deg);
+    }
+  }
 `;
 
 const EyeContainer = styled.div`
@@ -96,10 +108,30 @@ const Eye = styled.div`
   background-color: darkblue;
 `;
 
-const Mouth = styled.div`
-  height: 8px;
-  width: 60px;
+const Mouth = styled.section`
+  display: flex;
+  justify-content: center;
+`;
+
+const MouthLeft = styled.div`
+  height: 3px;
+  width: 28px;
+  transform: rotate(18deg);
   padding: 1px;
   background-color: white;
   border-radius: 1111px;
+  position: relative;
+  top: -6px;
+  left: 3px;
+`;
+const MouthRight = styled.div`
+  height: 3px;
+  width: 25px;
+  transform: rotate(162deg);
+  padding: 1px;
+  background-color: white;
+  border-radius: 1111px;
+  position: relative;
+  top: -6px;
+  right: 3px;
 `;

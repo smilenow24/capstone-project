@@ -1,14 +1,19 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
+import ReturnButton from '../components/ReturnButton.js';
 import dashButton from '../imgicon/dash-button.png';
+
+import ConfigPersonalButton from './ConfigPersonalButton.js';
 
 export default function Footer() {
   return (
-    <FooterMenu>
-      <Link className="StyledLink" to={'/home'}>
+    <FooterMenu className="StyledFooterMenu">
+      <ReturnButton />
+      <Link className="StyledDashLink" to={'/home'}>
         <img src={dashButton} alt="home button" />
       </Link>
+      <ConfigPersonalButton />
     </FooterMenu>
   );
 }
@@ -18,11 +23,11 @@ const FooterMenu = styled.footer`
   width: 100%;
   background-color: black;
   display: flex;
-  justify-content: center;
-  position: fixed;
+  justify-content: space-around;
+  position: absolute;
   bottom: 0;
 
-  .StyledLink {
+  .StyledDashLink {
     width: 80px;
     height: 80px;
     background-color: white;
@@ -34,9 +39,12 @@ const FooterMenu = styled.footer`
     top: -15px;
     justify-content: center;
   }
-  img {
-    color: black;
+
+  .StyledDashLink:hover {
+    width: 90px;
+    height: 90px;
+    border: 7px solid blue;
     position: relative;
-    top: 2px;
+    top: -20px;
   }
 `;

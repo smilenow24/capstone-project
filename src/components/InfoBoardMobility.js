@@ -7,24 +7,25 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
     month: '2-digit',
     day: '2-digit',
   });
-  const saldoIncrease = energyConsumptionHistory.electric[0].increase - dailyTotalBudget;
+  const saldoIncrease = energyConsumptionHistory.mobility[0].increase - dailyTotalBudget;
   const restBudget = totalBudget - totalConsumption[0];
-  console.log(totalConsumption);
+  console.log(totalConsumption[1]);
   return (
     <Wrapper>
       <h2>{formattedActualDate}</h2>
       <dl>
-        <dt>total entries: {energyConsumptionHistory.electric.length}</dt>
-        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}watt/h</dt>
+        <dt>total entries: {energyConsumptionHistory.mobility.length}</dt>
+        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}km</dt>
+
         <dt>
           total budget: {totalBudget} - rest budget: {restBudget}
         </dt>
         <dt style={{color: totalConsumption[1] > dailyTotalBudget ? 'red' : '#2aff00'}}>
-          daily average increase: {totalConsumption[1].toLocaleString('de-DE')} watt/h
+          daily average increase: {totalConsumption[1].toLocaleString('de-DE')} km
         </dt>
-        <dt>accepted increase value: {dailyTotalBudget} watt/h</dt>
+        <dt>accepted increase value: {dailyTotalBudget} km</dt>
         <dt style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
-          saldo increase value: {saldoIncrease} watt/h
+          saldo increase value: {saldoIncrease} km
         </dt>
       </dl>
     </Wrapper>

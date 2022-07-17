@@ -22,9 +22,9 @@ const CategoryField = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 14vh;
+  height: 17vh;
   background-color: black;
-  margin: 2vh 3vh 1vh 3vh;
+  margin: 4vh 3vh 4vh 3vh;
 
   .LinkContainer {
     display: flex;
@@ -38,6 +38,11 @@ const CategoryField = styled.section`
     border-radius: 10%;
     padding-right: 2vh;
     padding-left: 2vh;
+  }
+
+  .LinkContainer:hover {
+    width: 12vh;
+    height: 12vh;
   }
 
   img {
