@@ -18,9 +18,6 @@ const AnimationContainer = styled.section`
   left: 50%;
   width: 500px;
   height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   span {
     padding-top: 10vh;
