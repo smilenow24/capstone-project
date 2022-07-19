@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import CategoryButton from './components/CategoryButton';
 import Footer from './components/Footer.js';
 import Header from './components/Header';
-//import InputDataDialog from './components/InputDataDialog.js';
 import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
 import catElectIcon from './imgicon/cat-elect-icon.png';
@@ -21,14 +20,8 @@ export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
   const [messageText, setMessageText] = useState('How are you?');
   const [activeChart, setActiveChart] = useState(true);
-
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-
   const dailyTotalBudget = 1000;
-  const oldInputElectricLength = initialInputData.electric.length;
-  console.log(energyConsumptionHistory.mobility[0].value);
-  //console.log(energyConsumptionHistory + ' ' + categoryToHandle[0].value);
-  console.log(energyConsumptionHistory);
   return (
     <>
       <Header
@@ -119,54 +112,19 @@ export default function App() {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory.`${categoryToHandle}`[0].value,
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory[categoryToHandle][0].value,
     };
-
-    alert(`${categoryToHandle}`);
-
-    if (newInput.value >= energyConsumptionHistory.electric[0].value) {
-      if (`${categoryToHandle}` === 'electric') {
-        setEnergyConsumptionHistory({
-          electric: [newInput, ...energyConsumptionHistory.electric],
-          heating: [...energyConsumptionHistory.heating],
-          mobility: [...energyConsumptionHistory.mobility],
-        });
-        if (oldInputElectricLength !== energyConsumptionHistory.electric[0].length) {
-          setMessageText(messages.success);
-        } else {
-          setMessageText('please input > or = ' + energyConsumptionHistory.electric[0].value);
-        }
-      }
-    }
-    if (`${categoryToHandle}` === 'heating') {
+    if (newInput.value >= energyConsumptionHistory[categoryToHandle][0].value) {
       setEnergyConsumptionHistory({
-        electric: [...energyConsumptionHistory.electric],
-        heating: [newInput, ...energyConsumptionHistory.heating],
-        mobility: [...energyConsumptionHistory.mobility],
+        ...energyConsumptionHistory,
+        [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-    }
-    if (`${categoryToHandle}` === 'mobility') {
-      setEnergyConsumptionHistory({
-        electric: [...energyConsumptionHistory.electric],
-        heating: [...energyConsumptionHistory.heating],
-        mobility: [newInput, ...energyConsumptionHistory.mobility],
-      });
+      setMessageText(messages.success);
+    } else {
+      setMessageText('please input > or = ' + energyConsumptionHistory[categoryToHandle][0].value);
     }
   }
 }
-
-/*    if (oldInputElectricLength !== energyConsumptionHistory.categoryToHandle.length) {
-        setMessageText(messages.success);
-      } else {
-        setMessageText(messages.dataNeeded);
-      }
-      if (energyConsumptionHistory.categoryToHandle[0].increase > dailyTotalBudget) {
-        setMessageText(messages[2].text);
-      }
-    } else {
-      setMessageText('please input > or = ' + energyConsumptionHistory.categoryToHandle[0].value);
-    }
-  } */
 
 const MainHeading = styled.h1`
   width: 100%;

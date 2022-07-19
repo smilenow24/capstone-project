@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default function Header({showMessage, handleConsumptionChange}) {
-  console.log(handleConsumptionChange.electric[0].increase);
   return (
     <Top>
       <Smile handleConsumptionChange={handleConsumptionChange}>
