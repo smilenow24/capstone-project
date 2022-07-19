@@ -40,7 +40,7 @@ export default function PageCategoryHeating({
         {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
         {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
       </ChartContainer>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'heating'} />
     </MainContainer>
   );
 

@@ -12,7 +12,7 @@ export default function PageCategoryElectric({
   totalConsumption,
   setActiveChart,
   activeChart,
-  updateEnergyConsumption1,
+  updateEnergyConsumption,
 }) {
   const chartInputDataElectric = updateChartElectric();
 
@@ -40,7 +40,7 @@ export default function PageCategoryElectric({
         {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
         {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
       </ChartContainer>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption1} />
+      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
     </MainContainer>
   );
 
@@ -67,18 +67,26 @@ export default function PageCategoryElectric({
 }
 
 const MainContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   height: 100%;
   width: 90%;
-  margin: 60px 20px 20px 20px;
+  margin: 65px 20px 20px 20px;
   padding: 10px;
   background-color: lightblue;
   border-radius: 30px;
 `;
 
 const ChartContainer = styled.section`
-  height: 100px;
-  width: 320px;
-  margin-bottom: 6vh;
+  height: 150px;
+  width: 300px;
+  margin-bottom: 1vh;
+
+  &SetActiveChartButton {
+    width: 200px;
+  }
 `;
 
 const InputDataList = styled.ul`
@@ -94,7 +102,7 @@ const InputDataList = styled.ul`
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
       sans-serif;
     font-weight: bolder;
-    font-size: 12px;
+    font-size: 14px;
     border-bottom: 1px solid;
   }
 `;

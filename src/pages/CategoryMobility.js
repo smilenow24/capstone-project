@@ -40,7 +40,7 @@ export default function PageCategoryMobility({
         {activeChart && <LineChart lineChartData={chartInputDataMobility} />}
         {!activeChart && <BarChart barChartData={chartInputDataMobility} />}
       </ChartContainer>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
+      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'mobility'} />
     </MainContainer>
   );
 

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export default function Header({showMessage}) {
+export default function Header({showMessage, handleConsumptionChange}) {
+  console.log(handleConsumptionChange.electric[0].increase);
   return (
     <Top>
-      <Smile>
+      <Smile handleConsumptionChange={handleConsumptionChange}>
         <EyeContainer>
           <Eye></Eye>
           <Eye></Eye>
@@ -35,7 +36,7 @@ const Speechbubble = styled.div`
   background-color: green;
   position: relative;
   top: 30px;
-  left: 140px;
+  left: 133px;
   border-radius: 111px;
   border-style: solid;
   overflow-wrap: break-word;
@@ -70,7 +71,7 @@ const Smile = styled.div`
   height: 100px;
   width: 100px;
   border-style: solid 2px;
-  border-radius: 1111px;
+  border-radius: 50%;
   position: absolute;
   top: -25px;
   display: flex;
@@ -79,7 +80,10 @@ const Smile = styled.div`
   align-items: center;
   flex-wrap: wrap;
   overflow: hidden;
-  background: linear-gradient(80deg, #578e23, #2aff00, #578e23);
+  background: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100
+      ? 'linear-gradient(80deg, #578e23, #2aff00, #578e23);'
+      : 'linear-gradient(80deg, #a52c26, #ff5961, #a52c26);'};
   animation: animateHeader 5s linear;
 
   @keyframes animateHeader {
@@ -104,7 +108,7 @@ const EyeContainer = styled.div`
 const Eye = styled.div`
   height: 15px;
   width: 15px;
-  border-radius: 1111px;
+  border-radius: 50%;
   background-color: darkblue;
 `;
 

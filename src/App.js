@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import CategoryButton from './components/CategoryButton';
 import Footer from './components/Footer.js';
 import Header from './components/Header';
+//import InputDataDialog from './components/InputDataDialog.js';
 import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
 import catElectIcon from './imgicon/cat-elect-icon.png';
@@ -26,9 +27,15 @@ export default function App() {
   const dailyTotalBudget = 1000;
   const oldInputElectricLength = initialInputData.electric.length;
   console.log(energyConsumptionHistory.mobility[0].value);
+  //console.log(energyConsumptionHistory + ' ' + categoryToHandle[0].value);
+  console.log(energyConsumptionHistory);
   return (
     <>
-      <Header showMessage={messageText} />
+      <Header
+        showMessage={messageText}
+        handleConsumptionChange={energyConsumptionHistory}
+        dailyTotalBudget={dailyTotalBudget}
+      />
       <Routes>
         <Route path="/" element={<StartDisplay />} />
         <Route
@@ -68,7 +75,7 @@ export default function App() {
               activeChart={activeChart}
               messageText={messageText}
               setEnergyConsumptionHistory={setEnergyConsumptionHistory}
-              updateEnergyConsumption1={updateEnergyConsumption1}
+              updateEnergyConsumption={updateEnergyConsumption}
             />
           }
         ></Route>
@@ -83,7 +90,7 @@ export default function App() {
               activeChart={activeChart}
               messageText={messageText}
               setEnergyConsumptionHistory={setEnergyConsumptionHistory}
-              updateEnergyConsumption={updateEnergyConsumption2}
+              updateEnergyConsumption={updateEnergyConsumption}
             />
           }
         ></Route>
@@ -98,7 +105,7 @@ export default function App() {
               activeChart={activeChart}
               messageText={messageText}
               setEnergyConsumptionHistory={setEnergyConsumptionHistory}
-              updateEnergyConsumption={updateEnergyConsumption3}
+              updateEnergyConsumption={updateEnergyConsumption}
             />
           }
         ></Route>
@@ -107,61 +114,59 @@ export default function App() {
     </>
   );
 
-  function updateEnergyConsumption1(inputEnergyConsumptionValue) {
-    const newInput1 = {
+  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle) {
+    const newInput = {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory.electric[0].value,
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory.`${categoryToHandle}`[0].value,
     };
 
-    if (newInput1.value >= energyConsumptionHistory.electric[0].value) {
+    alert(`${categoryToHandle}`);
+
+    if (newInput.value >= energyConsumptionHistory.electric[0].value) {
+      if (`${categoryToHandle}` === 'electric') {
+        setEnergyConsumptionHistory({
+          electric: [newInput, ...energyConsumptionHistory.electric],
+          heating: [...energyConsumptionHistory.heating],
+          mobility: [...energyConsumptionHistory.mobility],
+        });
+        if (oldInputElectricLength !== energyConsumptionHistory.electric[0].length) {
+          setMessageText(messages.success);
+        } else {
+          setMessageText('please input > or = ' + energyConsumptionHistory.electric[0].value);
+        }
+      }
+    }
+    if (`${categoryToHandle}` === 'heating') {
       setEnergyConsumptionHistory({
-        electric: [newInput1, ...energyConsumptionHistory.electric],
-        heating: [...energyConsumptionHistory.heating],
+        electric: [...energyConsumptionHistory.electric],
+        heating: [newInput, ...energyConsumptionHistory.heating],
         mobility: [...energyConsumptionHistory.mobility],
       });
-      if (oldInputElectricLength !== energyConsumptionHistory.electric.length) {
+    }
+    if (`${categoryToHandle}` === 'mobility') {
+      setEnergyConsumptionHistory({
+        electric: [...energyConsumptionHistory.electric],
+        heating: [...energyConsumptionHistory.heating],
+        mobility: [newInput, ...energyConsumptionHistory.mobility],
+      });
+    }
+  }
+}
+
+/*    if (oldInputElectricLength !== energyConsumptionHistory.categoryToHandle.length) {
         setMessageText(messages.success);
       } else {
         setMessageText(messages.dataNeeded);
       }
-      if (energyConsumptionHistory.electric[0].increase > dailyTotalBudget) {
+      if (energyConsumptionHistory.categoryToHandle[0].increase > dailyTotalBudget) {
         setMessageText(messages[2].text);
       }
     } else {
-      setMessageText('please input > or = ' + energyConsumptionHistory.electric[0].value);
+      setMessageText('please input > or = ' + energyConsumptionHistory.categoryToHandle[0].value);
     }
-  }
-
-  function updateEnergyConsumption2(inputEnergyConsumptionValue) {
-    const newInput2 = {
-      id: nanoid(),
-      date: new Date(),
-      value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory.heating[0].value,
-    };
-    setEnergyConsumptionHistory({
-      electric: [...energyConsumptionHistory.electric],
-      heating: [newInput2, ...energyConsumptionHistory.heating],
-      mobility: [...energyConsumptionHistory.mobility],
-    });
-  }
-
-  function updateEnergyConsumption3(inputEnergyConsumptionValue) {
-    const newInput3 = {
-      id: nanoid(),
-      date: new Date(),
-      value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory.heating[0].value,
-    };
-    setEnergyConsumptionHistory({
-      electric: [...energyConsumptionHistory.electric],
-      heating: [...energyConsumptionHistory.heating],
-      mobility: [newInput3, ...energyConsumptionHistory.mobility],
-    });
-  }
-}
+  } */
 
 const MainHeading = styled.h1`
   width: 100%;

@@ -34,7 +34,7 @@ const FooterMenu = styled.footer`
     border-style: solid red 3px;
     display: flex;
     align-items: center;
-    border-radius: 999px;
+    border-radius: 50%;
     position: relative;
     top: -15px;
     justify-content: center;

@@ -28,6 +28,6 @@ function BarChart({barChartData}) {
 export default BarChart;
 
 const BarChartContainer = styled.div`
-  width: auto;
-  height: 100px;
+  width: 20rem;
+  height: 120px;
 `;

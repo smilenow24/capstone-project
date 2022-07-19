@@ -9,7 +9,6 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
   });
   const saldoIncrease = energyConsumptionHistory.mobility[0].increase - dailyTotalBudget;
   const restBudget = totalBudget - totalConsumption[0];
-  console.log(totalConsumption[1]);
   return (
     <Wrapper>
       <h2>{formattedActualDate}</h2>
