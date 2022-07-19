@@ -12,7 +12,6 @@ export default function setActiveChartButton({onChartActiveEvent}) {
 
 const ChangeChartButton = styled.button`
   width: 6vh;
-  padding: 1px;
   border-radius: 10%;
   background-color: lightcyan;
   display: flex;

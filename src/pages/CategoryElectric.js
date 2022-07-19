@@ -97,17 +97,6 @@ const InputDataList = styled.ul`
   max-height: 100px;
   padding: 0.1px 20px 0.1px 20px;
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    border: 2px solid white;
-    background: red;
-    -webkit-appearance: none;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: green;
-  }
-
   li {
     padding: 1px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
