@@ -1,19 +1,19 @@
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-import iconCategoryElect from '../imgicon/cat-elect-icon.png';
-import iconMenuButton from '../imgicon/icon-menu-button.png';
+import iconMenuButton from '../imgicon/input-list-icon.png';
 
-export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease}) {
+export default function CategoryButton({onSelect, lastInputValue, lastInputIncrease, categoryIcon}) {
   return (
     <CategoryField>
       <IconContainer>
-        <img src={iconCategoryElect} alt=" " />
+        <CategoryIcon src={categoryIcon} alt=" " />
       </IconContainer>
-      <span>Your last input: {lastInputValue} watt/h</span>
-      <span>Last amount of increase: {lastInputIncrease} watt/h</span>
-      <button name="categoryButton" onClick={onSelect}>
-        <img src={iconMenuButton} alt="category electricity button" />
-      </button>
+      <CategoryValues>Your last input: {lastInputValue} watt/h</CategoryValues>
+      <CategoryValues>Last amount of increase: {lastInputIncrease} watt/h</CategoryValues>
+      <LinkContainer to={onSelect} name="categoryButton" onClick={onSelect}>
+        <CategoryIcon src={iconMenuButton} alt="category electricity button" />
+      </LinkContainer>
     </CategoryField>
   );
 }
@@ -22,43 +22,46 @@ const CategoryField = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 14vh;
+  height: 17vh;
+  border-style: 4px solid white;
   background-color: black;
-  margin: 2vh 3vh 1vh 3vh;
+  margin: 4vh 3vh 4vh 3vh;
+`;
+const LinkContainer = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10vh;
+  height: 10vh;
+  margin: 4px;
+  background-color: darkred;
+  border-width: 0;
+  border-radius: 10%;
+  padding-right: 2vh;
+  padding-left: 2vh;
 
-  #LineChart {
-    width: 50px;
+  &:hover {
+    width: 12vh;
+    height: 12vh;
   }
+`;
 
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10vh;
-    height: 100%;
-    background-color: darkred;
-    border-width: 0;
-    padding-right: 2vh;
-    padding-left: 2vh;
-  }
+const CategoryValues = styled.span`
+  color: #2aff00;
+  font-size: 1rem;
+  text-align: center;
+`;
 
-  img {
-    width: 8vh;
-    height: 8vh;
-  }
-
-  span {
-    color: #2aff00;
-    font-size: 1rem;
-    text-align: center;
-  }
+const CategoryIcon = styled.img`
+  width: 8vh;
+  height: 8vh;
 `;
 
 const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkred;
+  background-color: darkgreen;
   height: 100%;
   width: 10vh;
 `;

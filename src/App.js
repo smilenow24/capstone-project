@@ -1,107 +1,127 @@
 import {nanoid} from 'nanoid';
 import {useState} from 'react';
+import {Routes, Route} from 'react-router-dom';
 import styled from 'styled-components';
 
-import BarChart from './components/BarChart';
 import CategoryButton from './components/CategoryButton';
+import Footer from './components/Footer.js';
 import Header from './components/Header';
-import InfoBoard from './components/InfoBoard.js';
-import InputDataDialog from './components/InputDataDialog.js';
-import LineChart from './components/LineChart';
-import ReturnButton from './components/ReturnButton';
+import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
+import catElectIcon from './imgicon/cat-elect-icon.png';
+import heaterIcon from './imgicon/heater-icon.png';
+import mobilityIcon from './imgicon/mobility-icon.png';
+import CategoryElectric from './pages/CategoryElectric.js';
+import CategoryHeating from './pages/CategoryHeating.js';
+import CategoryMobilitiy from './pages/CategoryMobility.js';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
   const [energyConsumptionHistory, setEnergyConsumptionHistory] = useState(initialInputData);
-  const [messageText, setMessageText] = useState(messages[0].text);
-  const [currentPage, setCurrentPage] = useState('home');
-
+  const [messageText, setMessageText] = useState('How are you?');
+  const [activeChart, setActiveChart] = useState(true);
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  const oldInputLength = initialInputData.length;
   const dailyTotalBudget = 1000;
-  const chartInputData = updateChart();
-
   return (
     <>
-      <Header showMessage={messageText} />
-      {currentPage === 'electricity' && <ReturnButton onReturn={() => setCurrentPage(!currentPage)} />}
-      <MainHeading>Energy-Budget-App</MainHeading>
-      {currentPage === 'home' && (
-        <CategoryButton
-          lastInputValue={energyConsumptionHistory[0].value}
-          lastInputIncrease={energyConsumptionHistory[0].increase}
-          onSelect={() => setCurrentPage(!currentPage)}
+      <Header
+        showMessage={messageText}
+        handleConsumptionChange={energyConsumptionHistory}
+        dailyTotalBudget={dailyTotalBudget}
+      />
+      <Routes>
+        <Route path="/" element={<StartDisplay />} />
+        <Route
+          path="/home"
+          element={
+            <>
+              <MainHeading>Energy-Budget-App</MainHeading>
+              <CategoryButton
+                lastInputValue={energyConsumptionHistory.electric[0].value}
+                lastInputIncrease={energyConsumptionHistory.electric[0].increase}
+                onSelect={'/home/electric'}
+                categoryIcon={catElectIcon}
+              />
+              <CategoryButton
+                lastInputValue={energyConsumptionHistory.heating[0].value}
+                lastInputIncrease={energyConsumptionHistory.heating[0].increase}
+                onSelect={'/home/heating'}
+                categoryIcon={heaterIcon}
+              />
+              <CategoryButton
+                lastInputValue={energyConsumptionHistory.mobility[0].value}
+                lastInputIncrease={energyConsumptionHistory.mobility[0].increase}
+                onSelect={'/home/mobility'}
+                categoryIcon={mobilityIcon}
+              />
+            </>
+          }
         />
-      )}
-      {currentPage === 'electricity' && (
-        <MainContainer>
-          <InfoBoard
-            energyConsumptionHistory={energyConsumptionHistory}
-            dailyTotalBudget={dailyTotalBudget}
-            totalConsumption={totalConsumption}
-          />
-          <InputDataList role="list">
-            {energyConsumptionHistory.map(({date, value, id, increase}) => (
-              <li key={id}>
-                {date.toLocaleDateString('en-GB', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit',
-                })}{' '}
-                - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-              </li>
-            ))}
-            <LineChart lineChartData={chartInputData} />
-            <BarChart barChartData={chartInputData} />
-          </InputDataList>
-          <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} />
-        </MainContainer>
-      )}
+        <Route
+          path="/home/electric"
+          element={
+            <CategoryElectric
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption={updateEnergyConsumption}
+            />
+          }
+        ></Route>
+        <Route
+          path="/home/heating"
+          element={
+            <CategoryHeating
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption={updateEnergyConsumption}
+            />
+          }
+        ></Route>
+        <Route
+          path="/home/mobility"
+          element={
+            <CategoryMobilitiy
+              energyConsumptionHistory={energyConsumptionHistory}
+              dailyTotalBudget={dailyTotalBudget}
+              totalConsumption={totalConsumption}
+              setActiveChart={setActiveChart}
+              activeChart={activeChart}
+              messageText={messageText}
+              setEnergyConsumptionHistory={setEnergyConsumptionHistory}
+              updateEnergyConsumption={updateEnergyConsumption}
+            />
+          }
+        ></Route>
+      </Routes>
+      <Footer />
     </>
   );
 
-  function updateChart() {
-    const chartInputData = {
-      labels: energyConsumptionHistory.reverse().map(input =>
-        input.date.toLocaleDateString('en-GB', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        })
-      ),
-      datasets: [
-        {
-          label: 'Consumption Data',
-          data: energyConsumptionHistory.map(input => input.increase),
-          borderColor: energyConsumptionHistory.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
-          borderWidth: '2',
-        },
-      ],
-    };
-    return chartInputData;
-  }
-
-  function updateEnergyConsumption(inputEnergyConsumptionValue) {
+  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle) {
     const newInput = {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
-      increase: inputEnergyConsumptionValue - energyConsumptionHistory[0].value,
+      increase: inputEnergyConsumptionValue - energyConsumptionHistory[categoryToHandle][0].value,
     };
-
-    if (newInput.value >= energyConsumptionHistory[0].value) {
-      setEnergyConsumptionHistory([newInput, ...energyConsumptionHistory]);
-      if (oldInputLength !== energyConsumptionHistory.length) {
-        setMessageText(messages.success);
-      } else {
-        setMessageText(messages.dataNeeded);
-      }
-      if (energyConsumptionHistory[0].increase > dailyTotalBudget) {
-        setMessageText(messages[2].text);
-      }
+    if (newInput.value >= energyConsumptionHistory[categoryToHandle][0].value) {
+      setEnergyConsumptionHistory({
+        ...energyConsumptionHistory,
+        [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
+      });
+      setMessageText(messages.success);
     } else {
-      setMessageText('please input > or = ' + energyConsumptionHistory[0].value);
+      setMessageText('please input > or = ' + energyConsumptionHistory[categoryToHandle][0].value);
     }
   }
 }
@@ -111,28 +131,4 @@ const MainHeading = styled.h1`
   padding-top: 70px;
   color: white;
   text-align: center;
-`;
-
-const MainContainer = styled.main`
-  height: 100%;
-  width: 90%;
-  margin: 20px;
-  padding: 10px;
-  background-color: lightblue;
-  border-radius: 30px;
-`;
-
-const InputDataList = styled.ul`
-  list-style: none;
-  overflow-y: auto;
-  padding: 0.1px 20px 0.1px 20px;
-
-  li {
-    padding: 4px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-      sans-serif;
-    font-weight: bolder;
-    font-size: 15px;
-    border-bottom: 1px solid;
-  }
 `;
