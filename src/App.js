@@ -14,6 +14,7 @@ import mobilityIcon from './imgicon/mobility-icon.png';
 import CategoryElectric from './pages/CategoryElectric.js';
 import CategoryHeating from './pages/CategoryHeating.js';
 import CategoryMobilitiy from './pages/CategoryMobility.js';
+import PersonalBudgetConfig from './pages/PersonalBudgetConfig.js';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
   const [activeChart, setActiveChart] = useState(true);
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
   const dailyTotalBudget = 1000;
+  const totalBudget = 30000;
   return (
     <>
       <Header
@@ -102,30 +104,36 @@ export default function App() {
             />
           }
         ></Route>
+
+        <Route path="/home/personalbudget" element={<PersonalBudgetConfig />}></Route>
       </Routes>
       <Footer />
     </>
   );
 
-  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle) {
+  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle, totalConsumption) {
     const newInput = {
       id: nanoid(),
       date: new Date(),
       value: Number(inputEnergyConsumptionValue),
       increase: inputEnergyConsumptionValue - energyConsumptionHistory[categoryToHandle][0].value,
     };
+
     if (newInput.value >= energyConsumptionHistory[categoryToHandle][0].value) {
       setEnergyConsumptionHistory({
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      setMessageText(messages.success);
+      if (totalConsumption[categoryToHandle][0] * 30 < totalBudget) {
+        setMessageText(messages.totalBudgetOk);
+      } else {
+        setMessageText(messages.totalBudgetExceeded);
+      }
     } else {
       setMessageText('please input > or = ' + energyConsumptionHistory[categoryToHandle][0].value);
     }
   }
 }
-
 const MainHeading = styled.h1`
   width: 100%;
   padding-top: 70px;

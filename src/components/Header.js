@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
-export default function Header({showMessage, handleConsumptionChange}) {
+export default function Header({showMessage, handleConsumptionChange, categoryToHandle}) {
   return (
     <Top>
-      <Smile handleConsumptionChange={handleConsumptionChange}>
+      <Smile handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle}>
         <EyeContainer>
           <Eye></Eye>
           <Eye></Eye>
         </EyeContainer>
         <Mouth>
-          <MouthLeft />
-          <MouthRight />
+          <MouthLeft handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
+          <MouthRight handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
         </Mouth>
       </Smile>
-      <Speechbubble>
-        <SpeechBubbleTriangle />
+      <Speechbubble handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle}>
+        <SpeechBubbleTriangle handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
         <span>{showMessage}</span>
       </Speechbubble>
     </Top>
@@ -32,7 +32,6 @@ const Top = styled.header`
 `;
 
 const Speechbubble = styled.div`
-  background-color: green;
   position: relative;
   top: 30px;
   left: 133px;
@@ -44,6 +43,8 @@ const Speechbubble = styled.div`
   padding: 0.1px;
   display: flex;
   align-items: center;
+  background-color: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? 'green' : 'darkred'};
 
   span {
     max-width: 140px;
@@ -61,9 +62,10 @@ const SpeechBubbleTriangle = styled.div`
   border-top: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid transparent;
-  border-left: 20px solid green;
   position: relative;
   top: -20px;
+  border-left: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? '20px solid green;' : '20px solid darkred'};
 `;
 
 const Smile = styled.div`
@@ -117,24 +119,27 @@ const Mouth = styled.section`
 `;
 
 const MouthLeft = styled.div`
-  height: 3px;
+  height: 4px;
   width: 28px;
-  transform: rotate(18deg);
   padding: 1px;
   background-color: white;
-  border-radius: 1111px;
+  border-radius: 50%;
   position: relative;
   top: -6px;
-  left: 3px;
+  right: -2px;
+  transform: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(22deg)' : 'rotate(166deg)'};
 `;
 const MouthRight = styled.div`
-  height: 3px;
+  height: 4px;
   width: 25px;
   transform: rotate(162deg);
   padding: 1px;
   background-color: white;
-  border-radius: 1111px;
+  border-radius: 50%;
   position: relative;
   top: -6px;
   right: 3px;
+  transform: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(162)' : 'rotate(195deg)'};
 `;

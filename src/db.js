@@ -69,5 +69,6 @@ export const messages = {
   inputAwait: 'New input please',
   inputToHight: 'Increase to high!',
   dailyBudgetExceeded: 'Your consumption is to high',
+  totalBudgetOk: 'Total consumption OK',
   totalBudgetExceeded: 'Your total consumption is to high',
 };

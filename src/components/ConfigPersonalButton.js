@@ -1,16 +1,17 @@
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 import configPersonalButton from '../imgicon/config-person.png';
 
 export default function ConfigPersonalButton() {
   return (
-    <ConfigButton>
+    <ConfigButton to={'/home/personalbudget'}>
       <img name="configButton" src={configPersonalButton} alt="personal basic data edit" />
     </ConfigButton>
   );
 }
 
-const ConfigButton = styled.button`
+const ConfigButton = styled(Link)`
   width: 50px;
   height: 50px;
   display: flex;
@@ -20,8 +21,4 @@ const ConfigButton = styled.button`
   border-radius: 999px;
   position: relative;
   top: -7px;
-
-  img {
-    background-color: transparent;
-  }
 `;
