@@ -22,8 +22,8 @@ export default function App() {
   const [messageText, setMessageText] = useState('How are you?');
   const [activeChart, setActiveChart] = useState(true);
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  const dailyTotalBudget = 1000;
-  const totalBudget = 30000;
+  const dailyTotalBudget = 1100;
+  //const totalBudget = 30000;
   return (
     <>
       <Header
@@ -118,22 +118,23 @@ export default function App() {
       value: Number(inputEnergyConsumptionValue),
       increase: inputEnergyConsumptionValue - energyConsumptionHistory[categoryToHandle][0].value,
     };
-
+    console.log(energyConsumptionHistory[categoryToHandle][0].increase);
     if (newInput.value >= energyConsumptionHistory[categoryToHandle][0].value) {
       setEnergyConsumptionHistory({
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      if (totalConsumption[categoryToHandle][0] * 30 < totalBudget) {
-        setMessageText(messages.totalBudgetOk);
+      if (energyConsumptionHistory[categoryToHandle][0].increase < 1100) {
+        setMessageText(messages.success);
       } else {
-        setMessageText(messages.totalBudgetExceeded);
+        setMessageText(messages.inputToHight);
       }
     } else {
       setMessageText('please input > or = ' + energyConsumptionHistory[categoryToHandle][0].value);
     }
   }
 }
+
 const MainHeading = styled.h1`
   width: 100%;
   padding-top: 70px;

@@ -38,7 +38,7 @@ const Speechbubble = styled.div`
   border-radius: 111px;
   border-style: solid;
   overflow-wrap: break-word;
-  max-width: 165px;
+  max-width: 150px;
   height: 67px;
   padding: 0.1px;
   display: flex;

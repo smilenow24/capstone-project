@@ -26,6 +26,8 @@ const CategoryField = styled.section`
   border-style: 4px solid white;
   background-color: black;
   margin: 4vh 3vh 4vh 3vh;
+  border: solid 2px white;
+  border-radius: 20px;
 `;
 const LinkContainer = styled(Link)`
   display: flex;
@@ -34,7 +36,7 @@ const LinkContainer = styled(Link)`
   width: 10vh;
   height: 10vh;
   margin: 4px;
-  background-color: darkred;
+  background-color: darkgreen;
   border-width: 0;
   border-radius: 10%;
   padding-right: 2vh;
@@ -59,9 +61,9 @@ const CategoryIcon = styled.img`
 
 const IconContainer = styled.div`
   display: flex;
+  margin: 3vh;
   justify-content: center;
   align-items: center;
-  background-color: darkgreen;
-  height: 100%;
-  width: 10vh;
+  height: 90%;
+  width: 5vh;
 `;

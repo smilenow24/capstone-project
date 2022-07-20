@@ -6,7 +6,7 @@ export default function AnimateStartDisplay() {
       <MainHeader>Energy-Budget-App</MainHeader>
       <AnimationContainer>
         <EnergyPowerBall></EnergyPowerBall>
-        <span>Loading App</span>
+        <span>Loading App...</span>
       </AnimationContainer>
     </MainWrapper>
   );
@@ -18,6 +18,7 @@ const MainWrapper = styled.section`
   align-items: center;
   flex-wrap: wrap;
   height: 95vh;
+  max-width: 70vh;
   background: linear-gradient(70deg, black, blue, black);
 `;
 
@@ -43,8 +44,9 @@ const AnimationContainer = styled.section`
     padding-top: 16vh;
     font-size: 1rem;
     color: white;
-    animation: animate 4s linear;
-    animation-iteration-count: 3;
+    animation: animate 3s linear;
+    animation-iteration-count: 4;
+
     @keyframes animate {
       0% {
         transform: scale(0.5);

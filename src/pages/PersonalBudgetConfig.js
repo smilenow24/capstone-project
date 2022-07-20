@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default function PersonalBudgetConfig() {
+export default function PersonalBudgetConfig({updateDailyBudget}) {
   return (
     <>
       <ConfigHeadline>Personal Budget Configuration</ConfigHeadline>;
@@ -9,7 +9,7 @@ export default function PersonalBudgetConfig() {
         This is the consumption you do not want to exceed on a daily basis
       </ConfigArticleExplanation>
       <Wrapper>
-        <ConfigForm>
+        <ConfigForm onSubmit={handleOnSubmitEvent}>
           <label>Daily-Budget for electricity in watt/h</label>
           <span>Actual value: 1000 watt/h</span>
           <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldElectric" name="inputfield" />
@@ -26,6 +26,15 @@ export default function PersonalBudgetConfig() {
       </Wrapper>
     </>
   );
+
+  function handleOnSubmitEvent(onSubmitEvent) {
+    onSubmitEvent.preventDefault();
+    const inputBudgetData = onSubmitEvent.target;
+    const inputBudgetDataValue = inputBudgetData.elements.inputfield.value.trim();
+
+    onSubmitEvent.target.reset();
+    updateDailyBudget(inputBudgetDataValue);
+  }
 }
 
 const Wrapper = styled.section`

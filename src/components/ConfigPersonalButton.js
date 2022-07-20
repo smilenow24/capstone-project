@@ -18,7 +18,6 @@ const ConfigButton = styled(Link)`
   justify-content: center;
   align-items: center;
   background-color: white;
-  border-radius: 999px;
-  position: relative;
-  top: -7px;
+  border-radius: 50%;
+  border: solid 2px black;
 `;

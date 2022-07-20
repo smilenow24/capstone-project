@@ -23,23 +23,28 @@ export default function PageCategoryElectric({
         dailyTotalBudget={dailyTotalBudget}
         totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
       />
-      <InputDataList role="list">
-        {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
-          <li key={id}>
-            {date.toLocaleDateString('en-GB', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-            })}{' '}
-            - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-          </li>
-        ))}
-      </InputDataList>
-      <ChartContainer>
-        <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-        {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
-        {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
-      </ChartContainer>
+      <ConsumptionDataInformation>
+        <TotalListEntries>
+          Your data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
+        </TotalListEntries>
+        <InputDataList role="list">
+          {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
+            <li key={id}>
+              {date.toLocaleDateString('en-GB', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              })}{' '}
+              - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+            </li>
+          ))}
+        </InputDataList>
+        <ChartContainer>
+          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+          {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
+          {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
+        </ChartContainer>
+      </ConsumptionDataInformation>
       <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
     </MainContainer>
   );
@@ -72,17 +77,33 @@ const MainContainer = styled.main`
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  width: 90%;
-  margin: 65px 20px 20px 20px;
-  padding: 10px;
+  max-width: 60vh;
+  margin: 45px 0 0 0;
+  padding: 5px;
+`;
+
+const TotalListEntries = styled.div`
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+  margin: 1vh;
+`;
+
+const ConsumptionDataInformation = styled.section`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 40vh;
   background-color: lightblue;
   border-radius: 30px;
+  border: solid 2px white;
+  margin: 1vh 0 2vh 0;
 `;
 
 const ChartContainer = styled.section`
-  height: 150px;
+  height: 140px;
   width: 300px;
-  margin-bottom: 1vh;
 
   &SetActiveChartButton {
     width: 200px;
@@ -94,8 +115,9 @@ const InputDataList = styled.ul`
   overflow-y: scroll;
   overscroll-behavior: show;
   line-height: normal;
-  max-height: 100px;
-  padding: 0.1px 20px 0.1px 20px;
+  max-height: 85px;
+  margin: 0;
+  padding: 0.1px 10px 0.1px 10px;
 
   li {
     padding: 1px;

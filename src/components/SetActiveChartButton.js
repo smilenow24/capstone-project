@@ -17,7 +17,8 @@ const ChangeChartButton = styled.button`
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 300px;
+  top: 350px;
+  left: 320px;
   padding: 0.3vh 0.3vh 0.3vh 0.3vh;
 
   img {

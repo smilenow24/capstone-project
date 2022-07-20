@@ -11,9 +11,8 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
   const restBudget = totalBudget - totalConsumption[0];
   return (
     <Wrapper>
-      <h2>{formattedActualDate}</h2>
       <dl>
-        <dt>total entries: {energyConsumptionHistory.electric.length}</dt>
+        <h2>{formattedActualDate}</h2>
         <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}watt/h</dt>
         <dt>
           total budget: {totalBudget} - rest budget: {restBudget}
@@ -31,18 +30,21 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
 }
 
 const Wrapper = styled.section`
-  display: flex;
+  width: 60vh;
   background-color: #053f72;
+  border: solid 2px white;
   border-radius: 20px;
+  margin: 1vh 0 0.5vh 0;
+  text-align: center;
+  line-height: 3.3vh;
 
   h2 {
+    margin: 0;
     color: white;
-    padding: 0.1vh 2vh 0.1vh 2vh;
     font-size: medium;
   }
 
   dl {
-    width: 40vh;
     font-size: 2vh;
     list-style: none;
     padding: 0.1vh;
@@ -51,6 +53,7 @@ const Wrapper = styled.section`
 
   dt {
     color: white;
+    font-size: 1rem;
   }
 
   dd {
