@@ -9,10 +9,12 @@ const options = {
     legend: {
       display: false,
       position: 'false',
+      labels: {fontColor: 'white'},
     },
     title: {
       display: 'false',
       text: 'absolute values of increase per day',
+      color: 'white',
     },
   },
   scales: {

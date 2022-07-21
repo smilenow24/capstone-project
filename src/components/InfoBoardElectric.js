@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalBudget, totalConsumption}) {
-  const totalBudget = 30000;
+  const totalBudget = 34100;
   const formattedActualDate = new Date().toLocaleDateString('en-GB', {
     year: 'numeric',
     month: '2-digit',
@@ -13,7 +13,7 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
     <Wrapper>
       <dl>
         <h2>{formattedActualDate}</h2>
-        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}watt/h</dt>
+        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')} watt/h</dt>
         <dt>
           total budget: {totalBudget} - rest budget: {restBudget}
         </dt>
@@ -31,16 +31,15 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
 
 const Wrapper = styled.section`
   width: 60vh;
-  background-color: #053f72;
-  border: solid 2px white;
   border-radius: 20px;
-  margin: 1vh 0 0.5vh 0;
+  margin: 1vh 0 0 0;
   text-align: center;
   line-height: 3.3vh;
+  padding-top: 5px;
 
   h2 {
     margin: 0;
-    color: white;
+    color: #d7dcde;
     font-size: medium;
   }
 
@@ -52,7 +51,7 @@ const Wrapper = styled.section`
   }
 
   dt {
-    color: white;
+    color: #d7dcde;
     font-size: 1rem;
   }
 

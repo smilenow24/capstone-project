@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 
-import iconReturnButton from '../imgicon/returnIcon.png';
+import iconReturnButton from '../imgicon/returnIcon.svg';
 
 export default function ReturnButton() {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ const ReturnFooterButton = styled.button`
   height: 45px;
   border-radius: 999px;
   border: solid 2px black;
+  background-color: #d7dcde;
 
   .ReturnFooterButton:hover {
     width: 7vh;

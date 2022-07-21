@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalBudget, totalConsumption}) {
-  const totalBudget = 30000;
+  const totalBudget = 1395;
   const formattedActualDate = new Date().toLocaleDateString('en-GB', {
     year: 'numeric',
     month: '2-digit',
@@ -11,10 +11,9 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
   const restBudget = totalBudget - totalConsumption[0];
   return (
     <Wrapper>
-      <h2>{formattedActualDate}</h2>
       <dl>
-        <dt>total entries: {energyConsumptionHistory.mobility.length}</dt>
-        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')}km</dt>
+        <h2>{formattedActualDate}</h2>
+        <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')} km</dt>
 
         <dt>
           total budget: {totalBudget} - rest budget: {restBudget}
@@ -32,26 +31,29 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
 }
 
 const Wrapper = styled.section`
-  display: flex;
-  background-color: #053f72;
+  width: 60vh;
   border-radius: 20px;
+  margin: 1vh 0 0 0;
+  text-align: center;
+  line-height: 3.3vh;
+  padding-top: 5px;
 
   h2 {
-    color: white;
-    padding: 0.1vh 2vh 0.1vh 2vh;
+    margin: 0;
+    color: #d7dcde;
     font-size: medium;
   }
 
   dl {
-    width: 40vh;
-    font-size: small;
+    font-size: 2vh;
     list-style: none;
     padding: 0.1vh;
-    border-bottom: none;
+    border-style: 1px solid black;
   }
 
   dt {
-    color: white;
+    color: #d7dcde;
+    font-size: 1rem;
   }
 
   dd {
@@ -59,6 +61,6 @@ const Wrapper = styled.section`
   }
 
   b {
-    font-size: medium;
+    font-size: large;
   }
 `;

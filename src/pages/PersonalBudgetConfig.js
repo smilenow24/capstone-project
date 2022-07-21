@@ -1,78 +1,88 @@
+import {useState} from 'react';
 import styled from 'styled-components';
 
-export default function PersonalBudgetConfig({updateDailyBudget}) {
+export default function PersonalBudgetConfig() {
+  const [actualBudget, setActualBudget] = useState(1400);
+  console.log(handleBudgetEvent);
   return (
     <>
-      <ConfigHeadline>Personal Budget Configuration</ConfigHeadline>;
-      <ConfigArticle>Please insert your daily-budget for enerergy consumption of every category</ConfigArticle>
-      <ConfigArticleExplanation>
-        This is the consumption you do not want to exceed on a daily basis
-      </ConfigArticleExplanation>
       <Wrapper>
-        <ConfigForm onSubmit={handleOnSubmitEvent}>
-          <label>Daily-Budget for electricity in watt/h</label>
+        <ConfigHeadline>Personal Budget Configuration</ConfigHeadline>;
+        <ConfigArticle>Please insert your daily-budget for enerergy consumption of every category</ConfigArticle>
+        <ConfigArticleExplanation>
+          This is the consumption you do not want to exceed on a daily basis
+        </ConfigArticleExplanation>
+        <form onSubmit={handleBudgetEvent}>
+          <label htmlFor="budgetFieldElectric">Daily-Budget for electricity in watt/h</label>
+          <span>Actual value: {actualBudget} watt/h</span>
+          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldElectric" name="budgetFieldElectric" />
+          <button>submit</button>
+        </form>
+        <form>
+          <label htmlFor="budgetFieldHeating">Daily-Budget for heating in watt/h</label>
           <span>Actual value: 1000 watt/h</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldElectric" name="inputfield" />
+          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldHeating" name="budgetFieldHeating" />
           <button>submit</button>
-          <label>Daily-Budget for heating in watt/h</label>
-          <span>Actual value: 1000 watt/h</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldHeating" name="inputfield" />
+        </form>
+        <form>
+          <label htmlFor="budgetFieldMobility">Daily-Budget for mobility in km</label>
+          <span>Actual value: 45 km</span>
+          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldMobility" name="budgetFieldMobility" />
           <button>submit</button>
-          <label>Daily-Budget for mobility in km</label>
-          <span>Actual value: 1000 km</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldMobility" name="inputfield" />
-          <button>submit</button>
-        </ConfigForm>
+        </form>
       </Wrapper>
     </>
   );
 
-  function handleOnSubmitEvent(onSubmitEvent) {
-    onSubmitEvent.preventDefault();
-    const inputBudgetData = onSubmitEvent.target;
-    const inputBudgetDataValue = inputBudgetData.elements.inputfield.value.trim();
+  function handleBudgetEvent(handleBudgetEvent) {
+    handleBudgetEvent.preventDefault();
+    const inputBudgetData = handleBudgetEvent.target;
+    const inputBudgetDataValue = inputBudgetData.elements.budgetFieldElectric.value.trim();
 
-    onSubmitEvent.target.reset();
-    updateDailyBudget(inputBudgetDataValue);
+    handleBudgetEvent.target.reset();
+    setActualBudget(inputBudgetDataValue);
   }
 }
+
+const ConfigHeadline = styled.h2`
+  margin: 2vh;
+  padding-top: 10vh;
+  font-size: 3vh;
+  text-align: center;
+  color: #d7dcde;
+`;
+
+const ConfigArticle = styled.article`
+  margin: 1vh;
+  text-align: center;
+  color: #d7dcde;
+`;
+
+const ConfigArticleExplanation = styled.article`
+  margin-top: 1vh;
+  margin-bottom: 4vh;
+  text-align: center;
+  color: #d7dcde;
+  font-size: 1rem;
+`;
 
 const Wrapper = styled.section`
   display: flex;
   justify-content: center;
-  width: 100%;
-`;
 
-const ConfigHeadline = styled.h2`
-  margin: 0;
-  padding-top: 13vh;
-  text-align: center;
-  color: white;
-`;
-
-const ConfigArticle = styled.article`
-  margin: 0.5vh;
-  text-align: center;
-  color: white;
-`;
-
-const ConfigArticleExplanation = styled.article`
-  margin: 1vh;
-  text-align: center;
-  color: white;
-  font-size: 1rem;
-`;
-
-const ConfigForm = styled.form`
-  display: flex;
-  justify-content: center;
-  width: 60vh;
   flex-wrap: wrap;
   margin: 0;
-  padding-top: 2vh;
+  padding: 2vh;
   text-align: center;
   font-size: medium;
-  color: white;
+  color: #d7dcde;
+  overflow: hidden;
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
   label {
     margin: 0;
@@ -84,7 +94,8 @@ const ConfigForm = styled.form`
   span {
     font-size: 1rem;
     width: 100%;
-    margin: 0.1vh;
+    margin: 0.5vh;
+    text-align: center;
   }
 
   input {
@@ -101,6 +112,6 @@ const ConfigForm = styled.form`
     border-style: none;
     font-size: medium;
     font-weight: 600;
-    color: white;
+    color: #d7dcde;
   }
 `;

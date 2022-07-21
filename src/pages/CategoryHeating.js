@@ -23,23 +23,29 @@ export default function PageCategoryHeating({
         dailyTotalBudget={dailyTotalBudget}
         totalConsumption={[totalConsumption.totalHeating, totalConsumption.averageIncreaseHeatingRounded]}
       />
-      <InputDataList role="list">
-        {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
-          <li key={id}>
-            {date.toLocaleDateString('en-GB', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-            })}{' '}
-            - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-          </li>
-        ))}
-      </InputDataList>
-      <ChartContainer>
-        <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-        {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
-        {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
-      </ChartContainer>
+      <ConsumptionDataInformation>
+        <TotalListEntries>
+          Your data list with {energyConsumptionHistory.heating.length} entries in watt/h:{' '}
+        </TotalListEntries>
+
+        <InputDataList role="list">
+          {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
+            <li key={id}>
+              {date.toLocaleDateString('en-GB', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              })}{' '}
+              - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+            </li>
+          ))}
+        </InputDataList>
+        <ChartContainer>
+          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+          {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
+          {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
+        </ChartContainer>
+      </ConsumptionDataInformation>
       <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'heating'} />
     </MainContainer>
   );
@@ -67,18 +73,42 @@ export default function PageCategoryHeating({
 }
 
 const MainContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   height: 100%;
-  width: 90%;
-  margin: 60px 20px 20px 20px;
-  padding: 10px;
-  background-color: lightblue;
-  border-radius: 30px;
+  max-width: 60vh;
+  margin: 45px 0 0 0;
+`;
+
+const TotalListEntries = styled.div`
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+  margin: 1vh;
+  color: #d7dcde;
+`;
+
+const ConsumptionDataInformation = styled.section`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 42vh;
+  margin-bottom: 10px;
+  color: #d7dcde;
+  background-color: #1f2f40;
+  padding-bottom: 20px;
 `;
 
 const ChartContainer = styled.section`
-  height: 100px;
-  width: 320px;
-  margin-bottom: 6vh;
+  height: 140px;
+  width: 300px;
+
+  &SetActiveChartButton {
+    width: 200px;
+  }
 `;
 
 const InputDataList = styled.ul`
@@ -86,15 +116,16 @@ const InputDataList = styled.ul`
   overflow-y: scroll;
   overscroll-behavior: show;
   line-height: normal;
-  max-height: 100px;
-  padding: 0.1px 20px 0.1px 20px;
+  max-height: 85px;
+  margin: 0;
+  padding: 0.1px 10px 0.1px 10px;
 
   li {
     padding: 1px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
       sans-serif;
     font-weight: bolder;
-    font-size: 12px;
+    font-size: 14px;
     border-bottom: 1px solid;
   }
 `;

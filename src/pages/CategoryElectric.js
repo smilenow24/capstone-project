@@ -58,11 +58,13 @@ export default function PageCategoryElectric({
           day: '2-digit',
         })
       ),
+
       datasets: [
         {
           label: 'Consumption Data',
           data: energyConsumptionHistory.electric.map(input => input.increase),
-          borderColor: energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderColor:
+            energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'rgb(42, 255, 0)',
           borderWidth: '2',
         },
       ],
@@ -79,7 +81,6 @@ const MainContainer = styled.main`
   height: 100%;
   max-width: 60vh;
   margin: 45px 0 0 0;
-  padding: 5px;
 `;
 
 const TotalListEntries = styled.div`
@@ -87,6 +88,7 @@ const TotalListEntries = styled.div`
   font-size: medium;
   font-weight: 600;
   margin: 1vh;
+  color: #d7dcde;
 `;
 
 const ConsumptionDataInformation = styled.section`
@@ -94,11 +96,11 @@ const ConsumptionDataInformation = styled.section`
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  height: 40vh;
-  background-color: lightblue;
-  border-radius: 30px;
-  border: solid 2px white;
-  margin: 1vh 0 2vh 0;
+  height: 42vh;
+  margin-bottom: 10px;
+  color: #d7dcde;
+  background-color: #1f2f40;
+  padding-bottom: 20px;
 `;
 
 const ChartContainer = styled.section`

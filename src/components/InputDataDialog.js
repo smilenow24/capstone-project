@@ -5,7 +5,7 @@ export default function InputDataDialog({updateEnergyConsumption, categoryToHand
     <FormInputData onSubmit={handleSubmit}>
       <label htmlFor="inputfield">Enter actual meter reading:</label>
       <input type="text" min="0" pattern="[0-9]{1,10}" id="inputfield" name="inputfield" required />
-      <button>Submit</button>
+      <button>submit</button>
     </FormInputData>
   );
 
@@ -24,14 +24,12 @@ const FormInputData = styled.form`
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
-  background-color: #053f72;
-  border-radius: 10px;
-  border: solid 2px white;
   padding: 10px;
+  padding-left: 20px;
 
   label {
     text-align: start;
-    color: white;
+    color: #d7dcde;
     font-weight: 600;
     font-size: medium;
     width: 100%;
@@ -49,7 +47,7 @@ const FormInputData = styled.form`
     background-color: green;
     color: white;
     width: 20vh;
-    border: solid 2px white;
+    border-style: none;
     border-radius: 5px;
   }
 `;

@@ -35,10 +35,10 @@ const Speechbubble = styled.div`
   position: relative;
   top: 30px;
   left: 133px;
+  margin-right: 30px;
   border-radius: 111px;
-  border-style: solid;
   overflow-wrap: break-word;
-  max-width: 150px;
+  max-width: 133px;
   height: 67px;
   padding: 0.1px;
   display: flex;
@@ -53,6 +53,7 @@ const Speechbubble = styled.div`
     font-size: 1rem;
     position: relative;
     left: -20px;
+    font-size: 0.85em;
   }
 `;
 
@@ -82,9 +83,7 @@ const Smile = styled.div`
   flex-wrap: wrap;
   overflow: hidden;
   background: ${({handleConsumptionChange}) =>
-    handleConsumptionChange.electric[0].increase < 1100
-      ? 'linear-gradient(80deg, #578e23, #2aff00, #578e23);'
-      : 'linear-gradient(80deg, #a52c26, #ff5961, #a52c26);'};
+    handleConsumptionChange.electric[0].increase < 1100 ? '#E6C327' : '#D50000'};
   animation: animateHeader 5s linear;
 
   @keyframes animateHeader {
@@ -110,7 +109,7 @@ const Eye = styled.div`
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background-color: darkblue;
+  background-color: black;
 `;
 
 const Mouth = styled.section`
@@ -122,11 +121,11 @@ const MouthLeft = styled.div`
   height: 4px;
   width: 28px;
   padding: 1px;
-  background-color: white;
-  border-radius: 50%;
+  background-color: black;
+  border-radius: 10px;
   position: relative;
   top: -6px;
-  right: -2px;
+  right: -3px;
   transform: ${({handleConsumptionChange}) =>
     handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(22deg)' : 'rotate(166deg)'};
 `;
@@ -135,11 +134,10 @@ const MouthRight = styled.div`
   width: 25px;
   transform: rotate(162deg);
   padding: 1px;
-  background-color: white;
-  border-radius: 50%;
+  background-color: black;
+  border-radius: 10px;
   position: relative;
   top: -6px;
-  right: 3px;
   transform: ${({handleConsumptionChange}) =>
     handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(162)' : 'rotate(195deg)'};
 `;

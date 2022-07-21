@@ -6,11 +6,11 @@ import dashButton from '../imgicon/dash-button.png';
 
 import ConfigPersonalButton from './ConfigPersonalButton.js';
 
-export default function Footer() {
+export default function Footer({handleOnClickMessage}) {
   return (
     <FooterMenu className="StyledFooterMenu">
       <ReturnButton />
-      <Link className="StyledDashLink" to={'/home'}>
+      <Link onClick={handleOnClickMessage} className="StyledDashLink" to={'/home'}>
         <img src={dashButton} alt="home button" />
       </Link>
       <ConfigPersonalButton />
@@ -19,18 +19,19 @@ export default function Footer() {
 }
 
 const FooterMenu = styled.footer`
-  height: 50px;
+  height: 55px;
   width: 100%;
   background-color: black;
   display: flex;
   justify-content: space-around;
-  position: absolute;
+  position: fixed;
   bottom: 0;
+  padding-top: 5px;
 
   .StyledDashLink {
     width: 80px;
     height: 80px;
-    background-color: white;
+    background-color: #d7dcde;
     border-style: solid red 3px;
     display: flex;
     align-items: center;
@@ -43,7 +44,7 @@ const FooterMenu = styled.footer`
   .StyledDashLink:hover {
     width: 90px;
     height: 90px;
-    border: 7px solid blue;
+    border: 7px solid #2065b0;
     position: relative;
     top: -20px;
   }

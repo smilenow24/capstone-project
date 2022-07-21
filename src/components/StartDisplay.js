@@ -19,14 +19,14 @@ const MainWrapper = styled.section`
   flex-wrap: wrap;
   height: 95vh;
   max-width: 70vh;
-  background: linear-gradient(70deg, black, blue, black);
+  background: #0d2947;
 `;
 
 const MainHeader = styled.h1`
   margin-top: 20vh;
   display: flex;
   justify-content: center;
-  color: wheat;
+  color: #d7dcde;
   font-size: 70px;
   padding-left: 3vh;
   padding-right: 3vh;

@@ -8,9 +8,9 @@ import Footer from './components/Footer.js';
 import Header from './components/Header';
 import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
-import catElectIcon from './imgicon/cat-elect-icon.png';
-import heaterIcon from './imgicon/heater-icon.png';
-import mobilityIcon from './imgicon/mobility-icon.png';
+import catElectIcon from './imgicon/Vector-blitz.svg';
+import mobilityIcon from './imgicon/Vector-car.svg';
+import heaterIcon from './imgicon/Vector-heater.svg';
 import CategoryElectric from './pages/CategoryElectric.js';
 import CategoryHeating from './pages/CategoryHeating.js';
 import CategoryMobilitiy from './pages/CategoryMobility.js';
@@ -107,9 +107,13 @@ export default function App() {
 
         <Route path="/home/personalbudget" element={<PersonalBudgetConfig />}></Route>
       </Routes>
-      <Footer />
+      <Footer handleOnClickMessage={handleOnClickMessage} />
     </>
   );
+
+  function handleOnClickMessage() {
+    return setMessageText(messages.dataNeeded);
+  }
 
   function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle, totalConsumption) {
     const newInput = {
@@ -124,7 +128,7 @@ export default function App() {
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      if (energyConsumptionHistory[categoryToHandle][0].increase < 1100) {
+      if (energyConsumptionHistory[categoryToHandle][0].increase > 1100) {
         setMessageText(messages.success);
       } else {
         setMessageText(messages.inputToHight);
@@ -138,6 +142,6 @@ export default function App() {
 const MainHeading = styled.h1`
   width: 100%;
   padding-top: 70px;
-  color: white;
+  color: #d7dcde;
   text-align: center;
 `;
