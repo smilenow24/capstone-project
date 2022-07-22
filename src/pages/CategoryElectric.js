@@ -25,7 +25,7 @@ export default function PageCategoryElectric({
       />
       <ConsumptionDataInformation>
         <TotalListEntries>
-          Your data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
+          Your electric data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
         </TotalListEntries>
         <InputDataList role="list">
           {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
@@ -80,7 +80,7 @@ const MainContainer = styled.main`
   flex-wrap: wrap;
   height: 100%;
   max-width: 60vh;
-  margin: 45px 0 0 0;
+  margin: 50px 0 0 0;
 `;
 
 const TotalListEntries = styled.div`

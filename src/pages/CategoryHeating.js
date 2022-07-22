@@ -25,7 +25,7 @@ export default function PageCategoryHeating({
       />
       <ConsumptionDataInformation>
         <TotalListEntries>
-          Your data list with {energyConsumptionHistory.heating.length} entries in watt/h:{' '}
+          Your heating data list with {energyConsumptionHistory.heating.length} entries in watt/h:{' '}
         </TotalListEntries>
 
         <InputDataList role="list">
@@ -63,7 +63,8 @@ export default function PageCategoryHeating({
         {
           label: 'Consumption Data',
           data: energyConsumptionHistory.heating.map(input => input.increase),
-          borderColor: energyConsumptionHistory.heating.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderColor:
+            energyConsumptionHistory.heating.reverse()[0].increase > dailyTotalBudget ? 'red' : 'rgb(42, 255, 0)',
           borderWidth: '2',
         },
       ],
@@ -79,7 +80,7 @@ const MainContainer = styled.main`
   flex-wrap: wrap;
   height: 100%;
   max-width: 60vh;
-  margin: 45px 0 0 0;
+  margin: 50px 0 0 0;
 `;
 
 const TotalListEntries = styled.div`

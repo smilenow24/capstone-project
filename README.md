@@ -1,91 +1,34 @@
 # Energy-Budget-App
-"A tool to consciously and sustainably 
-save energy with smiling joy"
+
+The "Energy-Budget-App": <br>
+A tool to consciously and sustainably save energy with smiling joy.
+
+---
+
+With this app you can track and budget your energy consumption for three categories. Different analytics and a feedback-system help to gain a quick overview and insight into your own consumption behavior.
+
+---
 
 ## Tech-Stack
 
-- [Storybook](https://storybook.js.org/)
-- [Jest](https://jestjs.io/)
-- [Stylelint](https://stylelint.io/)
-- [Eslint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
+- Tech-Stack-Support
+  - [Storybook](https://storybook.js.org/)
+  - [Jest](https://jestjs.io/)
+  - [Stylelint](https://stylelint.io/)
+  - [Eslint](https://eslint.org/)
+  - [Prettier](https://prettier.io/)
+- TechStack-InAction:
+  - react
+  - react router
+  - js / html / css & styled components
+  - chartjs
+  - animation with keyframe
+  - figma
+  - storybook
+  - react testing library
 
-## Project Setup
+---
 
-This project uses different deployments to make code reviews easier:
+## Preview
 
-- Vercel (App Production)
-- Vercel (App Preview)
-
-### Set up Vercel
-
-Please follow this guide: https://vercel.com/docs/concepts/git
-
-## Getting started
-
-**Run the development server:**
-
-```shell
-npm run start
-```
-
-**Run storybook:**
-
-```shell
-npm run storybook
-```
-
-## Test Driven Development
-
-We jest to write unit tests. Please look at the Documentation for [Jest](https://jestjs.io/)
-and [testing-library](https://testing-library.com/docs/react-testing-library/intro/).
-
-## Commands
-
-**Run the development server:**
-
-```shell
-npm run dev
-```
-
-**Build:**
-
-```shell
-npm run build
-```
-
-**Run storybook:**
-
-```shell
-npm run storybook
-```
-
-**Build storybook:**
-
-```shell
-npm run storybook:build
-```
-
-**Run all tests:**
-
-```shell
-npm run test
-```
-
-**Run stylelint**
-
-```shell
-npm run stylelint
-```
-
-**Run eslint**
-
-```shell
-npm run eslint
-```
-
-**Run all linters**
-
-```shell
-npm run lint
-```
+![img](src/imgicon/preview-start.png)

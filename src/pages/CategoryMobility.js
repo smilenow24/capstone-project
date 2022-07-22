@@ -25,7 +25,7 @@ export default function PageCategoryMobility({
       />
       <ConsumptionDataInformation>
         <TotalListEntries>
-          Your data list with {energyConsumptionHistory.mobility.length} entries in km:{' '}
+          Your mobility data list with {energyConsumptionHistory.mobility.length} entries in km:{' '}
         </TotalListEntries>
 
         <InputDataList role="list">
@@ -63,7 +63,8 @@ export default function PageCategoryMobility({
         {
           label: 'Consumption Data',
           data: energyConsumptionHistory.mobility.map(input => input.increase),
-          borderColor: energyConsumptionHistory.mobility.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderColor:
+            energyConsumptionHistory.mobility.reverse()[0].increase > dailyTotalBudget ? 'red' : 'rgb(42, 255, 0)',
           borderWidth: '2',
         },
       ],

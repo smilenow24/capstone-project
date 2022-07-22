@@ -36,6 +36,12 @@ export const initialInputData = {
   heating: [
     {
       id: nanoid(),
+      date: new Date('2022-07-21'),
+      value: 80000,
+      increase: 5000,
+    },
+    {
+      id: nanoid(),
       date: new Date('2022-07-20'),
       value: 80000,
       increase: 5000,
@@ -44,17 +50,11 @@ export const initialInputData = {
       id: nanoid(),
       date: new Date('2022-07-19'),
       value: 80000,
-      increase: 5000,
-    },
-    {
-      id: nanoid(),
-      date: new Date('2022-07-18'),
-      value: 80000,
       increase: 0,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-17'),
+      date: new Date('2022-07-18'),
       value: 79000,
       increase: 0,
     },
