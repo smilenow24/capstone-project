@@ -17,31 +17,38 @@ export default function PageCategoryElectric({
   const chartInputDataElectric = updateChartElectric();
 
   return (
-    <MainContainer>
-      <InfoBoardElectric
-        energyConsumptionHistory={energyConsumptionHistory}
-        dailyTotalBudget={dailyTotalBudget}
-        totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
-      />
-      <InputDataList role="list">
-        {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
-          <li key={id}>
-            {date.toLocaleDateString('en-GB', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-            })}{' '}
-            - {value.toLocaleString('de-DE')} watt/h - increase: {increase.toLocaleString('de-DE')}
-          </li>
-        ))}
-      </InputDataList>
-      <ChartContainer>
-        <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-        {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
-        {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
-      </ChartContainer>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
-    </MainContainer>
+    <MainWrapper>
+      <SectionWrapper>
+        <InfoBoardElectric
+          energyConsumptionHistory={energyConsumptionHistory}
+          dailyTotalBudget={dailyTotalBudget}
+          totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
+        />
+        <ConsumptionDataInformation>
+          <TotalListEntries>
+            Your electric data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
+          </TotalListEntries>
+          <InputDataList role="list">
+            {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
+              <li key={id}>
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+              </li>
+            ))}
+          </InputDataList>
+          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+          <ChartContainer>
+            {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
+            {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
+          </ChartContainer>
+        </ConsumptionDataInformation>
+        <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
+      </SectionWrapper>
+    </MainWrapper>
   );
 
   function updateChartElectric() {
@@ -53,11 +60,13 @@ export default function PageCategoryElectric({
           day: '2-digit',
         })
       ),
+
       datasets: [
         {
           label: 'Consumption Data',
           data: energyConsumptionHistory.electric.map(input => input.increase),
-          borderColor: energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'green',
+          borderColor:
+            energyConsumptionHistory.electric.reverse()[0].increase > dailyTotalBudget ? 'red' : 'rgb(42, 255, 0)',
           borderWidth: '2',
         },
       ],
@@ -65,28 +74,48 @@ export default function PageCategoryElectric({
     return chartInputData;
   }
 }
+const MainWrapper = styled.main`
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
 
-const MainContainer = styled.main`
+const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  width: 90%;
-  margin: 65px 20px 20px 20px;
-  padding: 10px;
-  background-color: lightblue;
-  border-radius: 30px;
+  max-width: 59vh;
+  margin: 50px 0 0 0;
+  @media (min-width: 376px) {
+    max-width: 49vh;
+  }
+`;
+
+const TotalListEntries = styled.div`
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+  margin: 1vh;
+  color: #d7dcde;
+`;
+
+const ConsumptionDataInformation = styled.section`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 42vh;
+  margin-bottom: 10px;
+  color: #d7dcde;
+  background-color: #1f2f40;
+  padding-bottom: 20px;
 `;
 
 const ChartContainer = styled.section`
-  height: 150px;
+  height: 140px;
   width: 300px;
-  margin-bottom: 1vh;
-
-  &SetActiveChartButton {
-    width: 200px;
-  }
 `;
 
 const InputDataList = styled.ul`
@@ -94,8 +123,9 @@ const InputDataList = styled.ul`
   overflow-y: scroll;
   overscroll-behavior: show;
   line-height: normal;
-  max-height: 100px;
-  padding: 0.1px 20px 0.1px 20px;
+  max-height: 85px;
+  margin: 0;
+  padding: 0.1px 10px 0.1px 10px;
 
   li {
     padding: 1px;

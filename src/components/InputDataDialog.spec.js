@@ -1,11 +1,16 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {BrowserRouter} from 'react-router-dom';
 
 import InputDataDialog from './InputDataDialog.js';
 
 describe('InputDataDialog', () => {
   it('is an accessible form', () => {
-    render(<InputDataDialog />);
+    render(
+      <BrowserRouter>
+        <InputDataDialog />
+      </BrowserRouter>
+    );
     screen.getByLabelText('Enter your energy consumption - watt/h:');
     screen.getByRole('button', {name: 'Submit'});
     screen.getByRole('textbox');

@@ -3,29 +3,37 @@ import styled from 'styled-components';
 export default function AnimateStartDisplay() {
   return (
     <MainWrapper>
-      <MainHeader>Energy-Budget-App</MainHeader>
-      <AnimationContainer>
-        <EnergyPowerBall></EnergyPowerBall>
-        <span>Loading App</span>
-      </AnimationContainer>
+      <SectionWrapper>
+        <MainHeader>Energy-Budget-App</MainHeader>
+        <AnimationContainer>
+          <EnergyPowerBall></EnergyPowerBall>
+          <span>Loading App...</span>
+        </AnimationContainer>
+      </SectionWrapper>
     </MainWrapper>
   );
 }
 
-const MainWrapper = styled.section`
+const MainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+const SectionWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 95vh;
-  background: linear-gradient(70deg, black, blue, black);
+  max-width: 65vh;
+  background: #0d2947;
 `;
 
 const MainHeader = styled.h1`
   margin-top: 20vh;
-  display: flex;
-  justify-content: center;
-  color: wheat;
+  color: #d7dcde;
   font-size: 70px;
   padding-left: 3vh;
   padding-right: 3vh;
@@ -43,8 +51,9 @@ const AnimationContainer = styled.section`
     padding-top: 16vh;
     font-size: 1rem;
     color: white;
-    animation: animate 4s linear;
-    animation-iteration-count: 3;
+    animation: animate 3s linear;
+    animation-iteration-count: 4;
+
     @keyframes animate {
       0% {
         transform: scale(0.5);

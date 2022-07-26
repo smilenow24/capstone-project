@@ -3,9 +3,9 @@ import styled from 'styled-components';
 export default function InputDataDialog({updateEnergyConsumption, categoryToHandle}) {
   return (
     <FormInputData onSubmit={handleSubmit}>
-      <label htmlFor="inputfield">Enter your energy consumption - watt/h:</label>
+      <label htmlFor="inputfield">Enter actual meter reading:</label>
       <input type="text" min="0" pattern="[0-9]{1,10}" id="inputfield" name="inputfield" required />
-      <button>Submit</button>
+      <button>submit</button>
     </FormInputData>
   );
 
@@ -24,26 +24,43 @@ const FormInputData = styled.form`
   align-items: center;
   flex-wrap: wrap;
   gap: 4px;
-  background-color: grey;
-  border-radius: 10px;
   padding: 10px;
+  padding-left: 20px;
+  max-width: 375px;
+  @media (min-width: 376px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 
   label {
-    text-align: center;
-    color: white;
-    width: 100%;
+    text-align: start;
+    color: #d7dcde;
+    font-weight: 600;
+    font-size: medium;
+    margin-bottom: 2px;
+    @media (min-width: 376px) {
+      margin-bottom: 7px;
+    }
   }
 
   input {
-    width: 100%;
+    width: 27vh;
+    height: 2em;
+    margin-right: 2vh;
+    margin-bottom: 1vh;
+    @media (min-width: 376px) {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
   }
 
   button {
     height: 2em;
-    color: black;
     font-weight: 600;
-    background-color: lightblue;
-    width: 100%;
-    border-radius: 10px;
+    background-color: green;
+    color: white;
+    width: 20vh;
+    border-style: none;
+    border-radius: 5px;
   }
 `;

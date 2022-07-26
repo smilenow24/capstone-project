@@ -8,12 +8,13 @@ import Footer from './components/Footer.js';
 import Header from './components/Header';
 import StartDisplay from './components/StartDisplay.js';
 import {initialInputData, messages} from './db';
-import catElectIcon from './imgicon/cat-elect-icon.png';
-import heaterIcon from './imgicon/heater-icon.png';
-import mobilityIcon from './imgicon/mobility-icon.png';
+import catElectIcon from './imgicon/Vector-blitz.svg';
+import mobilityIcon from './imgicon/Vector-car.svg';
+import heaterIcon from './imgicon/Vector-heater.svg';
 import CategoryElectric from './pages/CategoryElectric.js';
 import CategoryHeating from './pages/CategoryHeating.js';
 import CategoryMobilitiy from './pages/CategoryMobility.js';
+import PersonalBudgetConfig from './pages/PersonalBudgetConfig.js';
 import getTotalConsumption from './services/getTotalConsumption.js';
 
 export default function App() {
@@ -21,7 +22,9 @@ export default function App() {
   const [messageText, setMessageText] = useState('How are you?');
   const [activeChart, setActiveChart] = useState(true);
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
-  const dailyTotalBudget = 1000;
+  const dailyTotalBudget = 1100;
+  //const totalBudget = 30000;
+  //console.log(updateBudget);
   return (
     <>
       <Header
@@ -102,10 +105,16 @@ export default function App() {
             />
           }
         ></Route>
+
+        <Route path="/home/personalbudget" element={<PersonalBudgetConfig />}></Route>
       </Routes>
-      <Footer />
+      <Footer handleOnClickMessage={handleOnClickMessage} />
     </>
   );
+
+  function handleOnClickMessage() {
+    return setMessageText(messages.dataNeeded);
+  }
 
   function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle) {
     const newInput = {
@@ -114,12 +123,17 @@ export default function App() {
       value: Number(inputEnergyConsumptionValue),
       increase: inputEnergyConsumptionValue - energyConsumptionHistory[categoryToHandle][0].value,
     };
+    console.log(energyConsumptionHistory[categoryToHandle][0].increase);
     if (newInput.value >= energyConsumptionHistory[categoryToHandle][0].value) {
       setEnergyConsumptionHistory({
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      setMessageText(messages.success);
+      if (energyConsumptionHistory[categoryToHandle][0].increase < dailyTotalBudget) {
+        setMessageText(messages.success);
+      } else {
+        setMessageText(messages.inputToHight);
+      }
     } else {
       setMessageText('please input > or = ' + energyConsumptionHistory[categoryToHandle][0].value);
     }
@@ -129,6 +143,6 @@ export default function App() {
 const MainHeading = styled.h1`
   width: 100%;
   padding-top: 70px;
-  color: white;
+  color: #d7dcde;
   text-align: center;
 `;

@@ -1,4 +1,4 @@
-export default function getTotalConsumption(energyConsumptionHistory) {
+export default function getTotalConsumption(energyConsumptionHistory, categoryToHandle) {
   const differenceDateElectric =
     energyConsumptionHistory.electric[0].date.getTime() -
     energyConsumptionHistory.electric[energyConsumptionHistory.electric.length - 1].date.getTime();

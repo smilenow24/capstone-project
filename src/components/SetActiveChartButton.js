@@ -13,11 +13,12 @@ export default function setActiveChartButton({onChartActiveEvent}) {
 const ChangeChartButton = styled.button`
   width: 6vh;
   border-radius: 10%;
-  background-color: lightcyan;
   display: flex;
   justify-content: center;
-  position: absolute;
-  left: 300px;
+  position: fixed;
+  border: none;
+  top: 350px;
+  left: 320px;
   padding: 0.3vh 0.3vh 0.3vh 0.3vh;
 
   img {

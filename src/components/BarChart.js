@@ -13,6 +13,15 @@ const options = {
     title: {
       display: true,
       text: 'absolute values of increase per day',
+      color: '#d7dcde',
+    },
+
+    labels: {
+      xAxes: {
+        ticks: {
+          color: '#d7dcde',
+        },
+      },
     },
   },
 };

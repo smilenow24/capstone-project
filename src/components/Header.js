@@ -1,20 +1,21 @@
+/* eslint-disable no-use-before-define */
 import styled from 'styled-components';
 
-export default function Header({showMessage, handleConsumptionChange}) {
+export default function Header({showMessage, handleConsumptionChange, categoryToHandle}) {
   return (
     <Top>
-      <Smile handleConsumptionChange={handleConsumptionChange}>
+      <Smile handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle}>
         <EyeContainer>
           <Eye></Eye>
           <Eye></Eye>
         </EyeContainer>
         <Mouth>
-          <MouthLeft />
-          <MouthRight />
+          <MouthLeft handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
+          <MouthRight handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
         </Mouth>
       </Smile>
-      <Speechbubble>
-        <SpeechBubbleTriangle />
+      <Speechbubble handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle}>
+        <SpeechBubbleTriangle handleConsumptionChange={handleConsumptionChange} categoryToHandle={categoryToHandle} />
         <span>{showMessage}</span>
       </Speechbubble>
     </Top>
@@ -32,26 +33,27 @@ const Top = styled.header`
 `;
 
 const Speechbubble = styled.div`
-  background-color: green;
   position: relative;
   top: 30px;
   left: 133px;
+  margin-right: 30px;
   border-radius: 111px;
-  border-style: solid;
   overflow-wrap: break-word;
-  max-width: 165px;
+  max-width: 133px;
   height: 67px;
   padding: 0.1px;
   display: flex;
   align-items: center;
+  background-color: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? 'green' : 'darkred'};
 
   span {
     max-width: 140px;
     color: white;
     margin-top: 2px;
-    font-size: 1rem;
     position: relative;
     left: -20px;
+    font-size: 0.85em;
   }
 `;
 
@@ -61,9 +63,10 @@ const SpeechBubbleTriangle = styled.div`
   border-top: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid transparent;
-  border-left: 20px solid green;
   position: relative;
   top: -20px;
+  border-left: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? '20px solid green;' : '20px solid darkred'};
 `;
 
 const Smile = styled.div`
@@ -80,9 +83,7 @@ const Smile = styled.div`
   flex-wrap: wrap;
   overflow: hidden;
   background: ${({handleConsumptionChange}) =>
-    handleConsumptionChange.electric[0].increase < 1100
-      ? 'linear-gradient(80deg, #578e23, #2aff00, #578e23);'
-      : 'linear-gradient(80deg, #a52c26, #ff5961, #a52c26);'};
+    handleConsumptionChange.electric[0].increase < 1100 ? '#E6C327' : '#D50000'};
   animation: animateHeader 5s linear;
 
   @keyframes animateHeader {
@@ -108,7 +109,7 @@ const Eye = styled.div`
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background-color: darkblue;
+  background-color: black;
 `;
 
 const Mouth = styled.section`
@@ -117,24 +118,28 @@ const Mouth = styled.section`
 `;
 
 const MouthLeft = styled.div`
-  height: 3px;
+  height: 4px;
   width: 28px;
-  transform: rotate(18deg);
   padding: 1px;
-  background-color: white;
-  border-radius: 1111px;
+  background-color: black;
+  border-radius: 10px;
   position: relative;
   top: -6px;
-  left: 3px;
+  right: -3px;
+  transform: ${({handleConsumptionChange}) =>
+    handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(22deg)' : 'rotate(166deg)'};
 `;
 const MouthRight = styled.div`
-  height: 3px;
+  height: 4px;
   width: 25px;
-  transform: rotate(162deg);
+  transition: rotate(300deg);
   padding: 1px;
-  background-color: white;
-  border-radius: 1111px;
+  background-color: black;
+  border-radius: 10px;
   position: relative;
   top: -6px;
-  right: 3px;
+  //eslint-disable-next-line:
+  transform: ${({handleConsumptionChange}) =>
+    //eslint-disable-next-line:
+    handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(162)' : 'rotate(195deg)'};
 `;

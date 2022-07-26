@@ -13,8 +13,9 @@ export default styled.createGlobalStyle`
     padding: 0;
     font-size: 1.125rem;
     font-family: sans-serif;
-    background: linear-gradient(70deg, black, blue);
-    height: 90vh;
+    background-color: #0d2947;
+    height: 100%;
+    color: #d7dcde;
   }
 
   button,
