@@ -26,7 +26,7 @@ export default function InfoBoardHeating({energyConsumptionHistory, dailyTotalBu
           daily average increase: {totalConsumption[1].toLocaleString('de-DE')} watt/h
         </dt>
         <dt>accepted increase value: {dailyTotalBudget} watt/h</dt>
-        <dt style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
+        <dt style={{color: saldoIncrease < dailyTotalBudget ? 'red' : '#2aff00'}}>
           saldo increase value: {saldoIncrease} watt/h
         </dt>
       </dl>

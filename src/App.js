@@ -129,7 +129,7 @@ export default function App() {
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      if (energyConsumptionHistory[categoryToHandle][0].increase > dailyTotalBudget) {
+      if (energyConsumptionHistory[categoryToHandle][0].increase < dailyTotalBudget) {
         setMessageText(messages.success);
       } else {
         setMessageText(messages.inputToHight);

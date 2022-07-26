@@ -4,31 +4,31 @@ export const initialInputData = {
   electric: [
     {
       id: nanoid(),
-      date: new Date('2022-07-20'),
+      date: new Date('2022-07-25'),
       value: 119000,
       increase: 1000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-19'),
+      date: new Date('2022-07-24'),
       value: 118000,
       increase: 6000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-18'),
+      date: new Date('2022-07-23'),
       value: 112000,
       increase: 0,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-17'),
+      date: new Date('2022-07-22'),
       value: 110000,
       increase: 0,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-16'),
+      date: new Date('2022-07-21'),
       value: 109500,
       increase: 0,
     },
@@ -36,25 +36,25 @@ export const initialInputData = {
   heating: [
     {
       id: nanoid(),
-      date: new Date('2022-07-21'),
+      date: new Date('2022-07-25'),
       value: 80000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-20'),
+      date: new Date('2022-07-24'),
       value: 80000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-19'),
+      date: new Date('2022-07-23'),
       value: 80000,
       increase: 0,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-18'),
+      date: new Date('2022-07-22'),
       value: 79000,
       increase: 0,
     },
@@ -62,19 +62,19 @@ export const initialInputData = {
   mobility: [
     {
       id: nanoid(),
-      date: new Date('2022-07-11'),
+      date: new Date('2022-07-25'),
       value: 80000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-09'),
+      date: new Date('2022-07-24'),
       value: 75000,
       increase: 5000,
     },
     {
       id: nanoid(),
-      date: new Date('2022-07-07'),
+      date: new Date('2022-07-23'),
       value: 70000,
       increase: 0,
     },

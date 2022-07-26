@@ -39,14 +39,9 @@ export default function PersonalBudgetConfig() {
     const inputBudgetData = handleBudgetEvent.target;
     const inputBudgetDataId = parseInt(handleBudgetEvent.target.id);
     const inputBudgetDataValue = parseInt(inputBudgetData.elements[inputBudgetDataId].value);
-    console.log(inputBudgetDataValue);
-    console.log(actualBudget);
-    console.log(inputBudgetDataId);
 
     const changedActualBudget = [...actualBudget];
     const newBudgetArray = changedActualBudget.splice(inputBudgetDataId, 1, inputBudgetDataValue);
-    console.log(actualBudget);
-    console.log(changedActualBudget);
     console.log(newBudgetArray);
     handleBudgetEvent.target.reset();
     setActualBudget(changedActualBudget);

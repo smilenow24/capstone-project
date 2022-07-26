@@ -22,7 +22,7 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
           daily average increase: {totalConsumption[1].toLocaleString('de-DE')} km
         </dt>
         <dt>accepted increase value: {dailyTotalBudget} km</dt>
-        <dt style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
+        <dt style={{color: saldoIncrease < dailyTotalBudget ? 'red' : '#2aff00'}}>
           saldo increase value: {saldoIncrease} km
         </dt>
       </dl>

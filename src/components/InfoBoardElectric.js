@@ -12,7 +12,7 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
   const daysInActualMonth = new Date(acutalYear, actualMonth, 0).getDate();
 
   const totalBudget = dailyTotalBudget * daysInActualMonth;
-  const saldoIncrease = energyConsumptionHistory.electric[0].increase - dailyTotalBudget;
+  const saldoIncrease = dailyTotalBudget - energyConsumptionHistory.electric[0].increase;
   const restBudget = totalBudget - totalConsumption[0];
   return (
     <Wrapper>
@@ -26,7 +26,7 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
           daily average increase: {totalConsumption[1].toLocaleString('de-DE')} watt/h
         </dt>
         <dt>accepted increase value: {dailyTotalBudget} watt/h</dt>
-        <dt style={{color: saldoIncrease > dailyTotalBudget ? 'red' : '#2aff00'}}>
+        <dt style={{color: saldoIncrease < dailyTotalBudget ? 'red' : '#2aff00'}}>
           saldo increase value: {saldoIncrease} watt/h
         </dt>
       </dl>
