@@ -50,7 +50,6 @@ const Speechbubble = styled.div`
     max-width: 140px;
     color: white;
     margin-top: 2px;
-    font-size: 1rem;
     position: relative;
     left: -20px;
     font-size: 0.85em;
@@ -132,7 +131,7 @@ const MouthLeft = styled.div`
 const MouthRight = styled.div`
   height: 4px;
   width: 25px;
-  transform: rotate(162deg);
+  -webkit-transform: rotate(162deg);
   padding: 1px;
   background-color: black;
   border-radius: 10px;

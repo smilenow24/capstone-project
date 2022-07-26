@@ -116,7 +116,6 @@ const SectionWrapper = styled.section`
 
   button {
     width: 10vh;
-    height: 5vh;
     margin: 2vh;
     height: 4vh;
     background-color: green;
