@@ -132,14 +132,12 @@ const MouthLeft = styled.div`
 const MouthRight = styled.div`
   height: 4px;
   width: 25px;
-  transition: rotate(300deg);
+  transform: rotate(165deg);
   padding: 1px;
   background-color: black;
   border-radius: 10px;
   position: relative;
   top: -6px;
-  //eslint-disable-next-line:
   transform: ${({handleConsumptionChange}) =>
-    //eslint-disable-next-line:
     handleConsumptionChange.electric[0].increase < 1100 ? 'rotate(162)' : 'rotate(195deg)'};
 `;
