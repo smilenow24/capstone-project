@@ -18,7 +18,7 @@ export default function PageCategoryElectric({
 
   return (
     <MainWrapper>
-      <MainContainer>
+      <SectionWrapper>
         <InfoBoardElectric
           energyConsumptionHistory={energyConsumptionHistory}
           dailyTotalBudget={dailyTotalBudget}
@@ -40,14 +40,14 @@ export default function PageCategoryElectric({
               </li>
             ))}
           </InputDataList>
+          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
           <ChartContainer>
-            <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
             {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
             {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
           </ChartContainer>
         </ConsumptionDataInformation>
         <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
-      </MainContainer>
+      </SectionWrapper>
     </MainWrapper>
   );
 
@@ -74,22 +74,24 @@ export default function PageCategoryElectric({
     return chartInputData;
   }
 }
-
 const MainWrapper = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-const MainContainer = styled.section`
+const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  max-width: 60vh;
+  max-width: 59vh;
   margin: 50px 0 0 0;
+  @media (min-width: 376px) {
+    max-width: 49vh;
+  }
 `;
 
 const TotalListEntries = styled.div`
@@ -104,7 +106,6 @@ const ConsumptionDataInformation = styled.section`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
   height: 42vh;
   margin-bottom: 10px;
   color: #d7dcde;
@@ -115,10 +116,6 @@ const ConsumptionDataInformation = styled.section`
 const ChartContainer = styled.section`
   height: 140px;
   width: 300px;
-
-  &SetActiveChartButton {
-    width: 200px;
-  }
 `;
 
 const InputDataList = styled.ul`

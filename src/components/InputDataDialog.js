@@ -26,19 +26,32 @@ const FormInputData = styled.form`
   gap: 4px;
   padding: 10px;
   padding-left: 20px;
+  max-width: 375px;
+  @media (min-width: 376px) {
+    justify-content: center;
+    padding-left: 0;
+  }
 
   label {
     text-align: start;
     color: #d7dcde;
     font-weight: 600;
     font-size: medium;
-    width: 100%;
+    margin-bottom: 2px;
+    @media (min-width: 376px) {
+      margin-bottom: 7px;
+    }
   }
 
   input {
     width: 27vh;
     height: 2em;
     margin-right: 2vh;
+    margin-bottom: 1vh;
+    @media (min-width: 376px) {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
   }
 
   button {

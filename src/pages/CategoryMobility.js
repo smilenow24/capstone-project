@@ -17,37 +17,39 @@ export default function PageCategoryMobility({
   const chartInputDataMobility = updateChartMobility();
 
   return (
-    <MainContainer>
-      <InfoBoardMobility
-        energyConsumptionHistory={energyConsumptionHistory}
-        dailyTotalBudget={dailyTotalBudget}
-        totalConsumption={[totalConsumption.totalMobility, totalConsumption.averageIncreaseMobilityRounded]}
-      />
-      <ConsumptionDataInformation>
-        <TotalListEntries>
-          Your mobility data list with {energyConsumptionHistory.mobility.length} entries in km:{' '}
-        </TotalListEntries>
+    <MainWrapper>
+      <SectionWrapper>
+        <InfoBoardMobility
+          energyConsumptionHistory={energyConsumptionHistory}
+          dailyTotalBudget={dailyTotalBudget}
+          totalConsumption={[totalConsumption.totalMobility, totalConsumption.averageIncreaseMobilityRounded]}
+        />
+        <ConsumptionDataInformation>
+          <TotalListEntries>
+            Your mobility data list with {energyConsumptionHistory.mobility.length} entries in km:{' '}
+          </TotalListEntries>
 
-        <InputDataList role="list">
-          {energyConsumptionHistory.mobility.map(({date, value, id, increase}) => (
-            <li key={id}>
-              {date.toLocaleDateString('en-GB', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-              })}{' '}
-              - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
-            </li>
-          ))}
-        </InputDataList>
-        <ChartContainer>
-          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-          {activeChart && <LineChart lineChartData={chartInputDataMobility} />}
-          {!activeChart && <BarChart barChartData={chartInputDataMobility} />}
-        </ChartContainer>
-      </ConsumptionDataInformation>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'mobility'} />
-    </MainContainer>
+          <InputDataList role="list">
+            {energyConsumptionHistory.mobility.map(({date, value, id, increase}) => (
+              <li key={id}>
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+              </li>
+            ))}
+          </InputDataList>
+          <ChartContainer>
+            <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+            {activeChart && <LineChart lineChartData={chartInputDataMobility} />}
+            {!activeChart && <BarChart barChartData={chartInputDataMobility} />}
+          </ChartContainer>
+        </ConsumptionDataInformation>
+        <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'mobility'} />
+      </SectionWrapper>
+    </MainWrapper>
   );
 
   function updateChartMobility() {
@@ -73,14 +75,24 @@ export default function PageCategoryMobility({
   }
 }
 
-const MainContainer = styled.main`
+const MainWrapper = styled.main`
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  max-width: 60vh;
-  margin: 45px 0 0 0;
+  max-width: 59vh;
+  margin: 50px 0 0 0;
+  @media (min-width: 376px) {
+    max-width: 49vh;
+  }
 `;
 
 const TotalListEntries = styled.div`
@@ -95,7 +107,6 @@ const ConsumptionDataInformation = styled.section`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
   height: 42vh;
   margin-bottom: 10px;
   color: #d7dcde;
@@ -106,10 +117,6 @@ const ConsumptionDataInformation = styled.section`
 const ChartContainer = styled.section`
   height: 140px;
   width: 300px;
-
-  &SetActiveChartButton {
-    width: 200px;
-  }
 `;
 
 const InputDataList = styled.ul`

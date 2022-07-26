@@ -17,37 +17,39 @@ export default function PageCategoryHeating({
   const chartInputDataHeating = updateChartHeating();
 
   return (
-    <MainContainer>
-      <InfoBoardHeating
-        energyConsumptionHistory={energyConsumptionHistory}
-        dailyTotalBudget={dailyTotalBudget}
-        totalConsumption={[totalConsumption.totalHeating, totalConsumption.averageIncreaseHeatingRounded]}
-      />
-      <ConsumptionDataInformation>
-        <TotalListEntries>
-          Your heating data list with {energyConsumptionHistory.heating.length} entries in watt/h:{' '}
-        </TotalListEntries>
+    <MainWrapper>
+      <SectionWrapper>
+        <InfoBoardHeating
+          energyConsumptionHistory={energyConsumptionHistory}
+          dailyTotalBudget={dailyTotalBudget}
+          totalConsumption={[totalConsumption.totalHeating, totalConsumption.averageIncreaseHeatingRounded]}
+        />
+        <ConsumptionDataInformation>
+          <TotalListEntries>
+            Your heating data list with {energyConsumptionHistory.heating.length} entries in watt/h:{' '}
+          </TotalListEntries>
 
-        <InputDataList role="list">
-          {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
-            <li key={id}>
-              {date.toLocaleDateString('en-GB', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-              })}{' '}
-              - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
-            </li>
-          ))}
-        </InputDataList>
-        <ChartContainer>
-          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-          {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
-          {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
-        </ChartContainer>
-      </ConsumptionDataInformation>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'heating'} />
-    </MainContainer>
+          <InputDataList role="list">
+            {energyConsumptionHistory.heating.map(({date, value, id, increase}) => (
+              <li key={id}>
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+              </li>
+            ))}
+          </InputDataList>
+          <ChartContainer>
+            <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+            {activeChart && <LineChart lineChartData={chartInputDataHeating} />}
+            {!activeChart && <BarChart barChartData={chartInputDataHeating} />}
+          </ChartContainer>
+        </ConsumptionDataInformation>
+        <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'heating'} />
+      </SectionWrapper>
+    </MainWrapper>
   );
 
   function updateChartHeating() {
@@ -73,14 +75,24 @@ export default function PageCategoryHeating({
   }
 }
 
-const MainContainer = styled.main`
+const MainWrapper = styled.main`
+  @media (min-width: 376px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+const SectionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  max-width: 60vh;
+  max-width: 59vh;
   margin: 50px 0 0 0;
+  @media (min-width: 376px) {
+    max-width: 49vh;
+  }
 `;
 
 const TotalListEntries = styled.div`
@@ -95,7 +107,6 @@ const ConsumptionDataInformation = styled.section`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
   height: 42vh;
   margin-bottom: 10px;
   color: #d7dcde;
@@ -106,10 +117,6 @@ const ConsumptionDataInformation = styled.section`
 const ChartContainer = styled.section`
   height: 140px;
   width: 300px;
-
-  &SetActiveChartButton {
-    width: 200px;
-  }
 `;
 
 const InputDataList = styled.ul`

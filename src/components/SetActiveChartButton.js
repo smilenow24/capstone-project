@@ -15,7 +15,7 @@ const ChangeChartButton = styled.button`
   border-radius: 10%;
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   border: none;
   top: 350px;
   left: 320px;
