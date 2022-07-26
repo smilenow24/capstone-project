@@ -132,7 +132,7 @@ const MouthLeft = styled.div`
 const MouthRight = styled.div`
   height: 4px;
   width: 25px;
-  transform: rotate(165deg);
+  transform: rotate(162deg);
   padding: 1px;
   background-color: black;
   border-radius: 10px;
