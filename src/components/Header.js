@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import styled from 'styled-components';
 
 export default function Header({showMessage, handleConsumptionChange, categoryToHandle}) {
