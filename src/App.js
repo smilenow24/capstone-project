@@ -24,6 +24,7 @@ export default function App() {
   const totalConsumption = getTotalConsumption(energyConsumptionHistory);
   const dailyTotalBudget = 1100;
   //const totalBudget = 30000;
+  //console.log(updateBudget);
   return (
     <>
       <Header
@@ -115,7 +116,7 @@ export default function App() {
     return setMessageText(messages.dataNeeded);
   }
 
-  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle, totalConsumption) {
+  function updateEnergyConsumption(inputEnergyConsumptionValue, categoryToHandle) {
     const newInput = {
       id: nanoid(),
       date: new Date(),
@@ -128,7 +129,7 @@ export default function App() {
         ...energyConsumptionHistory,
         [categoryToHandle]: [newInput, ...energyConsumptionHistory[categoryToHandle]],
       });
-      if (energyConsumptionHistory[categoryToHandle][0].increase > 1100) {
+      if (energyConsumptionHistory[categoryToHandle][0].increase > dailyTotalBudget) {
         setMessageText(messages.success);
       } else {
         setMessageText(messages.inputToHight);

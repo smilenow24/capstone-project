@@ -17,36 +17,38 @@ export default function PageCategoryElectric({
   const chartInputDataElectric = updateChartElectric();
 
   return (
-    <MainContainer>
-      <InfoBoardElectric
-        energyConsumptionHistory={energyConsumptionHistory}
-        dailyTotalBudget={dailyTotalBudget}
-        totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
-      />
-      <ConsumptionDataInformation>
-        <TotalListEntries>
-          Your electric data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
-        </TotalListEntries>
-        <InputDataList role="list">
-          {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
-            <li key={id}>
-              {date.toLocaleDateString('en-GB', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-              })}{' '}
-              - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
-            </li>
-          ))}
-        </InputDataList>
-        <ChartContainer>
-          <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
-          {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
-          {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
-        </ChartContainer>
-      </ConsumptionDataInformation>
-      <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
-    </MainContainer>
+    <MainWrapper>
+      <MainContainer>
+        <InfoBoardElectric
+          energyConsumptionHistory={energyConsumptionHistory}
+          dailyTotalBudget={dailyTotalBudget}
+          totalConsumption={[totalConsumption.totalElectric, totalConsumption.averageIncreaseElectricRounded]}
+        />
+        <ConsumptionDataInformation>
+          <TotalListEntries>
+            Your electric data list with {energyConsumptionHistory.electric.length} entries in watt/h:{' '}
+          </TotalListEntries>
+          <InputDataList role="list">
+            {energyConsumptionHistory.electric.map(({date, value, id, increase}) => (
+              <li key={id}>
+                {date.toLocaleDateString('en-GB', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                })}{' '}
+                - {value.toLocaleString('de-DE')} - increase: {increase.toLocaleString('de-DE')}
+              </li>
+            ))}
+          </InputDataList>
+          <ChartContainer>
+            <SetActiveChartButton onChartActiveEvent={() => setActiveChart(!activeChart)} />
+            {activeChart && <LineChart lineChartData={chartInputDataElectric} />}
+            {!activeChart && <BarChart barChartData={chartInputDataElectric} />}
+          </ChartContainer>
+        </ConsumptionDataInformation>
+        <InputDataDialog updateEnergyConsumption={updateEnergyConsumption} categoryToHandle={'electric'} />
+      </MainContainer>
+    </MainWrapper>
   );
 
   function updateChartElectric() {
@@ -73,7 +75,14 @@ export default function PageCategoryElectric({
   }
 }
 
-const MainContainer = styled.main`
+const MainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+const MainContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;

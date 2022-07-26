@@ -2,47 +2,63 @@ import {useState} from 'react';
 import styled from 'styled-components';
 
 export default function PersonalBudgetConfig() {
-  const [actualBudget, setActualBudget] = useState(1400);
-  console.log(handleBudgetEvent);
+  const [actualBudget, setActualBudget] = useState([1400, 1200, 45]);
+
   return (
-    <>
-      <Wrapper>
+    <MainWrapper>
+      <SectionWrapper>
         <ConfigHeadline>Personal Budget Configuration</ConfigHeadline>;
         <ConfigArticle>Please insert your daily-budget for enerergy consumption of every category</ConfigArticle>
         <ConfigArticleExplanation>
           This is the consumption you do not want to exceed on a daily basis
         </ConfigArticleExplanation>
-        <form onSubmit={handleBudgetEvent}>
-          <label htmlFor="budgetFieldElectric">Daily-Budget for electricity in watt/h</label>
-          <span>Actual value: {actualBudget} watt/h</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldElectric" name="budgetFieldElectric" />
+        <form onSubmit={handleBudgetEvent} id={0}>
+          <label htmlFor="0">Daily-Budget for electricity in watt/h</label>
+          <span>Actual value: {actualBudget[0]} watt/h</span>
+          <input type="text" min="0" pattern="[0-9]{1,10}" id={0} name="1" />
           <button>submit</button>
         </form>
-        <form>
-          <label htmlFor="budgetFieldHeating">Daily-Budget for heating in watt/h</label>
-          <span>Actual value: 1000 watt/h</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldHeating" name="budgetFieldHeating" />
+        <form onSubmit={handleBudgetEvent} id={1}>
+          <label htmlFor="1">Daily-Budget for heating in watt/h</label>
+          <span>Actual value: {actualBudget[1]} watt/h</span>
+          <input type="text" min="0" pattern="[0-9]{1,10}" id={1} name="2" />
           <button>submit</button>
         </form>
-        <form>
-          <label htmlFor="budgetFieldMobility">Daily-Budget for mobility in km</label>
-          <span>Actual value: 45 km</span>
-          <input type="text" min="0" pattern="[0-9]{1,10}" id="budgetFieldMobility" name="budgetFieldMobility" />
+        <form onSubmit={handleBudgetEvent} id={2}>
+          <label htmlFor="2">Daily-Budget for mobility in km</label>
+          <span>Actual value: {actualBudget[2]} km</span>
+          <input type="text" min="0" pattern="[0-9]{1,5}" id={2} name="3" />
           <button>submit</button>
         </form>
-      </Wrapper>
-    </>
+      </SectionWrapper>
+    </MainWrapper>
   );
 
   function handleBudgetEvent(handleBudgetEvent) {
     handleBudgetEvent.preventDefault();
     const inputBudgetData = handleBudgetEvent.target;
-    const inputBudgetDataValue = inputBudgetData.elements.budgetFieldElectric.value.trim();
+    const inputBudgetDataId = parseInt(handleBudgetEvent.target.id);
+    const inputBudgetDataValue = parseInt(inputBudgetData.elements[inputBudgetDataId].value);
+    console.log(inputBudgetDataValue);
+    console.log(actualBudget);
+    console.log(inputBudgetDataId);
 
+    const changedActualBudget = [...actualBudget];
+    const newBudgetArray = changedActualBudget.splice(inputBudgetDataId, 1, inputBudgetDataValue);
+    console.log(actualBudget);
+    console.log(changedActualBudget);
+    console.log(newBudgetArray);
     handleBudgetEvent.target.reset();
-    setActualBudget(inputBudgetDataValue);
+    setActualBudget(changedActualBudget);
   }
 }
+
+const MainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
 
 const ConfigHeadline = styled.h2`
   margin: 2vh;
@@ -66,13 +82,13 @@ const ConfigArticleExplanation = styled.article`
   font-size: 1rem;
 `;
 
-const Wrapper = styled.section`
+const SectionWrapper = styled.section`
   display: flex;
   justify-content: center;
-
   flex-wrap: wrap;
   margin: 0;
   padding: 2vh;
+  max-width: 60vh;
   text-align: center;
   font-size: medium;
   color: #d7dcde;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalBudget, totalConsumption}) {
-  const totalBudget = 1395;
+  const totalBudget = 1350;
   const formattedActualDate = new Date().toLocaleDateString('en-GB', {
     year: 'numeric',
     month: '2-digit',
@@ -16,7 +16,7 @@ export default function InfoBoardMobility({energyConsumptionHistory, dailyTotalB
         <dt>total consumption: {totalConsumption[0].toLocaleString('de-DE')} km</dt>
 
         <dt>
-          total budget: {totalBudget} - rest budget: {restBudget}
+          total budget: {totalBudget.toLocaleString('de-DE')} - rest budget: {restBudget.toLocaleString('de-DE')}
         </dt>
         <dt style={{color: totalConsumption[1] > dailyTotalBudget ? 'red' : '#2aff00'}}>
           daily average increase: {totalConsumption[1].toLocaleString('de-DE')} km

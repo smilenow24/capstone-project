@@ -3,29 +3,36 @@ import styled from 'styled-components';
 export default function AnimateStartDisplay() {
   return (
     <MainWrapper>
-      <MainHeader>Energy-Budget-App</MainHeader>
-      <AnimationContainer>
-        <EnergyPowerBall></EnergyPowerBall>
-        <span>Loading App...</span>
-      </AnimationContainer>
+      <SectionWrapper>
+        <MainHeader>Energy-Budget-App</MainHeader>
+        <AnimationContainer>
+          <EnergyPowerBall></EnergyPowerBall>
+          <span>Loading App...</span>
+        </AnimationContainer>
+      </SectionWrapper>
     </MainWrapper>
   );
 }
 
-const MainWrapper = styled.section`
+const MainWrapper = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+const SectionWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   height: 95vh;
-  max-width: 70vh;
+  max-width: 65vh;
   background: #0d2947;
 `;
 
 const MainHeader = styled.h1`
   margin-top: 20vh;
-  display: flex;
-  justify-content: center;
   color: #d7dcde;
   font-size: 70px;
   padding-left: 3vh;
